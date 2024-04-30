@@ -17,7 +17,7 @@ class Movie(models.Model):
     status = models.CharField(max_length=50)
     tagline = models.CharField(null=True,blank=True,max_length=100)
     title = models.CharField(max_length=200)
-    genres = models.ManyToManyField(Genre,blank=True)
+    genres = models.ManyToManyField(Genre,related_name='movies')
     
     def __str__(self):
         return self.title
