@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'user_profile',
     'genres',
     'movies',
+    'people',
     'drf_spectacular',   
 ]
 

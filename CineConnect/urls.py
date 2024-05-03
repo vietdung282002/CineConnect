@@ -28,6 +28,7 @@ urlpatterns = [
     path('user/',include('user_profile.urls')),
     path('genre/',include('genres.urls')),
     path('movie/',include('movies.urls')),
+    path('person/',include('people.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Swagger UI:
     
