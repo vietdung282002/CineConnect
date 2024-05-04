@@ -37,6 +37,9 @@ class Cast(models.Model):
     def __str__(self):
         return self.cast.name + " ("+ self.movie.title + ")"
     
+    class Meta:
+        ordering = ('order',)
+    
 class Director(models.Model):
     id = models.AutoField(primary_key=True,null=False,blank=False)
     movie = models.ForeignKey(Movie,on_delete=models.CASCADE,related_name='director')
