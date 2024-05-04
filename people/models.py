@@ -9,7 +9,7 @@ class Person(models.Model):
         ('others','Others')
     )
     
-    id = models.IntegerField(primary_key=True, null = False,blank=False)
+    id = models.AutoField(primary_key=True, null = False,blank=False)
     adult = models.BooleanField(null=False,blank=False,default=False)
     biography = models.TextField(null=True,blank=True)
     birthday = models.DateField(null=True,blank=True)
@@ -25,7 +25,7 @@ class Person(models.Model):
     known_for_department = models.CharField(null=True,max_length=50)
     name = models.CharField(max_length=200)
     place_of_birth = models.CharField(null= True,max_length=200)
-    profile_path = models.ImageField(null=True,upload_to='pictures', default='default.jpg')
+    profile_path = models.CharField(default='default.jpg')
     
     def __str__(self):
         return self.name

@@ -6,4 +6,4 @@ from .models import Person
 class PersonViewSet(viewsets.ModelViewSet):
     queryset = Person.objects.all()
     serializer_class = PersonSerializers
-    
+    http_method_names = ['get']

@@ -1,22 +1,14 @@
-Animation
-<QuerySet []>
-Comedy
-<QuerySet []>
-Family
-<QuerySet []>
-Adventure
-<QuerySet []>
+<QuerySet [<Cast: Mahershala Ali (Blade)>, <Cast: Delroy Lindo (Blade)>, <Cast: Mia Goth (Blade)>]>
+<QuerySet [<Cast: Amy Poehler (Inside Out 2)>, <Cast: Lewis Black (Inside Out 2)>, <Cast: Phyllis Smith (Inside Out 2)>, <Cast: Tony Hale (Inside Out 2)>, <Cast: Liza Lapira (Inside Out 2)>, <Cast: Maya Hawke (Inside Out 2)>, <Cast: Ayo Edebiri (Inside Out 2)>, <Cast: Paul Walter Hauser (Inside Out 2)>, <Cast: Kensington Tallman (Inside Out 2)>, <Cast: Diane Lane (Inside Out 2)>]>
+<QuerySet [<Cast: Owen Teague (Kingdom of the Planet of the Apes)>, <Cast: Freya Allan (Kingdom of the Planet of the Apes)>, <Cast: Kevin Durand (Kingdom of the Planet of the Apes)>, <Cast: Peter Macon (Kingdom of the Planet of the Apes)>, <Cast: William H. Macy (Kingdom of the Planet of the Apes)>, <Cast: Eka Darville (Kingdom of the Planet of the Apes)>, <Cast: Travis Jeffery (Kingdom of the Planet of the Apes)>, <Cast: Neil Sandilands (Kingdom of the Planet of the Apes)>, <Cast: Sara Wiseman (Kingdom of the Planet of the Apes)>, <Cast: Ras-Samuel Welda'abzgi (Kingdom of the Planet of the Apes)>]>
+<QuerySet [<Cast: Chris Pratt (The Garfield Movie)>, <Cast: Samuel L. Jackson (The Garfield Movie)>, <Cast: Harvey Guillén (The Garfield Movie)>, <Cast: Nicholas Hoult (The Garfield Movie)>, <Cast: Hannah Waddingham (The Garfield Movie)>, <Cast: Brett Goldstein (The Garfield Movie)>, <Cast: Bowen Yang (The Garfield Movie)>, <Cast: Ving Rhames (The Garfield Movie)>, <Cast: Cecily Strong (The Garfield Movie)>, <Cast: Janelle James (The Garfield Movie)>]>
+<QuerySet [<Cast: Ryan Gosling (The Fall Guy)>, <Cast: Emily Blunt (The Fall Guy)>, <Cast: Aaron Taylor-Johnson (The Fall Guy)>, <Cast: Hannah Waddingham (The Fall Guy)>, <Cast: Winston Duke (The Fall Guy)>, <Cast: Stephanie Hsu (The Fall Guy)>, <Cast: Teresa Palmer (The Fall Guy)>, <Cast: David Collins (The Fall Guy)>, <Cast: Zara Michales (The Fall Guy)>, <Cast: Daniel Nelson (The Fall Guy)>]>
+<QuerySet [<Cast: Jensen Ackles (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Darren Criss (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Meg Donnelly (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Stana Katic (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Jonathan Adams (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Gideon Adlon (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Geoffrey Arend (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Troy Baker (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Zach Callison (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Darin De Paul (Justice League: Crisis on Infinite Earths Part Two)>]>
+<QuerySet [<Cast: Sofia Boutella (Rebel Moon — Part Two: The Scargiver)>, <Cast: Michiel Huisman (Rebel Moon — Part Two: The Scargiver)>, <Cast: Ed Skrein (Rebel Moon — Part Two: The Scargiver)>, <Cast: Djimon Hounsou (Rebel Moon — Part Two: The Scargiver)>, <Cast: Bae Doona (Rebel Moon — Part Two: The Scargiver)>, <Cast: Staz Nair (Rebel Moon — Part Two: The Scargiver)>, <Cast: Elise Duffy (Rebel Moon — Part Two: The Scargiver)>, <Cast: Anthony Hopkins (Rebel Moon — Part Two: The Scargiver)>, <Cast: Cleopatra Coleman (Rebel Moon — Part Two: The Scargiver)>, <Cast: Fra Fee (Rebel Moon — Part Two: The Scargiver)>]>
+<QuerySet [<Cast: Zendaya (Challengers)>, <Cast: Josh O'Connor (Challengers)>, <Cast: Mike Faist (Challengers)>, <Cast: Darnell Appling (Challengers)>, <Cast: Bryan Doo (Challengers)>, <Cast: Shane T Harris (Challengers)>, <Cast: Nada Despotovich (Challengers)>, <Cast: Joan Mcshane (Challengers)>, <Cast: Chris Fowler (Challengers)>, <Cast: Mary Joe Fernández (Challengers)>]>
+<QuerySet [<Cast: Melissa Barrera (Abigail)>, <Cast: Dan Stevens (Abigail)>, <Cast: Alisha Weir (Abigail)>, <Cast: Kathryn Newton (Abigail)>, <Cast: Kevin Durand (Abigail)>, <Cast: William Catlett (Abigail)>, <Cast: Angus Cloud (Abigail)>, <Cast: Giancarlo Esposito (Abigail)>, <Cast: Matthew Goode (Abigail)>]>
+<QuerySet [<Cast: Mahershala Ali (Blade)>, <Cast: Delroy Lindo (Blade)>, <Cast: Mia Goth (Blade)>]>
 Internal Server Error: /movie/
-Traceback (most recent call last):
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
-    return self.cursor.execute(sql, params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "movies_movies_pkey"
-DETAIL:  Key (id)=(1239253) already exists.
-
-
-The above exception was the direct cause of the following exception:
-
 Traceback (most recent call last):
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
     response = get_response(request)
@@ -40,155 +32,28 @@ Traceback (most recent call last):
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
     response = handler(request, *args, **kwargs)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\movies\views.py", line 16, in create
-    new_movie = Movie.objects.create(
-                ^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
-    return getattr(self.get_queryset(), name)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\query.py", line 679, in create
-    obj.save(force_insert=True, using=self.db)
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\base.py", line 822, in save
-    self.save_base(
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\base.py", line 909, in save_base
-    updated = self._save_table(
-              ^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\base.py", line 1067, in _save_table
-    results = self._do_insert(
-              ^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\base.py", line 1108, in _do_insert
-    return manager._insert(
-           ^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
-    return getattr(self.get_queryset(), name)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\query.py", line 1847, in _insert
-    return query.get_compiler(using=using).execute_sql(returning_fields)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1823, in execute_sql
-    cursor.execute(sql, params)
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
-    return super().execute(sql, params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
-    return self._execute_with_wrappers(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
-    return executor(sql, params, many, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
-    with self.db.wrap_database_errors:
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
-    raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
-    return self.cursor.execute(sql, params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-django.db.utils.IntegrityError: duplicate key value violates unique constraint "movies_movies_pkey"
-DETAIL:  Key (id)=(1239253) already exists.
-
-Animation
-<QuerySet [<Genre: Animation>]>
-Comedy
-<QuerySet [<Genre: Animation>, <Genre: Comedy>]>
-Family
-<QuerySet [<Genre: Animation>, <Genre: Comedy>, <Genre: Family>]>
-Adventure
-<QuerySet [<Genre: Adventure>, <Genre: Animation>, <Genre: Comedy>, <Genre: Family>]>
-Internal Server Error: /admin/genres/genre/add/
-Traceback (most recent call last):
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
-    return self.cursor.execute(sql, params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "genres_genrers_pkey"
-DETAIL:  Key (id)=(1) already exists.
-
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
-    response = get_response(request)
-               ^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
-    response = wrapped_callback(request, *callback_args, **callback_kwargs)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\contrib\admin\options.py", line 716, in wrapper
-    return self.admin_site.admin_view(view)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
-    result = _process_exception(request, e)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
-    response = view_func(request, *args, **kwargs)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\decorators\cache.py", line 80, in _view_wrapper
-    response = view_func(request, *args, **kwargs)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\contrib\admin\sites.py", line 240, in inner
-    return view(request, *args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\contrib\admin\options.py", line 1945, in add_view
-    return self.changeform_view(request, None, form_url, extra_context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\utils\decorators.py", line 48, in _wrapper
-    return bound_method(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\utils\decorators.py", line 188, in _view_wrapper
-    result = _process_exception(request, e)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\utils\decorators.py", line 186, in _view_wrapper
-    response = view_func(request, *args, **kwargs)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\contrib\admin\options.py", line 1804, in changeform_view
-    return self._changeform_view(request, object_id, form_url, extra_context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\contrib\admin\options.py", line 1855, in _changeform_view
-    self.save_model(request, new_object, form, not add)
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\contrib\admin\options.py", line 1259, in save_model
-    obj.save()
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\base.py", line 822, in save
-    self.save_base(
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\base.py", line 909, in save_base
-    updated = self._save_table(
-              ^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\base.py", line 1067, in _save_table
-    results = self._do_insert(
-              ^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\base.py", line 1108, in _do_insert
-    return manager._insert(
-           ^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
-    return getattr(self.get_queryset(), name)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\query.py", line 1847, in _insert
-    return query.get_compiler(using=using).execute_sql(returning_fields)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1823, in execute_sql
-    cursor.execute(sql, params)
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
-    return super().execute(sql, params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
-    return self._execute_with_wrappers(
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
-    return executor(sql, params, many, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
-    with self.db.wrap_database_errors:
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\utils.py", line 91, in __exit__
-    raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
-    return self.cursor.execute(sql, params)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-django.db.utils.IntegrityError: duplicate key value violates unique constraint "genres_genrers_pkey"
-DETAIL:  Key (id)=(1) already exists.
-
-Not Found: /favicon.ico
-Not Found: /favicon.ico
-Not Found: /
-Not Found: /media/3Kzc6V4MWs3RXCmE5DhAYnfWL8F.jpg
-Not Found: /
-Not Found: /favicon.ico
-Not Found: /
-Not Found: /favicon.ico
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+                                       ^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 795, in data
+    ret = super().data
+          ^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 249, in data
+    self._data = self.to_representation(self.instance)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 714, in to_representation
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\movies\serializers.py", line 71, in to_representation
+    'popularity': cast['cast']['popularity'],
+                  ~~~~~~~~~~~~^^^^^^^^^^^^^^
+KeyError: 'popularity'
+<QuerySet [<Cast: Mahershala Ali (Blade)>, <Cast: Delroy Lindo (Blade)>, <Cast: Mia Goth (Blade)>]>
+<QuerySet [<Cast: Amy Poehler (Inside Out 2)>, <Cast: Lewis Black (Inside Out 2)>, <Cast: Phyllis Smith (Inside Out 2)>, <Cast: Tony Hale (Inside Out 2)>, <Cast: Liza Lapira (Inside Out 2)>, <Cast: Maya Hawke (Inside Out 2)>, <Cast: Ayo Edebiri (Inside Out 2)>, <Cast: Paul Walter Hauser (Inside Out 2)>, <Cast: Kensington Tallman (Inside Out 2)>, <Cast: Diane Lane (Inside Out 2)>]>
+<QuerySet [<Cast: Owen Teague (Kingdom of the Planet of the Apes)>, <Cast: Freya Allan (Kingdom of the Planet of the Apes)>, <Cast: Kevin Durand (Kingdom of the Planet of the Apes)>, <Cast: Peter Macon (Kingdom of the Planet of the Apes)>, <Cast: William H. Macy (Kingdom of the Planet of the Apes)>, <Cast: Eka Darville (Kingdom of the Planet of the Apes)>, <Cast: Travis Jeffery (Kingdom of the Planet of the Apes)>, <Cast: Neil Sandilands (Kingdom of the Planet of the Apes)>, <Cast: Sara Wiseman (Kingdom of the Planet of the Apes)>, <Cast: Ras-Samuel Welda'abzgi (Kingdom of the Planet of the Apes)>]>
+<QuerySet [<Cast: Chris Pratt (The Garfield Movie)>, <Cast: Samuel L. Jackson (The Garfield Movie)>, <Cast: Harvey Guillén (The Garfield Movie)>, <Cast: Nicholas Hoult (The Garfield Movie)>, <Cast: Hannah Waddingham (The Garfield Movie)>, <Cast: Brett Goldstein (The Garfield Movie)>, <Cast: Bowen Yang (The Garfield Movie)>, <Cast: Ving Rhames (The Garfield Movie)>, <Cast: Cecily Strong (The Garfield Movie)>, <Cast: Janelle James (The Garfield Movie)>]>
+<QuerySet [<Cast: Ryan Gosling (The Fall Guy)>, <Cast: Emily Blunt (The Fall Guy)>, <Cast: Aaron Taylor-Johnson (The Fall Guy)>, <Cast: Hannah Waddingham (The Fall Guy)>, <Cast: Winston Duke (The Fall Guy)>, <Cast: Stephanie Hsu (The Fall Guy)>, <Cast: Teresa Palmer (The Fall Guy)>, <Cast: David Collins (The Fall Guy)>, <Cast: Zara Michales (The Fall Guy)>, <Cast: Daniel Nelson (The Fall Guy)>]>
+<QuerySet [<Cast: Jensen Ackles (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Darren Criss (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Meg Donnelly (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Stana Katic (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Jonathan Adams (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Gideon Adlon (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Geoffrey Arend (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Troy Baker (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Zach Callison (Justice League: Crisis on Infinite Earths Part Two)>, <Cast: Darin De Paul (Justice League: Crisis on Infinite Earths Part Two)>]>
+<QuerySet [<Cast: Sofia Boutella (Rebel Moon — Part Two: The Scargiver)>, <Cast: Michiel Huisman (Rebel Moon — Part Two: The Scargiver)>, <Cast: Ed Skrein (Rebel Moon — Part Two: The Scargiver)>, <Cast: Djimon Hounsou (Rebel Moon — Part Two: The Scargiver)>, <Cast: Bae Doona (Rebel Moon — Part Two: The Scargiver)>, <Cast: Staz Nair (Rebel Moon — Part Two: The Scargiver)>, <Cast: Elise Duffy (Rebel Moon — Part Two: The Scargiver)>, <Cast: Anthony Hopkins (Rebel Moon — Part Two: The Scargiver)>, <Cast: Cleopatra Coleman (Rebel Moon — Part Two: The Scargiver)>, <Cast: Fra Fee (Rebel Moon — Part Two: The Scargiver)>]>
+<QuerySet [<Cast: Zendaya (Challengers)>, <Cast: Josh O'Connor (Challengers)>, <Cast: Mike Faist (Challengers)>, <Cast: Darnell Appling (Challengers)>, <Cast: Bryan Doo (Challengers)>, <Cast: Shane T Harris (Challengers)>, <Cast: Nada Despotovich (Challengers)>, <Cast: Joan Mcshane (Challengers)>, <Cast: Chris Fowler (Challengers)>, <Cast: Mary Joe Fernández (Challengers)>]>
+<QuerySet [<Cast: Melissa Barrera (Abigail)>, <Cast: Dan Stevens (Abigail)>, <Cast: Alisha Weir (Abigail)>, <Cast: Kathryn Newton (Abigail)>, <Cast: Kevin Durand (Abigail)>, <Cast: William Catlett (Abigail)>, <Cast: Angus Cloud (Abigail)>, <Cast: Giancarlo Esposito (Abigail)>, <Cast: Matthew Goode (Abigail)>]>
