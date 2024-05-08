@@ -20,6 +20,7 @@ class CustomUser(AbstractUser):
     bio=models.CharField(null=True,blank=True)
     profile_pic = models.ImageField(upload_to='pictures', default='default.jpg')
     watched = models.ManyToManyField(Movie,related_name='user_watched',through='Watched')
+    favourite =  models.ManyToManyField(Movie,related_name='user_favourite',through='Favourite')
 
     def __str__(self):
         return self.username + " " + str(self.id)
@@ -35,6 +36,18 @@ class Watched(models.Model):
     
     def __str__(self) -> str:
         return str(self.user.id) + " ( " +self.movie.title+ ")"
+    
+    class Meta:
+        ordering = ('time_stamp',)
+        
+class Favourite(models.Model):
+    id = models.AutoField(primary_key=True,null=False,blank=False)
+    movie = models.ForeignKey(Movie,on_delete=models.CASCADE,related_name='favourite_movie')
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='favourite_list')
+    time_stamp = models.DateTimeField(auto_now=True)
+    
+    def __str__(self) -> str:
+        return str(self.user.id) + " ( " +self.movie.title + ")"
     
     class Meta:
         ordering = ('time_stamp',)

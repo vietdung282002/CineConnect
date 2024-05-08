@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'movies',
     'people',
     'watched',
+    'favourite',
     'drf_spectacular',   
 ]
 

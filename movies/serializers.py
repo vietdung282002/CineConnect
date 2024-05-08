@@ -123,4 +123,7 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
         data['directors'] = director_data
         return data
 
-
+class MovieListSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = [ 'id','original_title', 'poster_path', 'title',]
