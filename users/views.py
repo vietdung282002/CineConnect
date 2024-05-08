@@ -13,6 +13,9 @@ from rest_framework.authtoken.models import Token
 from . permission import IsOwnerOrReadOnly
 from rest_framework import permissions
 
+import logging
+logger = logging.getLogger(__name__)
+
 # Create your views here.
 
 class UserRegisterViewSet(viewsets.ModelViewSet):
@@ -41,19 +44,23 @@ class UserLoginViewSet(viewsets.ModelViewSet):
     serializer_class = UserLoginSerializer
     http_method_names = ['post']
     
-    
-    # @action(detail=False, methods=['post'])
-    def update(self, request):
+    def create(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-        user = None
-        if '@' in username:
+        try:
+            user = CustomUser.objects.get(username=username)
+        except CustomUser.DoesNotExist:
+
             try:
-                user = authenticate(email=username,password=password)
-            except ObjectDoesNotExist:
-                pass
-        if not user:
-            user = authenticate(username=username, password=password)
+                user = CustomUser.objects.get(email=username)
+                username=user.username
+            except  CustomUser.DoesNotExist:
+                return Response({'error': 'Such user was not found'},
+                        status=status.HTTP_404_NOT_FOUND)
+    
+    #check to see if username with that password exist
+        user = authenticate(username=username, password=password)
+            
         if user:
             token, _ = Token.objects.get_or_create(user=user)
             data = {

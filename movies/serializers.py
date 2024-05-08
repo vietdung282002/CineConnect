@@ -6,7 +6,6 @@ from people.models import Person
 from people.serializers import PersonSerializers
 import logging
 from drf_spectacular.utils import extend_schema_field
-# Get an instance of a logger
 logger = logging.getLogger(__name__)
 
 class CastCharactorSerializer(serializers.ModelSerializer):
@@ -74,6 +73,7 @@ class MovieListDisplaySerializers(serializers.ModelSerializer):
 class MovieDetailDisplaySerializer(serializers.ModelSerializer):
     casts = serializers.SerializerMethodField()
     directors = serializers.SerializerMethodField()
+    genres = GenresSerializers(many=True)
     class Meta:
         model = Movie
         fields = [ 'id', 'adult', 'backdrop_path', 'budget', 'homepage', 'original_language', 'original_title', 'overview', 'poster_path', 'release_date', 'revenue', 'runtime', 'status', 'tagline', 'title', 'genres','casts','directors']
@@ -81,22 +81,13 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
     @extend_schema_field(serializers.ListField)
     def get_casts(self,movie_instance):
         query_data = Cast.objects.filter(movie = movie_instance)
-        logger.warning("query_data")
-        # logger.warning(query_data)
-        for person in query_data:
-            logger.warning(CastMovieSerializer(person).data)
         
         return [CastMovieSerializer(person).data for person in query_data]
     
     @extend_schema_field(serializers.ListField)
     def get_directors(self,movie_instance):
         query_data = Director.objects.filter(movie = movie_instance)
-        # logger.warning(query_data)
-        logger.warning("query_data2")
-        logger.warning(query_data)
         
-        for person in query_data:
-            logger.warning(DirectorMovieSerializer(person).data)
         return [DirectorMovieSerializer(person).data for person in query_data]
     
     def to_representation(self, instance):
@@ -131,3 +122,5 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
             director_data.append(director_info)
         data['directors'] = director_data
         return data
+
+

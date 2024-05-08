@@ -1,10 +1,150 @@
-query_data
-{'cast': {'id': 932967, 'adult': False, 'biography': 'Mahershalalhashbaz Mahershala Ali (born Mahershalalhashbaz Gilmore; February 16, 1974) is an American actor. Ali began his career as a regular on series such as Crossing Jordan and Threat Matrix before his breakthrough role as Richard Tyler in the science-fiction series The 4400. His first major film release was in the 2008 David Fincher-directed romantic fantasy drama film The Curious Case of Benjamin Button, and he gained wider attention for supporting roles in the final two films of the original The Hunger Games film series, and in House of Cards, for which he received a Primetime Emmy Award nomination.\n\nAli won the Academy Award for Best Supporting Actor for his performances in Moonlight (2016) and Green Book (2018). He is the first Muslim actor to win an Oscar, the first Black actor to win two Academy Awards in the same category, and the second Black actor to win multiple acting Oscars.', 'birthday': '1974-02-16', 'deathday': None, 'gender': 'male', 'homepage': None, 'known_for_department': 'Acting', 'name': 'Mahershala Ali', 'place_of_birth': 'Oakland, California, USA', 'profile_path': '/9ZmSejm5lnUVY5IJ1iNx2QEjnHb.jpg'}, 'charactor': 'Eric Brooks / Blade', 'cast_id': 932967, 'order': 0}
-{'cast': {'id': 18792, 'adult': False, 'biography': "Delroy Lindo is an English director, writer and actor for stage and screen, best known for his film roles as West Indian Archie in Spike Lee's Malcolm X, Catlett in Get Shorty, Detective Castlebeck in Gone in 60 Seconds, and Woody Carmichael in Crooklyn. Born and raised in Lewisham, England, United Kingdom, until his teens when he and his mother, a nurse, moved to Toronto, Ontario, Canada. A little later, they moved to the United States, where Lindo would graduate from the American Conservatory Theater in San Francisco. Lindo's contributions to both film and theatre, including his performances on Broadway, demonstrate his versatility and skill. His ability to portray complex characters with authenticity and gravitas has earned him critical acclaim, establishing him as a highly respected figure in the entertainment industry.", 'birthday': '1952-11-18', 'deathday': None, 'gender': 'male', 'homepage': None, 'known_for_department': 'Acting', 'name': 'Delroy Lindo', 'place_of_birth': 'Eltham, London, England, UK', 'profile_path': '/kLwUBBmEIdchrLqwsYzgLB2B6q5.jpg'}, 'charactor': None, 'cast_id': 18792, 'order': 1}
-{'cast': {'id': 1137824, 'adult': False, 'biography': "Mia Gypsy Mello da Silva Goth (born 1993) is an English actress and model best known for her work in the ongoing horror film franchise X (2022–present).\n\nFollowing a brief stint modeling as a teenager, Goth made her feature film debut in Nymphomaniac (2013). She went on to have supporting roles in the sci-fi thriller The Survivalist (2015), the sci-fi horror High Life (2018), the supernatural horror Suspiria (2018), and the romantic comedy Emma (2020). Goth starred in Ti West's slasher films X and Pearl (both 2022), the latter of which she also co-wrote.", 'birthday': '1993-10-25', 'deathday': None, 'gender': 'female', 'homepage': None, 'known_for_department': 'Acting', 'name': 'Mia Goth', 'place_of_birth': 'Southwark, London, England, UK', 'profile_path': '/wLfyapNgOaLdhYSHGDmTk17kIfN.jpg'}, 'charactor': None, 'cast_id': 1137824, 'order': 2}
-query_data2
-<QuerySet [<Director: Yann Demange (Blade)>]>
-Internal Server Error: /movie/617127/
+Blade
+Internal Server Error: /api/schema/
+Traceback (most recent call last):
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 285, in get_schema
+    paths=self.parse(request, public),
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 256, in parse
+    operation = view.schema.get_operation(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 112, in get_operation
+    operation['responses'] = self._get_response_bodies()
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1374, in _get_response_bodies
+    return {'200': self._get_response_for_code(response_serializers, '200', direction=direction)}
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1430, in _get_response_for_code
+    component = self.resolve_serializer(serializer, direction)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1614, in resolve_serializer
+    component.schema = self._map_serializer(serializer, direction, bypass_extensions)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 930, in _map_serializer
+    schema = self._map_basic_serializer(serializer, direction)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1023, in _map_basic_serializer
+    for field in serializer.fields.values():
+                 ^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 1079, in get_fields
+    field_names = self.get_field_names(declared_fields, info)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 1151, in get_field_names
+    assert not (fields is None and exclude is None), (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ("Creating a ModelSerializer without either the 'fields' attribute or the 'exclude' attribute has been deprecated since 3.3.0, and is now disallowed. Add an explicit fields = '__all__' to the WatchedSerializers serializer.",)
+Internal Server Error: /api/schema/
+Traceback (most recent call last):
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 285, in get_schema
+    paths=self.parse(request, public),
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 256, in parse
+    operation = view.schema.get_operation(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 112, in get_operation
+    operation['responses'] = self._get_response_bodies()
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1374, in _get_response_bodies
+    return {'200': self._get_response_for_code(response_serializers, '200', direction=direction)}
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1430, in _get_response_for_code
+    component = self.resolve_serializer(serializer, direction)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1614, in resolve_serializer
+    component.schema = self._map_serializer(serializer, direction, bypass_extensions)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 930, in _map_serializer
+    schema = self._map_basic_serializer(serializer, direction)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1023, in _map_basic_serializer
+    for field in serializer.fields.values():
+                 ^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+                                         ^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 372, in fields
+    for key, value in self.get_fields().items():
+                      ^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 1079, in get_fields
+    field_names = self.get_field_names(declared_fields, info)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 1151, in get_field_names
+    assert not (fields is None and exclude is None), (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ("Creating a ModelSerializer without either the 'fields' attribute or the 'exclude' attribute has been deprecated since 3.3.0, and is now disallowed. Add an explicit fields = '__all__' to the WatchedSerializers serializer.",)
+Internal Server Error: /watched/
+Traceback (most recent call last):
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\fields.py", line 439, in get_attribute
+    return get_attribute(instance, self.source_attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\fields.py", line 106, in get_attribute
+    instance = getattr(instance, attr)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'CustomUser' object has no attribute 'movie'
+
+During handling of the above exception, another exception occurred:
+
 Traceback (most recent call last):
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
     response = get_response(request)
@@ -28,57 +168,26 @@ Traceback (most recent call last):
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
     response = handler(request, *args, **kwargs)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\mixins.py", line 56, in retrieve
-    return Response(serializer.data)
-                    ^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 571, in data
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\mixins.py", line 43, in list
+    return self.get_paginated_response(serializer.data)
+                                       ^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 795, in data
     ret = super().data
           ^^^^^^^^^^^^
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 249, in data
     self._data = self.to_representation(self.instance)
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\movies\serializers.py", line 103, in to_representation
-    data = super().to_representation(instance)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 538, in to_representation
-    ret[field.field_name] = field.to_representation(attribute)
-                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\fields.py", line 1872, in to_representation
-    return method(value)
-           ^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\movies\serializers.py", line 99, in get_directors
-    logger.warning(DirectorMovieSerializer(person).data)
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 571, in data
-    ret = super().data
-          ^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 249, in data
-    self._data = self.to_representation(self.instance)
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 523, in to_representation
-    for field in fields:
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 384, in _readable_fields
-    for field in self.fields.values():
-                 ^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
-    res = instance.__dict__[self.name] = self.func(instance)
-                                         ^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 372, in fields
-    for key, value in self.get_fields().items():
-                      ^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 1103, in get_fields
-    field_class, field_kwargs = self.build_field(
-                                ^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 1249, in build_field
-    return self.build_unknown_field(field_name, model_class)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 1367, in build_unknown_field
-    raise ImproperlyConfigured(
-django.core.exceptions.ImproperlyConfigured: Field name `director_id` is not valid for model `Cast` in `movies.serializers.DirectorMovieSerializer`.
-query_data
-{'cast': {'id': 932967, 'adult': False, 'biography': 'Mahershalalhashbaz Mahershala Ali (born Mahershalalhashbaz Gilmore; February 16, 1974) is an American actor. Ali began his career as a regular on series such as Crossing Jordan and Threat Matrix before his breakthrough role as Richard Tyler in the science-fiction series The 4400. His first major film release was in the 2008 David Fincher-directed romantic fantasy drama film The Curious Case of Benjamin Button, and he gained wider attention for supporting roles in the final two films of the original The Hunger Games film series, and in House of Cards, for which he received a Primetime Emmy Award nomination.\n\nAli won the Academy Award for Best Supporting Actor for his performances in Moonlight (2016) and Green Book (2018). He is the first Muslim actor to win an Oscar, the first Black actor to win two Academy Awards in the same category, and the second Black actor to win multiple acting Oscars.', 'birthday': '1974-02-16', 'deathday': None, 'gender': 'male', 'homepage': None, 'known_for_department': 'Acting', 'name': 'Mahershala Ali', 'place_of_birth': 'Oakland, California, USA', 'profile_path': '/9ZmSejm5lnUVY5IJ1iNx2QEjnHb.jpg'}, 'charactor': 'Eric Brooks / Blade', 'cast_id': 932967, 'order': 0}
-{'cast': {'id': 18792, 'adult': False, 'biography': "Delroy Lindo is an English director, writer and actor for stage and screen, best known for his film roles as West Indian Archie in Spike Lee's Malcolm X, Catlett in Get Shorty, Detective Castlebeck in Gone in 60 Seconds, and Woody Carmichael in Crooklyn. Born and raised in Lewisham, England, United Kingdom, until his teens when he and his mother, a nurse, moved to Toronto, Ontario, Canada. A little later, they moved to the United States, where Lindo would graduate from the American Conservatory Theater in San Francisco. Lindo's contributions to both film and theatre, including his performances on Broadway, demonstrate his versatility and skill. His ability to portray complex characters with authenticity and gravitas has earned him critical acclaim, establishing him as a highly respected figure in the entertainment industry.", 'birthday': '1952-11-18', 'deathday': None, 'gender': 'male', 'homepage': None, 'known_for_department': 'Acting', 'name': 'Delroy Lindo', 'place_of_birth': 'Eltham, London, England, UK', 'profile_path': '/kLwUBBmEIdchrLqwsYzgLB2B6q5.jpg'}, 'charactor': None, 'cast_id': 18792, 'order': 1}
-{'cast': {'id': 1137824, 'adult': False, 'biography': "Mia Gypsy Mello da Silva Goth (born 1993) is an English actress and model best known for her work in the ongoing horror film franchise X (2022–present).\n\nFollowing a brief stint modeling as a teenager, Goth made her feature film debut in Nymphomaniac (2013). She went on to have supporting roles in the sci-fi thriller The Survivalist (2015), the sci-fi horror High Life (2018), the supernatural horror Suspiria (2018), and the romantic comedy Emma (2020). Goth starred in Ti West's slasher films X and Pearl (both 2022), the latter of which she also co-wrote.", 'birthday': '1993-10-25', 'deathday': None, 'gender': 'female', 'homepage': None, 'known_for_department': 'Acting', 'name': 'Mia Goth', 'place_of_birth': 'Southwark, London, England, UK', 'profile_path': '/wLfyapNgOaLdhYSHGDmTk17kIfN.jpg'}, 'charactor': None, 'cast_id': 1137824, 'order': 2}
-query_data2
-<QuerySet [<Director: Yann Demange (Blade)>]>
-{'director': {'id': 208527, 'adult': False, 'biography': "London-raised French director of cinema and television, Yann Demange, is of Algerian and French ancestry. Following the success of his television shows Dead Set (2008) and Top Boy (2011), he made his feature film directing debut in 2014 with the highly regarded indie film '71', for which he won the British Independent Film Award for Best Director.\n\nDemange, whose parents were Algerian and French, was born in Paris. When he was two years old, his mother and two elder half-brothers relocated to London, first to the south and later to the west of the city. Demange was reared in two four-year foster care placements in Essex between the ages of four and twelve, one with a French-speaking family and the other with a white Cockney family. His parents separated soon after the family relocated to London. His first name was originally Mounir, but after his parents divorced, one of his half-brothers persuaded his mother to alter it to Yann, and Mounir became his middle name. This allowed him to avoid prejudice due to his Arabic name. Demange, a French citizen, has stated that he mostly identifies as a Londoner and does not have a distinct sense of national identification.\n\nBefore the nation's civil war broke out in the summer of 1991, he flew to Algeria to see his extended relatives. It was on this journey that he first saw The Battle of Algiers, a movie in which Demange's aunt made an appearance as one of the numerous uncredited performers. He claimed that learning about his aunt's part in the movie deepened his appreciation for it. As absurd as it sounds, on some level, I think I felt like I had discovered an inheritance to some sort of personal lineage in films. At the age of eighteen, he started working as a runner on music video sets before enrolling at the London College of Printing's arts foundation. Later, he produced observational films for General Electric.\n\nDisney provided a scholarship for Demange to attend the National Film and Television School while he was in his late 20s. Based on his graduation film, he landed a partnership with ICM Partners, leading to his directing many episodes of the TV show Secret Diary of a Call Girl (2007). After that, he directed the 2008 zombie horror series Dead Set, which received a BAFTA Television Award nomination for Best Drama Serial. Demange was nominated for a BAFTA Television Award for Best Director for his work directing Channel 4's Top Boy (2011), a gang drama set in Hackney. The serial was also nominated for Best Mini-Series.\xa0\n\nIn 2014, Demange made his feature film directing debut with '71,' starring Jack O'Connell as a soldier sent to Belfast during the height of political unrest in Northern Ireland. '71 had its Berlin International Film Festival competitive premiere and went on to win praise from critics. In addition to being nominated for a BAFTA Award for Outstanding Debut by a British Writer, Director, or Producer, Demange also received the British Independent Film Award for Best Director. Additionally, Demange has been praised as a bright emerging talent in British cinema.\xa0\n\nHis latest project is directing Marvel Studios' Blade (2025), set in the Marvel Cinematic Universe.", 'birthday': '1977-01-01', 'deathday': None, 'gender': 'male', 'homepage': None, 'known_for_department': 'Directing', 'name': 'Yann Demange', 'place_of_birth': 'Paris, France', 'profile_path': '/5RK0Y2IjNZupP3sq6ibZ1b9mCHh.jpg'}, 'director_id': 208527}
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 714, in to_representation
+    self.child.to_representation(item) for item in iterable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 525, in to_representation
+    attribute = field.get_attribute(instance)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\relations.py", line 189, in get_attribute
+    return super().get_attribute(instance)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\fields.py", line 472, in get_attribute
+    raise type(exc)(msg)
+AttributeError: Got AttributeError when attempting to get a value for field `movie` on serializer `WatchedSerializers`.
+The serializer field might be named incorrectly and not match any attribute or key on the `CustomUser` instance.
+Original exception text was: 'CustomUser' object has no attribute 'movie'.

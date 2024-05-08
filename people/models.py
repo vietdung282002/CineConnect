@@ -28,6 +28,8 @@ class Person(models.Model):
     profile_path = models.CharField(default='default.jpg')
     
     def __str__(self):
-        return self.name
+        return self.name + " (" +str(self.id) +")"
+    
+    
     
     
