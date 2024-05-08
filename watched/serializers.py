@@ -3,8 +3,7 @@ from users.models import Watched
 from movies.models import Movie
 from users.models import CustomUser
 from drf_spectacular.utils import extend_schema_field
-import logging
-logger = logging.getLogger(__name__)
+
 
 class WatchedSerializers(serializers.ModelSerializer):
     class Meta:
@@ -25,7 +24,6 @@ class WatchedDetailSerializers(serializers.ModelSerializer):
         query_data = []
         for movie in user_query_data.watched.all():
             query_data.append(movie)            
-        # logger.warning(query_data)
         
         return[MovieListSerializers(watched).data for watched in query_data]
         

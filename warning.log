@@ -1,4 +1,12 @@
-Blade
+Method Not Allowed: /watched/delete/
+Method Not Allowed: /watched/delete/
+Method Not Allowed: /watched/delete/
+Method Not Allowed: /watched/delete/
+3 ( Heart of the Hunter)
+3 ( Love, Divided)
+Not Found: /watched/delete/3/1005681/
+Not Found: /watched/delete/3/1005681/
+3 ( Love, Divided)
 Internal Server Error: /api/schema/
 Traceback (most recent call last):
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
@@ -35,37 +43,13 @@ Traceback (most recent call last):
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 256, in parse
     operation = view.schema.get_operation(
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 112, in get_operation
-    operation['responses'] = self._get_response_bodies()
-                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1374, in _get_response_bodies
-    return {'200': self._get_response_for_code(response_serializers, '200', direction=direction)}
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1430, in _get_response_for_code
-    component = self.resolve_serializer(serializer, direction)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1614, in resolve_serializer
-    component.schema = self._map_serializer(serializer, direction, bypass_extensions)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 930, in _map_serializer
-    schema = self._map_basic_serializer(serializer, direction)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1023, in _map_basic_serializer
-    for field in serializer.fields.values():
-                 ^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
-    res = instance.__dict__[self.name] = self.func(instance)
-                                         ^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 372, in fields
-    for key, value in self.get_fields().items():
-                      ^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 1079, in get_fields
-    field_names = self.get_field_names(declared_fields, info)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 1151, in get_field_names
-    assert not (fields is None and exclude is None), (
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: ("Creating a ModelSerializer without either the 'fields' attribute or the 'exclude' attribute has been deprecated since 3.3.0, and is now disallowed. Add an explicit fields = '__all__' to the WatchedSerializers serializer.",)
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 104, in get_operation
+    auth = self.get_auth()
+           ^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 360, in get_auth
+    perms = [p.__class__ for p in self.view.get_permissions()]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'BasePermissionMetaclass' object is not iterable
 Internal Server Error: /api/schema/
 Traceback (most recent call last):
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
@@ -102,49 +86,14 @@ Traceback (most recent call last):
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 256, in parse
     operation = view.schema.get_operation(
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 112, in get_operation
-    operation['responses'] = self._get_response_bodies()
-                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1374, in _get_response_bodies
-    return {'200': self._get_response_for_code(response_serializers, '200', direction=direction)}
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1430, in _get_response_for_code
-    component = self.resolve_serializer(serializer, direction)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1614, in resolve_serializer
-    component.schema = self._map_serializer(serializer, direction, bypass_extensions)
-                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 930, in _map_serializer
-    schema = self._map_basic_serializer(serializer, direction)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 1023, in _map_basic_serializer
-    for field in serializer.fields.values():
-                 ^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\utils\functional.py", line 47, in __get__
-    res = instance.__dict__[self.name] = self.func(instance)
-                                         ^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 372, in fields
-    for key, value in self.get_fields().items():
-                      ^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 1079, in get_fields
-    field_names = self.get_field_names(declared_fields, info)
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 1151, in get_field_names
-    assert not (fields is None and exclude is None), (
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AssertionError: ("Creating a ModelSerializer without either the 'fields' attribute or the 'exclude' attribute has been deprecated since 3.3.0, and is now disallowed. Add an explicit fields = '__all__' to the WatchedSerializers serializer.",)
-Internal Server Error: /watched/
-Traceback (most recent call last):
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\fields.py", line 439, in get_attribute
-    return get_attribute(instance, self.source_attrs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\fields.py", line 106, in get_attribute
-    instance = getattr(instance, attr)
-               ^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'CustomUser' object has no attribute 'movie'
-
-During handling of the above exception, another exception occurred:
-
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 104, in get_operation
+    auth = self.get_auth()
+           ^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 360, in get_auth
+    perms = [p.__class__ for p in self.view.get_permissions()]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'BasePermissionMetaclass' object is not iterable
+Internal Server Error: /api/schema/
 Traceback (most recent call last):
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
     response = get_response(request)
@@ -155,7 +104,7 @@ Traceback (most recent call last):
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
     return view_func(request, *args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\viewsets.py", line 124, in view
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
     return self.dispatch(request, *args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
@@ -168,26 +117,152 @@ Traceback (most recent call last):
   File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
     response = handler(request, *args, **kwargs)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\mixins.py", line 43, in list
-    return self.get_paginated_response(serializer.data)
-                                       ^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 795, in data
-    ret = super().data
-          ^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 249, in data
-    self._data = self.to_representation(self.instance)
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 714, in to_representation
-    self.child.to_representation(item) for item in iterable
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\serializers.py", line 525, in to_representation
-    attribute = field.get_attribute(instance)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\relations.py", line 189, in get_attribute
-    return super().get_attribute(instance)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\fields.py", line 472, in get_attribute
-    raise type(exc)(msg)
-AttributeError: Got AttributeError when attempting to get a value for field `movie` on serializer `WatchedSerializers`.
-The serializer field might be named incorrectly and not match any attribute or key on the `CustomUser` instance.
-Original exception text was: 'CustomUser' object has no attribute 'movie'.
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 285, in get_schema
+    paths=self.parse(request, public),
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 256, in parse
+    operation = view.schema.get_operation(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 104, in get_operation
+    auth = self.get_auth()
+           ^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 360, in get_auth
+    perms = [p.__class__ for p in self.view.get_permissions()]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not iterable
+Internal Server Error: /api/schema/
+Traceback (most recent call last):
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 285, in get_schema
+    paths=self.parse(request, public),
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 256, in parse
+    operation = view.schema.get_operation(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 104, in get_operation
+    auth = self.get_auth()
+           ^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 360, in get_auth
+    perms = [p.__class__ for p in self.view.get_permissions()]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object is not iterable
+Internal Server Error: /api/schema/
+Traceback (most recent call last):
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 285, in get_schema
+    paths=self.parse(request, public),
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 256, in parse
+    operation = view.schema.get_operation(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 104, in get_operation
+    auth = self.get_auth()
+           ^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 360, in get_auth
+    perms = [p.__class__ for p in self.view.get_permissions()]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'BasePermissionMetaclass' object is not iterable
+Internal Server Error: /api/schema/
+Traceback (most recent call last):
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\decorators\csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\django\views\generic\base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\views.py", line 84, in get
+    return self._get_schema_response(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 285, in get_schema
+    paths=self.parse(request, public),
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\generators.py", line 256, in parse
+    operation = view.schema.get_operation(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 104, in get_operation
+    auth = self.get_auth()
+           ^^^^^^^^^^^^^^^
+  File "D:\dung\HUST\20232\CineConnect\.venv\Lib\site-packages\drf_spectacular\openapi.py", line 360, in get_auth
+    perms = [p.__class__ for p in self.view.get_permissions()]
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'BasePermissionMetaclass' object is not iterable
+Unauthorized: /watched/3/

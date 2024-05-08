@@ -21,6 +21,7 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre,related_name='movies')
     casts = models.ManyToManyField(Person,related_name='cast_movies', through="Cast")
     directors = models.ManyToManyField(Person,related_name='director_movies', through="Director")
+    
     def __str__(self):
         return self.title
     

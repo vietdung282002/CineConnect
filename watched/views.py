@@ -4,7 +4,12 @@ from users.models import Watched,CustomUser
 from .serializers import WatchedDetailSerializers,WatchedSerializers
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from drf_spectacular.utils import extend_schema,OpenApiParameter
 # Create your views here.
+import logging
+logger = logging.getLogger(__name__)
 class WatchedViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     # serializer_class = WatchedDetailSerializers
@@ -13,16 +18,54 @@ class WatchedViewSet(viewsets.ModelViewSet):
             return WatchedDetailSerializers
         else:
             return WatchedSerializers
+        
+    def get_permissions(self):
+        if self.action == 'create' or self.action == 'retrieve':
+            self.permission_classes = [permissions.IsAuthenticated]
+        return super().get_permissions()
+        
+    http_method_names = ['get','post']
     
     def create(self, request, *args, **kwargs):
-        # Lấy dữ liệu từ request data
         data = request.data
 
         user_id = data.get('user')
         movie_id = data.get('movie')
         if Watched.objects.filter(user_id=user_id, movie_id=movie_id).exists():
-            return Response({'message': 'Đối tượng đã tồn tại.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'Object already exists.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Nếu đối tượng chưa tồn tại, tiếp tục quá trình tạo mới
         return super().create(request, *args, **kwargs)
     
+
+class WatchedDeleteAPIVIew(APIView):
+    serializer_class = WatchedSerializers
+    permission_classes = [permissions.IsAuthenticated]
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name='user_id',
+                description='ID user',
+                required=True,
+                type=int,
+                location=OpenApiParameter.PATH,
+            ),
+            OpenApiParameter(
+                name='movie_id',
+                description='ID of the movie to delete',
+                required=True,
+                type=int,
+                location=OpenApiParameter.PATH,
+            ),
+            # Add more parameters if needed
+        ],
+    )
+    def delete(self, request,user_id,movie_id, *args, **kwargs):
+
+        try:
+            watched_obj = Watched.objects.get(user_id=user_id, movie_id=movie_id)
+            logger.warning(watched_obj)
+            
+            watched_obj.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Watched.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
