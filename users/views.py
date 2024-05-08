@@ -13,10 +13,10 @@ from rest_framework.authtoken.models import Token
 from . permission import IsOwnerOrReadOnly
 from rest_framework import permissions
 
-import logging
-logger = logging.getLogger(__name__)
 
 # Create your views here.
+import logging
+logger = logging.getLogger(__name__)
 
 class UserRegisterViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
@@ -83,7 +83,9 @@ class UserLogoutViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     
 
-    def update(self, request):
+    def create(self, request):
+        logger.warning(request)
+        
         try:
             # Delete the user's token to logout
             request.user.auth_token.delete()

@@ -8,8 +8,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema,OpenApiParameter
 # Create your views here.
-import logging
-logger = logging.getLogger(__name__)
+
+
 class WatchedViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     # serializer_class = WatchedDetailSerializers
@@ -63,7 +63,6 @@ class WatchedDeleteAPIVIew(APIView):
 
         try:
             watched_obj = Watched.objects.get(user_id=user_id, movie_id=movie_id)
-            logger.warning(watched_obj)
             
             watched_obj.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
