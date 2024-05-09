@@ -1,7 +1,10 @@
 from django.contrib import admin
+
+from watched.models import Watched
 from .models import CustomUser
-from users.models import Watched
+from favourite.models import Favourite
 
 # Register your models here.
 admin.site.register(CustomUser)
-admin.register(Watched)
+admin.site.register(Watched)
+admin.site.register(Favourite)
