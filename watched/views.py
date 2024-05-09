@@ -36,6 +36,9 @@ class WatchedViewSet(viewsets.ModelViewSet):
 
         return super().create(request, *args, **kwargs)
     
+    def list(self, request, *args, **kwargs):
+        pass
+    
 
 class WatchedDeleteAPIVIew(APIView):
     serializer_class = WatchedSerializers
