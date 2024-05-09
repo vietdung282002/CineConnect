@@ -88,7 +88,36 @@ class MovieListDisplaySerializers(serializers.ModelSerializer):
                   'overview', 'poster_path', 'release_date', 'revenue', 'runtime', 'status', 'tagline', 'title',
                   'genres']
 
+class RatingDisplaySerializers(serializers.ModelSerializer):
+    avr = serializers.SerializerMethodField()
+    rating = serializers.SerializerMethodField()
+    total = serializers.SerializerMethodField()
+    class Meta:
+        model = Rating
+        fields = ['avr','total','rating']
+        
+    @extend_schema_field(serializers.ListField)
+    def get_avr(self, rating_instance):
+        avr = Rating.objects.filter(movie=rating_instance.movie).aggregate(Avg('rate'))
 
+        return avr
+    
+    @extend_schema_field(serializers.ListField)
+    def get_total(self, rating_instance):
+        total = Rating.objects.filter(movie=rating_instance.movie).count()
+
+        return total
+    
+    @extend_schema_field(serializers.ListField)
+    def get_rating(self, rating_instance):
+        rating = {}
+        for rate in range(5, 51, 5):
+            rate /= 10
+            rating[rate] = Rating.objects.filter(movie=rating_instance.movie,rate = rate).count()
+
+        return rating
+    
+    
 class MovieDetailDisplaySerializer(serializers.ModelSerializer):
     casts = serializers.SerializerMethodField()
     directors = serializers.SerializerMethodField()
@@ -109,10 +138,32 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
     
     @extend_schema_field(serializers.ListField)
     def get_rating(self, movie_instance):
-        query_data = Rating.objects.filter(movie=movie_instance).aggregate(Avg('rate'))
-        if query_data == None:
-            return 0
-        return query_data
+        try:
+            rating = Rating.objects.get(movie=movie_instance)
+        except Rating.DoesNotExist:
+            return [
+                    {
+                      "avr": {
+                        "rate__avg": 0
+                      },
+                      "total": 0,
+                      "rating": {
+                        "0.5": 0,
+                        "1.0": 0,
+                        "1.5": 0,
+                        "2.0": 0,
+                        "2.5": 0,
+                        "3.0": 0,
+                        "3.5": 0,
+                        "4.0": 0,
+                        "4.5": 0,
+                        "5.0": 0
+                      }
+                    }
+            ]
+        # if avr == None:
+        #     return 0
+        return [RatingDisplaySerializers(rating).data]
 
     @extend_schema_field(serializers.ListField)
     def get_directors(self, movie_instance):

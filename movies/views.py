@@ -4,9 +4,6 @@ from genres.models import Genre
 from .serializers import MovieCreateSerializer, MovieDetailDisplaySerializer, MovieListDisplaySerializers
 from rest_framework import viewsets
 from rest_framework.response import Response
-import logging
-
-logger = logging.getLogger(__name__)
 
 
 # Create your views here.
