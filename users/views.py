@@ -81,7 +81,6 @@ class UserLogoutViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def create(self, request, **kwargs):
-        logger.warning(request)
 
         try:
             # Delete the user's token to logout

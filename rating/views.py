@@ -12,6 +12,9 @@ from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from django.http import Http404
 # Create your views here.
+import logging
+
+logger = logging.getLogger(__name__)
 
 class RatingViewSet(viewsets.ModelViewSet):
     serializer_class = RatingSerializers
@@ -19,12 +22,12 @@ class RatingViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     
     def create(self, request, *args, **kwargs):
+        logger.warning(request.user.id)
         movie_id = request.data.get('movie')
-        user_id = request.data.get('user')
         try:
-            watched = Watched.objects.get(movie_id = movie_id, user_id = user_id)
+            watched = Watched.objects.get(movie_id = movie_id, user_id = request.user.id)
         except Watched.DoesNotExist: 
-            Watched.objects.create(movie_id = movie_id, user_id = user_id)
+            Watched.objects.create(movie_id = movie_id, user_id = request.user.id)
             
         return super().create(request, *args, **kwargs)
     
@@ -36,13 +39,6 @@ class RatingDeleteAPIVIew(APIView):
     @extend_schema(
         parameters=[
             OpenApiParameter(
-                name='user_id',
-                description='ID user',
-                required=True,
-                type=int,
-                location=OpenApiParameter.PATH,
-            ),
-            OpenApiParameter(
                 name='movie_id',
                 description='ID of the movie to delete',
                 required=True,
@@ -52,10 +48,10 @@ class RatingDeleteAPIVIew(APIView):
             # Add more parameters if needed
         ],
     )
-    def delete(self, request, user_id, movie_id, *args, **kwargs):
-
+    def delete(self, request, movie_id, *args, **kwargs):
+        
         try:
-            watched_obj = Rating.objects.get(user_id=user_id, movie_id=movie_id)
+            watched_obj = Rating.objects.get(user_id=request.user.id, movie_id=movie_id)
 
             watched_obj.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)

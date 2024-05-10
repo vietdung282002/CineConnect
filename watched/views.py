@@ -13,7 +13,6 @@ from drf_spectacular.utils import extend_schema, OpenApiParameter
 
 # Create your views here.
 
-
 class WatchedViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
 
@@ -33,10 +32,8 @@ class WatchedViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         data = request.data
-
-        user_id = data.get('user')
         movie_id = data.get('movie')
-        if Watched.objects.filter(user_id=user_id, movie_id=movie_id).exists():
+        if Watched.objects.filter(user_id=request.user.id, movie_id=movie_id).exists():
             return Response({'message': 'Object already exists.'}, status=status.HTTP_400_BAD_REQUEST)
 
         return super().create(request, *args, **kwargs)
@@ -52,13 +49,6 @@ class WatchedDeleteAPIVIew(APIView):
     @extend_schema(
         parameters=[
             OpenApiParameter(
-                name='user_id',
-                description='ID user',
-                required=True,
-                type=int,
-                location=OpenApiParameter.PATH,
-            ),
-            OpenApiParameter(
                 name='movie_id',
                 description='ID of the movie to delete',
                 required=True,
@@ -68,12 +58,12 @@ class WatchedDeleteAPIVIew(APIView):
             # Add more parameters if needed
         ],
     )
-    def delete(self, request, user_id, movie_id, *args, **kwargs):
+    def delete(self, request, movie_id, *args, **kwargs):
 
         try:
-            watched_obj = Watched.objects.get(user_id=user_id, movie_id=movie_id)
+            watched_obj = Watched.objects.get(user_id=request.user.id, movie_id=movie_id)
             watched_obj.delete()
-            rating_obj = Rating.objects.get(user_id=user_id, movie_id=movie_id)
+            rating_obj = Rating.objects.get(user_id=request.user.id, movie_id=movie_id)
             if rating_obj != None:    
                 rating_obj.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)

@@ -11,7 +11,6 @@ class FavouriteSerializers(serializers.ModelSerializer):
         model = Favourite
         fields = ['movie', 'user']
 
-
 class FavouriteDetailSerializers(serializers.ModelSerializer):
     favourite = serializers.SerializerMethodField()
 

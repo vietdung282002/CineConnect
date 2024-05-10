@@ -21,4 +21,3 @@ class Watched(models.Model):
             )
         ]
 
-# Create your models here.

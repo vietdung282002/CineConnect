@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from watched.models import Watched
 from movies.models import Movie
 from users.models import CustomUser
 from .models import Rating
@@ -10,12 +9,14 @@ class RatingSerializers(serializers.ModelSerializer):
     class Meta: 
         model = Rating
         fields = ['movie','user','rate']
+
         
 class RatingDetailSerializers(serializers.ModelSerializer):
     rating = serializers.SerializerMethodField()
     class Meta:
         model = Movie
-        fields = ['id',]
+        fields = ['rate',]
+
    
         
     

@@ -32,9 +32,8 @@ class FavouriteViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         data = request.data
 
-        user_id = data.get('user')
         movie_id = data.get('movie')
-        if Favourite.objects.filter(user_id=user_id, movie_id=movie_id).exists():
+        if Favourite.objects.filter(user_id=request.user.id, movie_id=movie_id).exists():
             return Response({'message': 'Object already exists.'}, status=status.HTTP_400_BAD_REQUEST)
 
         return super().create(request, *args, **kwargs)
@@ -47,13 +46,6 @@ class FavouriteDeleteAPIVIew(APIView):
     @extend_schema(
         parameters=[
             OpenApiParameter(
-                name='user_id',
-                description='ID user',
-                required=True,
-                type=int,
-                location=OpenApiParameter.PATH,
-            ),
-            OpenApiParameter(
                 name='movie_id',
                 description='ID of the movie to delete',
                 required=True,
@@ -63,10 +55,10 @@ class FavouriteDeleteAPIVIew(APIView):
             # Add more parameters if needed
         ],
     )
-    def delete(self, request, user_id, movie_id, *args, **kwargs):
+    def delete(self, request, movie_id, *args, **kwargs):
 
         try:
-            watched_obj = Favourite.objects.get(user_id=user_id, movie_id=movie_id)
+            watched_obj = Favourite.objects.get(user_id=request.user.id, movie_id=movie_id)
 
             watched_obj.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)

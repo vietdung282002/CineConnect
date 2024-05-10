@@ -8,5 +8,5 @@ router.register(r'', RatingViewSet, basename='rate')
 urlpatterns = [
     path('', include(router.urls)),
     path('update/<int:pk>',RatingUpdateAPIView.as_view(),name='update'),
-    path('delete/<int:user_id>/<int:movie_id>/',RatingDeleteAPIVIew.as_view(),name='delete'),
+    path('delete/<int:movie_id>/',RatingDeleteAPIVIew.as_view(),name='delete'),
 ]

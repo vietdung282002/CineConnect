@@ -11,7 +11,6 @@ class WatchedSerializers(serializers.ModelSerializer):
         model = Watched
         fields = ['movie', 'user']
 
-
 class WatchedDetailSerializers(serializers.ModelSerializer):
     watched = serializers.SerializerMethodField()
 
