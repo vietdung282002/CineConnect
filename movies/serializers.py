@@ -173,6 +173,7 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         data = super().to_representation(instance)
+        
         cast_data = []
         for cast in data['casts']:
             cast_info = {
@@ -202,9 +203,16 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
             }
             director_data.append(director_info)
         data['directors'] = director_data
+        if self.context['user_id'] != None:
+            try:
+                rating = Rating.objects.get(movie = instance,user_id = self.context['user_id'])
+            except Rating.DoesNotExist:
+                data['rating'][0]['user_rating'] = 0
+            
+            data['rating'][0]['user_rating'] = rating.rate
         return data
 
-
+    
 class MovieListSerializers(serializers.ModelSerializer):
     class Meta:
         model = Movie
