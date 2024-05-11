@@ -10,20 +10,18 @@ class FavouriteSerializers(serializers.ModelSerializer):
     class Meta:
         model = Favourite
         fields = ['movie', 'user']
+        extra_kwargs = {'user':{'read_only':True}}
 
 class FavouriteDetailSerializers(serializers.ModelSerializer):
-    favourite = serializers.SerializerMethodField()
+    movie = serializers.SerializerMethodField()
 
     class Meta:
-        model = CustomUser
-        fields = ['id', 'favourite']
+        model = Favourite
+        fields = [ 'movie']
         # extra_kwargs = {'user':{'write_only':True}}
 
     @extend_schema_field(serializers.ListField)
-    def get_favourite(self, user_instance):
-        user_query_data = CustomUser.objects.get(id=user_instance.id)
-        query_data = []
-        for movie in user_query_data.favourite_list.all():
-            query_data.append(movie)
+    def get_movie(self, favourite_instance):
+        movie = favourite_instance.movie
 
-        return [MovieListSerializers(watched).data for watched in query_data]
+        return MovieListSerializers(movie).data 
