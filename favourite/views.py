@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from favourite.models import Favourite
 from users.models import CustomUser
+from rating.models import Rating
+from review.models import Review
 from .serializers import FavouriteSerializers, FavouriteDetailSerializers
 from rest_framework.response import Response
 from rest_framework import status
@@ -58,9 +60,16 @@ class FavouriteDeleteAPIVIew(APIView):
     def delete(self, request, movie_id, *args, **kwargs):
 
         try:
-            watched_obj = Favourite.objects.get(user_id=request.user.id, movie_id=movie_id)
-
-            watched_obj.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            favourite_obj = Favourite.objects.get(user_id=request.user.id, movie_id=movie_id)
+            try:
+                rating_obj = Rating.objects.get(user_id=request.user.id, movie_id=movie_id)
+                return Response({'error': "You can't not remove from watched because there is activity on it"},status=status.HTTP_405_METHOD_NOT_ALLOWED)
+            except Rating.DoesNotExist:
+                try: 
+                    review_obj =  Review.objects.get(user_id=request.user.id, movie_id=movie_id)
+                    return Response({'error': "You can't not remove from watched because there is activity on it"},status=status.HTTP_405_METHOD_NOT_ALLOWED)
+                except Review.DoesNotExist:
+                    favourite_obj.delete() 
+                    return Response(status=status.HTTP_204_NO_CONTENT)
         except Favourite.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
