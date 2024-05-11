@@ -9,13 +9,12 @@ class RatingSerializers(serializers.ModelSerializer):
     class Meta: 
         model = Rating
         fields = ['movie','user','rate']
-
+        extra_kwargs = {'user':{'read_only':True}}
         
-class RatingDetailSerializers(serializers.ModelSerializer):
-    rating = serializers.SerializerMethodField()
+class RatingUpdateSerializers(serializers.ModelSerializer):
     class Meta:
-        model = Movie
-        fields = ['rate',]
+        model = Rating
+        fields = ['rate']
 
    
         

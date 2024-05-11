@@ -1,8 +1,7 @@
 from django.shortcuts import render
-
 from watched.models import Watched
-from .serializers import RatingSerializers,Rating
-from rest_framework import viewsets
+from .serializers import RatingSerializers,Rating,RatingUpdateSerializers
+from rest_framework import viewsets,mixins
 from rest_framework import permissions
 from users.models import CustomUser
 from rest_framework.response import Response
@@ -16,63 +15,68 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class RatingViewSet(viewsets.ModelViewSet):
+class RatingViewSet(mixins.CreateModelMixin,
+                    mixins.DestroyModelMixin,
+                    mixins.UpdateModelMixin,
+                    viewsets.GenericViewSet):
     serializer_class = RatingSerializers
-    http_method_names = ['post',]
+    def get_serializer_class(self):
+        if self.action == 'update' or self.action == 'partial_update':
+            return RatingUpdateSerializers
+        else: return RatingSerializers
     permission_classes = (permissions.IsAuthenticated,)
     
     def create(self, request, *args, **kwargs):
-        logger.warning(request.user.id)
-        movie_id = request.data.get('movie')
+        data = request.data
+        movie_id = data.get('movie')
+        if Rating.objects.filter(user_id=request.user.id, movie_id=movie_id).exists():
+            return Response({'message': 'Object already exists.'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             watched = Watched.objects.get(movie_id = movie_id, user_id = request.user.id)
         except Watched.DoesNotExist: 
             Watched.objects.create(movie_id = movie_id, user_id = request.user.id)
-            
-        return super().create(request, *args, **kwargs)
-    
-class RatingDeleteAPIVIew(APIView):
-    serializer_class = RatingSerializers
-    permission_classes = [permissions.IsAuthenticated]
-    
-    
-    @extend_schema(
-        parameters=[
-            OpenApiParameter(
-                name='movie_id',
-                description='ID of the movie to delete',
-                required=True,
-                type=int,
-                location=OpenApiParameter.PATH,
-            ),
-            # Add more parameters if needed
-        ],
-    )
-    def delete(self, request, movie_id, *args, **kwargs):
         
         try:
-            watched_obj = Rating.objects.get(user_id=request.user.id, movie_id=movie_id)
+            ratinng = Rating.objects.create(movie_id= movie_id,user_id = request.user.id)
+            data = data = {
+                "status": "success",
+                "message": RatingSerializers(ratinng).data
+            }
+            return Response(data, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            data = {
+                "status": "error",
+                "message": str(e)
+            }
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
+        
+    def destroy(self, request,pk, *args, **kwargs):
+        try:
+            rating_obj = Rating.objects.get(user_id=request.user.id, movie_id=pk)
 
-            watched_obj.delete()
+            rating_obj.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Watched.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-    
-class RatingUpdateAPIView(APIView):
-    
-    serializer_class = RatingSerializers
-    permission_classes = [permissions.IsAuthenticated]
-    
-    def get_object(self, pk):
-        try:
-            return Rating.objects.get(pk=pk)
-        except Rating.DoesNotExist:
-            raise Http404
         
-    def put(self,request,pk, *args, **kwargs):
-        rating = self.get_object(pk)
-        serializer = RatingSerializers(rating,data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def update(self, request,pk, *args, **kwargs):
+        try:
+            rating_obj = Rating.objects.get(movie_id = pk,user_id = request.user.id)
+            serializer = RatingUpdateSerializers(rating_obj,data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Rating.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    def partial_update(self, request,pk, *args, **kwargs):
+        try:
+            rating_obj = Rating.objects.get(movie_id = pk,user_id = request.user.id)
+            serializer = RatingUpdateSerializers(rating_obj,data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Rating.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
