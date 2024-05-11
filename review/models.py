@@ -9,8 +9,6 @@ class Review(models.Model):
     user = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name='user_review')
     time_stamp = models.DateTimeField(auto_now=True)
     content = models.TextField(null=False, blank=False)
-    likes = models.PositiveIntegerField(default=0)
-    dislikes = models.PositiveIntegerField(default=0)
     
     class Meta:
         constraints = [
@@ -30,8 +28,16 @@ class Reaction(models.Model):
     like = models.BooleanField(default=False)
     dislike = models.BooleanField(default=False)
     
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'review'], name='unique_reaction'
+            )
+        ]
+    
     def __str__(self):
         return str(self.user)
+    
     
 class Comment(models.Model):
     id = models.AutoField(primary_key=True, null = False, blank=False)
@@ -42,3 +48,6 @@ class Comment(models.Model):
     
     class Meta:
         ordering = ('time_stamp',)
+        
+    def __str__(self):
+        return str(self.user)

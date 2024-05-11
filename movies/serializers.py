@@ -2,19 +2,20 @@ from rest_framework import serializers
 from .models import Movie, Cast, Director
 from genres.models import Genre
 from rating.models import Rating
+from review.models import Review
 from genres.serializers import GenresSerializers
 from people.models import Person
 from people.serializers import PersonSerializers
 from drf_spectacular.utils import extend_schema_field
 from django.db.models import Avg
 
-import logging
-logger = logging.getLogger(__name__)
+
 
 
 class CastCharacterSerializer(serializers.ModelSerializer):
     cast = PersonSerializers(read_only=True)
-    cast_id = serializers.PrimaryKeyRelatedField(write_only=True, source='person', queryset=Person.objects.all())
+    cast_id = serializers.PrimaryKeyRelatedField(
+        write_only=True, source='person', queryset=Person.objects.all())
 
     class Meta:
         model = Cast
@@ -23,7 +24,8 @@ class CastCharacterSerializer(serializers.ModelSerializer):
 
 class DirectorSerializer(serializers.ModelSerializer):
     director = PersonSerializers(read_only=True)
-    director_id = serializers.PrimaryKeyRelatedField(write_only=True, source='person', queryset=Person.objects.all())
+    director_id = serializers.PrimaryKeyRelatedField(
+        write_only=True, source='person', queryset=Person.objects.all())
 
     class Meta:
         model = Director
@@ -88,66 +90,69 @@ class MovieListDisplaySerializers(serializers.ModelSerializer):
                   'overview', 'poster_path', 'release_date', 'revenue', 'runtime', 'status', 'tagline', 'title',
                   'genres']
 
+
 class RatingDisplaySerializers(serializers.ModelSerializer):
     avr = serializers.SerializerMethodField()
     rating = serializers.SerializerMethodField()
     total = serializers.SerializerMethodField()
+
     class Meta:
         model = Rating
-        fields = ['avr','total','rating']
-        
-    @extend_schema_field(serializers.ListField)
+        fields = ['avr', 'total', 'rating']
+
     def get_avr(self, rating_instance):
-        avr = Rating.objects.filter(movie=rating_instance.movie).aggregate(Avg('rate'))
+        avr = Rating.objects.filter(
+            movie=rating_instance.movie).aggregate(Avg('rate'))
 
         return avr
-    
-    @extend_schema_field(serializers.ListField)
+
     def get_total(self, rating_instance):
         total = Rating.objects.filter(movie=rating_instance.movie).count()
 
         return total
-    
+
     @extend_schema_field(serializers.ListField)
     def get_rating(self, rating_instance):
         rating = {}
         for rate in range(5, 51, 5):
             rate /= 10
-            rating[rate] = Rating.objects.filter(movie=rating_instance.movie,rate = rate).count()
+            rating[rate] = Rating.objects.filter(
+                movie=rating_instance.movie, rate=rate).count()
 
         return rating
-    
-    
+
+
 class MovieDetailDisplaySerializer(serializers.ModelSerializer):
     casts = serializers.SerializerMethodField()
     directors = serializers.SerializerMethodField()
     rating = serializers.SerializerMethodField()
+    review_count = serializers.SerializerMethodField()
     genres = GenresSerializers(many=True)
 
     class Meta:
         model = Movie
         fields = ['id', 'adult', 'backdrop_path', 'budget', 'homepage', 'original_language', 'original_title',
                   'overview', 'poster_path', 'release_date', 'revenue', 'runtime', 'status', 'tagline', 'title',
-                  'genres', 'casts', 'directors','rating']
+                  'genres', 'casts', 'directors', 'rating', 'review_count']
 
     @extend_schema_field(serializers.ListField)
     def get_casts(self, movie_instance):
         query_data = Cast.objects.filter(movie=movie_instance)
 
         return [CastMovieSerializer(person).data for person in query_data]
-    
+
     @extend_schema_field(serializers.ListField)
     def get_rating(self, movie_instance):
         try:
             rating = Rating.objects.get(movie=movie_instance)
         except Rating.DoesNotExist:
             return [
-                    {
-                      "avr": {
+                {
+                    "avr": {
                         "rate__avg": 0
-                      },
-                      "total": 0,
-                      "rating": {
+                    },
+                    "total": 0,
+                    "rating": {
                         "0.5": 0,
                         "1.0": 0,
                         "1.5": 0,
@@ -158,8 +163,8 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
                         "4.0": 0,
                         "4.5": 0,
                         "5.0": 0
-                      }
                     }
+                }
             ]
         # if avr == None:
         #     return 0
@@ -171,9 +176,14 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
 
         return [DirectorMovieSerializer(person).data for person in query_data]
 
+    @extend_schema_field(serializers.ListField)
+    def get_review_count(self, movie_instance):
+        review = Review.objects.filter(movie=movie_instance)
+        return len(review)
+
     def to_representation(self, instance):
         data = super().to_representation(instance)
-        
+
         cast_data = []
         for cast in data['casts']:
             cast_info = {
@@ -182,7 +192,8 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
                 'id': cast['cast']['id'],
                 'known_for_department': cast['cast']['known_for_department'],
                 'name': cast['cast']['name'],
-                'original_name': cast['cast']['name'],  # Bạn có thể sử dụng thông tin khác nếu cần
+                # Bạn có thể sử dụng thông tin khác nếu cần
+                'original_name': cast['cast']['name'],
                 'profile_path': cast['cast']['profile_path'],
                 'character': cast['character'],
                 'order': cast['order']
@@ -198,21 +209,23 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
                 'id': director['director']['id'],
                 'known_for_department': director['director']['known_for_department'],
                 'name': director['director']['name'],
-                'original_name': director['director']['name'],  # Bạn có thể sử dụng thông tin khác nếu cần
+                # Bạn có thể sử dụng thông tin khác nếu cần
+                'original_name': director['director']['name'],
                 'profile_path': director['director']['profile_path'],
             }
             director_data.append(director_info)
         data['directors'] = director_data
         if self.context['user_id'] != None:
             try:
-                rating = Rating.objects.get(movie = instance,user_id = self.context['user_id'])
+                rating = Rating.objects.get(
+                    movie=instance, user_id=self.context['user_id'])
             except Rating.DoesNotExist:
                 data['rating'][0]['user_rating'] = 0
-            
+
             data['rating'][0]['user_rating'] = rating.rate
         return data
 
-    
+
 class MovieListSerializers(serializers.ModelSerializer):
     class Meta:
         model = Movie

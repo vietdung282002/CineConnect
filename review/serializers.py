@@ -1,46 +1,149 @@
 from rest_framework import serializers
-from .models import Review,Reaction,Comment
-from movies.serializers import Movie,MovieListSerializers
+from .models import Review, Reaction, Comment
+from rating.models import Rating
+from favourite.models import Favourite
+from movies.serializers import Movie, MovieListSerializers
 from drf_spectacular.utils import extend_schema_field
 from user_profile.serializers import UserProfileSerializer, CustomUser
+
+
 class ReviewListSerializers(serializers.ModelSerializer):
-    class Meta:
-        model = Movie
-        fields = [
-            'id',
-            'original_title',
-            'poster_path',
-            'title'
-        ]
-        
-class ReviewDetailSerializer(serializers.ModelSerializer):
-    movie = serializers.SerializerMethodField()
     user = serializers.SerializerMethodField()
-    # rating = serializers.SerializerMethodField()
-    # favourite = serializers.SerializerMethodField()
+    rating = serializers.SerializerMethodField()
+    favourite = serializers.SerializerMethodField()
+
     class Meta:
         model = Review
         fields = [
-                'movie',
-                'user',
-                'content',
-                'likes',
-                'dislikes',
-                # 'comment'
-                ]
-    
-    @extend_schema_field(serializers.ListField)
-    def get_movie(self, review_instance):
-        movie = Movie.objects.get(id = review_instance.movie.id)
-
-        return MovieListSerializers(movie).data 
-    
+            'id',
+            'user',
+            'rating',
+            'favourite',
+            'content'
+        ]
+        
     @extend_schema_field(serializers.ListField)
     def get_user(self, review_instance):
-        user = CustomUser.objects.get(id = review_instance.user.id)
+        user = CustomUser.objects.get(id=review_instance.user.id)
 
-        return UserProfileSerializer(user).data 
-    
-    # @extend_schema_field(serializers.ListField)
-    # def get_rating(self, review_instance):
-        
+        return UserProfileSerializer(user).data
+
+    @extend_schema_field(serializers.ListField)
+    def get_rating(self, review_instance):
+        try:
+            rating = Rating.objects.get(
+                movie=review_instance.movie, user=review_instance.user)
+        except Rating.DoesNotExist:
+            return 0
+
+        return rating.rate
+
+    @extend_schema_field(serializers.ListField)
+    def get_favourite(self, review_instance):
+        try:
+            favourite = Favourite.objects.get(
+                movie=review_instance.movie, user=review_instance.user)
+        except Favourite.DoesNotExist:
+            return False
+
+        return True
+
+
+class ReviewDetailSerializer(serializers.ModelSerializer):
+    movie = serializers.SerializerMethodField()
+    user = serializers.SerializerMethodField()
+    rating = serializers.SerializerMethodField()
+    favourite = serializers.SerializerMethodField()
+    likes_count = serializers.SerializerMethodField()
+    dislikes_count = serializers.SerializerMethodField()
+    comment_count = serializers.SerializerMethodField()
+    is_liked = serializers.SerializerMethodField()
+    is_disliked = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Review
+        fields = [
+            'movie',
+            'user',
+            'content',
+            'rating',
+            'favourite',
+            'likes_count',
+            'dislikes_count',
+            'comment_count',
+            'is_liked',
+            'is_disliked'
+        ]
+
+    @extend_schema_field(serializers.ListField)
+    def get_movie(self, review_instance):
+        movie = Movie.objects.get(id=review_instance.movie.id)
+
+        return MovieListSerializers(movie).data
+
+    @extend_schema_field(serializers.ListField)
+    def get_user(self, review_instance):
+        user = CustomUser.objects.get(id=review_instance.user.id)
+
+        return UserProfileSerializer(user).data
+
+    @extend_schema_field(serializers.ListField)
+    def get_rating(self, review_instance):
+        try:
+            rating = Rating.objects.get(
+                movie=review_instance.movie, user=review_instance.user)
+        except Rating.DoesNotExist:
+            return 0
+
+        return rating.rate
+
+    @extend_schema_field(serializers.ListField)
+    def get_favourite(self, review_instance):
+        try:
+            favourite = Favourite.objects.get(
+                movie=review_instance.movie, user=review_instance.user)
+        except Favourite.DoesNotExist:
+            return False
+
+        return True
+
+    @extend_schema_field(serializers.ListField)
+    def get_likes_count(self, review_instance):
+        reaction = Reaction.objects.filter(
+            review=review_instance).filter(like=True)
+        return len(reaction)
+
+    @extend_schema_field(serializers.ListField)
+    def get_dislikes_count(self, review_instance):
+        reaction = Reaction.objects.filter(
+            review=review_instance).filter(dislike=True)
+        return len(reaction)
+
+    @extend_schema_field(serializers.ListField)
+    def get_comment_count(self, review_instance):
+        comment = Comment.objects.filter(review=review_instance)
+        return len(comment)
+
+    @extend_schema_field(serializers.ListField)
+    def get_is_liked(self, review_instance):
+        if self.context['user_id'] != None:
+            try:
+                reaction = Reaction.objects.get(
+                    review=review_instance, user_id=self.context['user_id'])
+            except Reaction.DoesNotExist:
+                return False
+            return reaction.like
+
+        return False
+
+    @extend_schema_field(serializers.ListField)
+    def get_is_disliked(self, review_instance):
+        if self.context['user_id'] != None:
+            try:
+                reaction = Reaction.objects.get(
+                    review=review_instance, user_id=self.context['user_id'])
+            except Reaction.DoesNotExist:
+                return False
+            return reaction.dislike
+
+        return False

@@ -7,4 +7,5 @@ router.register(r'', ReviewViewSet, basename='review')
 
 urlpatterns = [
     path('', include(router.urls)),
+    # path('movie/<int:pk>/',ReviewViewSet.as_view({'get':'custom_action'}), name='your-model-custom-action')
 ]
