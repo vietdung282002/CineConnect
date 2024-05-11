@@ -4,26 +4,27 @@ from movies.models import Movie
 from users.models import CustomUser
 from drf_spectacular.utils import extend_schema_field
 from movies.serializers import MovieListSerializers
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class WatchedSerializers(serializers.ModelSerializer):
     class Meta:
         model = Watched
         fields = ['movie', 'user']
+        extra_kwargs = {'user':{'read_only':True}}
 
 class WatchedDetailSerializers(serializers.ModelSerializer):
-    watched = serializers.SerializerMethodField()
+    movie = serializers.SerializerMethodField()
 
     class Meta:
-        model = CustomUser
-        fields = ['id', 'watched']
+        model = Watched
+        fields = [ 'movie']
         # extra_kwargs = {'user':{'write_only':True}}
 
     @extend_schema_field(serializers.ListField)
-    def get_watched(self, user_instance):
-        user_query_data = CustomUser.objects.get(id=user_instance.id)
-        query_data = []
-        for movie in user_query_data.watched_list.all():
-            query_data.append(movie)
+    def get_movie(self, watched_instance):
+        movie = watched_instance.movie
 
-        return [MovieListSerializers(watched).data for watched in query_data]
+        return MovieListSerializers(movie).data 
