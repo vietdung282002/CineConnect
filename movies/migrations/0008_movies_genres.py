@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('genres', '0001_initial'),
         ('movies', '0007_alter_movies_budget_alter_movies_release_date_and_more'),

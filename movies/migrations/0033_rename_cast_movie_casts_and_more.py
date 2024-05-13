@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('movies', '0032_alter_cast_cast'),
     ]
@@ -24,11 +23,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='cast',
             name='movie',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cast', to='movies.movie'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cast',
+                                    to='movies.movie'),
         ),
         migrations.AlterField(
             model_name='director',
             name='movie',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='director', to='movies.movie'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='director',
+                                    to='movies.movie'),
         ),
     ]

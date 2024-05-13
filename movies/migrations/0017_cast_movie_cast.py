@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('movies', '0016_alter_movie_backdrop_path_alter_movie_poster_path'),
         ('people', '0010_alter_person_id'),
@@ -18,7 +17,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('charactor', models.CharField(max_length=200, null=True)),
                 ('cast_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='people.person')),
-                ('movie_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='casts', to='movies.movie')),
+                ('movie_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='casts',
+                                               to='movies.movie')),
             ],
         ),
         migrations.AddField(

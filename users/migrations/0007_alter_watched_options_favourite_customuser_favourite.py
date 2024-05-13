@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('movies', '0034_alter_cast_options_alter_movie_options'),
         ('users', '0006_alter_customuser_options_watched_time_stamp'),
@@ -22,8 +21,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('time_stamp', models.DateTimeField(auto_now=True)),
-                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='favourite_movie', to='movies.movie')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='favourite_list', to=settings.AUTH_USER_MODEL)),
+                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='favourite_movie',
+                                            to='movies.movie')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='favourite_list',
+                                           to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ('time_stamp',),

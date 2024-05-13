@@ -1,15 +1,14 @@
+from django.db.models import Avg
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
-from .models import Movie, Cast, Director
+
 from genres.models import Genre
-from rating.models import Rating
-from review.models import Review
 from genres.serializers import GenresSerializers
 from people.models import Person
 from people.serializers import PersonSerializers
-from drf_spectacular.utils import extend_schema_field
-from django.db.models import Avg
-
-
+from rating.models import Rating
+from review.models import Review
+from .models import Movie, Cast, Director
 
 
 class CastCharacterSerializer(serializers.ModelSerializer):
@@ -192,7 +191,6 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
                 'id': cast['cast']['id'],
                 'known_for_department': cast['cast']['known_for_department'],
                 'name': cast['cast']['name'],
-                # Bạn có thể sử dụng thông tin khác nếu cần
                 'original_name': cast['cast']['name'],
                 'profile_path': cast['cast']['profile_path'],
                 'character': cast['character'],
@@ -209,13 +207,12 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
                 'id': director['director']['id'],
                 'known_for_department': director['director']['known_for_department'],
                 'name': director['director']['name'],
-                # Bạn có thể sử dụng thông tin khác nếu cần
                 'original_name': director['director']['name'],
                 'profile_path': director['director']['profile_path'],
             }
             director_data.append(director_info)
         data['directors'] = director_data
-        if self.context['user_id'] != None:
+        if self.context['user_id'] is not None:
             try:
                 rating = Rating.objects.get(
                     movie=instance, user_id=self.context['user_id'])

@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('movies', '0021_delete_cast'),
         ('people', '0010_alter_person_id'),

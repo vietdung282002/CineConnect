@@ -1,10 +1,11 @@
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
-from .models import Review, Reaction, Comment
-from rating.models import Rating
+
 from favourite.models import Favourite
 from movies.serializers import Movie, MovieListSerializers
-from drf_spectacular.utils import extend_schema_field
+from rating.models import Rating
 from user_profile.serializers import UserProfileSerializer, CustomUser
+from .models import Review, Reaction, Comment
 
 
 class ReviewListSerializers(serializers.ModelSerializer):
@@ -21,7 +22,7 @@ class ReviewListSerializers(serializers.ModelSerializer):
             'favourite',
             'content'
         ]
-        
+
     @extend_schema_field(serializers.ListField)
     def get_user(self, review_instance):
         user = CustomUser.objects.get(id=review_instance.user.id)

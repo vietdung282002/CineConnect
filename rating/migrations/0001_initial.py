@@ -7,7 +7,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -20,9 +19,12 @@ class Migration(migrations.Migration):
             name='Rating',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('rating', models.FloatField(validators=[django.core.validators.MinValueValidator(0.5), django.core.validators.MaxValueValidator(5.0)])),
-                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='movie_rating', to='movies.movie')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_rating', to=settings.AUTH_USER_MODEL)),
+                ('rating', models.FloatField(validators=[django.core.validators.MinValueValidator(0.5),
+                                                         django.core.validators.MaxValueValidator(5.0)])),
+                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='movie_rating',
+                                            to='movies.movie')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_rating',
+                                           to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddConstraint(

@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('movies', '0034_alter_cast_options_alter_movie_options'),
     ]

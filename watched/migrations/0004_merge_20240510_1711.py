@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('watched', '0002_alter_watched_options_and_more'),
         ('watched', '0003_initial'),

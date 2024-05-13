@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -129,7 +130,6 @@ USE_TZ = True
 
 AUTH_USER_MODEL = 'users.CustomUser'
 STATIC_URL = "static/"
-import os
 
 if DEBUG:
     STATICFILES_DIRS = [
@@ -172,7 +172,7 @@ LOGGING = {
     'loggers': {
         # notice the blank '', Usually you would put built in loggers like django or root here based on your needs
         '': {
-            'handlers': ['file'],  #notice how file variable is called in handler which has been defined above
+            'handlers': ['file'],  # notice how file variable is called in handler which has been defined above
             'level': 'WARNING',
             'propagate': True,
         },

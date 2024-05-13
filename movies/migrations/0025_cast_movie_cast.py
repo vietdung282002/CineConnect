@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('movies', '0024_delete_cast'),
         ('people', '0012_initial'),
@@ -19,7 +18,8 @@ class Migration(migrations.Migration):
                 ('charactor', models.CharField(blank=True, max_length=200)),
                 ('order', models.IntegerField(null=True)),
                 ('cast', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='people.person')),
-                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='casts', to='movies.movie')),
+                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='casts',
+                                            to='movies.movie')),
             ],
         ),
         migrations.AddField(

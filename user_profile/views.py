@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from rest_framework import permissions
+from rest_framework import viewsets
+
 from users.models import CustomUser
 from .serializers import UserProfileSerializer
-from rest_framework import viewsets
-from rest_framework import permissions
 
 
 # Create your views here.

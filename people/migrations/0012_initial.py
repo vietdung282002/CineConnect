@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -20,7 +19,8 @@ class Migration(migrations.Migration):
                 ('biography', models.TextField(blank=True, null=True)),
                 ('birthday', models.DateField(blank=True, null=True)),
                 ('deathday', models.DateField(blank=True, null=True)),
-                ('gender', models.CharField(choices=[('male', 'Male'), ('female', 'Female'), ('others', 'Others')], default='others', max_length=20)),
+                ('gender', models.CharField(choices=[('male', 'Male'), ('female', 'Female'), ('others', 'Others')],
+                                            default='others', max_length=20)),
                 ('homepage', models.TextField(blank=True, null=True)),
                 ('known_for_department', models.CharField(max_length=50, null=True)),
                 ('name', models.CharField(max_length=200)),

@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('movies', '0035_rename_charactor_cast_character'),
         ('rating', '0002_rename_rating_rating_rate'),

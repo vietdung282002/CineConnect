@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Movie, Cast, Director
 
 # Register your models here.

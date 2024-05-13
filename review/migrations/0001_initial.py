@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -22,8 +21,10 @@ class Migration(migrations.Migration):
                 ('time_stamp', models.DateTimeField(auto_now=True)),
                 ('content', models.TextField(blank=True, null=True)),
                 ('likes', models.IntegerField(default=0)),
-                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='movie_review', to='movies.movie')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_review', to=settings.AUTH_USER_MODEL)),
+                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='movie_review',
+                                            to='movies.movie')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_review',
+                                           to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ('time_stamp',),
@@ -34,8 +35,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('like', models.BooleanField(default=False)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_like_review', to=settings.AUTH_USER_MODEL)),
-                ('review', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='related_review', to='review.review')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_like_review',
+                                           to=settings.AUTH_USER_MODEL)),
+                ('review', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='related_review',
+                                             to='review.review')),
             ],
         ),
         migrations.AddConstraint(

@@ -1,5 +1,6 @@
 # Create your views here.
 import logging
+
 logger = logging.getLogger(__name__)
 
 from django.contrib.auth import authenticate
@@ -11,7 +12,6 @@ from rest_framework.response import Response
 
 from .models import CustomUser
 from .serializers import UserRegisterSerializer, UserLoginSerializer, UserLogoutSerializer
-
 
 
 class UserRegisterViewSet(viewsets.ModelViewSet):

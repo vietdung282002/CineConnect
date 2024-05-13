@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('movies', '0029_remove_movie_director'),
         ('people', '0012_initial'),
@@ -17,7 +16,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
                 ('director', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='people.person')),
-                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='directors', to='movies.movie')),
+                ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='directors',
+                                            to='movies.movie')),
             ],
         ),
         migrations.AddField(

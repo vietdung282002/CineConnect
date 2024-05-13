@@ -1,7 +1,8 @@
-from rest_framework import serializers
-from .models import Genre
-from movies.models import Movie
 from drf_spectacular.utils import extend_schema_field
+from rest_framework import serializers
+
+from movies.models import Movie
+from .models import Genre
 
 
 class MoviePaticipateSerializers(serializers.ModelSerializer):

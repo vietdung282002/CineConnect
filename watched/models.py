@@ -20,4 +20,3 @@ class Watched(models.Model):
                 fields=['user', 'movie'], name='unique_movie_user_watched'
             )
         ]
-

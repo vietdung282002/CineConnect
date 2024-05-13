@@ -1,7 +1,7 @@
-from django.shortcuts import render
 from rest_framework import viewsets
-from .serializers import PersonSerializers, PersonDetailSerializers
+
 from .models import Person
+from .serializers import PersonSerializers, PersonDetailSerializers
 
 
 # Create your views here.

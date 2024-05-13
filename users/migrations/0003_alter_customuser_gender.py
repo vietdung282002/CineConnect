@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('users', '0002_customuser_bio_customuser_gender_and_more'),
     ]
@@ -13,6 +12,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='customuser',
             name='gender',
-            field=models.CharField(choices=[('male', 'Male'), ('female', 'Female'), ('others', 'Others')], default='others', max_length=20),
+            field=models.CharField(choices=[('male', 'Male'), ('female', 'Female'), ('others', 'Others')],
+                                   default='others', max_length=20),
         ),
     ]

@@ -1,11 +1,12 @@
-from django.shortcuts import render
-from .models import Movie
-from genres.models import Genre
-from .serializers import MovieCreateSerializer, MovieDetailDisplaySerializer, MovieListDisplaySerializers
-from rest_framework import viewsets
-from rest_framework.response import Response
 import logging
+
+from rest_framework import viewsets
+
+from .models import Movie
+from .serializers import MovieCreateSerializer, MovieDetailDisplaySerializer, MovieListDisplaySerializers
+
 logger = logging.getLogger(__name__)
+
 
 # Create your views here.
 class MovieViewSet(viewsets.ModelViewSet):
@@ -22,9 +23,10 @@ class MovieViewSet(viewsets.ModelViewSet):
             return MovieCreateSerializer
 
     http_method_names = ['get']
+
     def get_serializer_context(self):
         context = super().get_serializer_context()
         # if not self.request.user.is_anonymous:
         context['user_id'] = self.request.user.id
-        
+
         return context

@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('movies', '0034_alter_cast_options_alter_movie_options'),
         ('users', '0004_watched_customuser_watched_list'),
@@ -25,6 +24,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='watched',
             name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='watched_list', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='watched_list',
+                                    to=settings.AUTH_USER_MODEL),
         ),
     ]
