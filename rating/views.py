@@ -25,6 +25,8 @@ class RatingViewSet(mixins.CreateModelMixin,
             return RatingSerializers
 
     permission_classes = (permissions.IsAuthenticated,)
+    
+    http_method_names = ['post','put','delete']
 
     def create(self, request, *args, **kwargs):
         data = request.data
@@ -37,10 +39,10 @@ class RatingViewSet(mixins.CreateModelMixin,
             Watched.objects.create(movie_id=movie_id, user_id=request.user.id)
 
         try:
-            ratinng = Rating.objects.create(movie_id=movie_id, user_id=request.user.id)
+            rating = Rating.objects.create(movie_id=movie_id, user_id=request.user.id)
             data = data = {
                 "status": "success",
-                "message": RatingSerializers(ratinng).data
+                "message": RatingSerializers(rating).data
             }
             return Response(data, status=status.HTTP_201_CREATED)
         except Exception as e:
@@ -69,14 +71,14 @@ class RatingViewSet(mixins.CreateModelMixin,
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Rating.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-
-    def partial_update(self, request, pk, *args, **kwargs):
-        try:
-            rating_obj = Rating.objects.get(movie_id=pk, user_id=request.user.id)
-            serializer = RatingUpdateSerializers(rating_obj, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Rating.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    # def partial_update(self, request, pk, *args, **kwargs):
+    #     try:
+    #         rating_obj = Rating.objects.get(movie_id=pk, user_id=request.user.id)
+    #         serializer = RatingUpdateSerializers(rating_obj, data=request.data)
+    #         if serializer.is_valid():
+    #             serializer.save()
+    #             return Response(serializer.data)
+    #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #     except Rating.DoesNotExist:
+    #         return Response(status=status.HTTP_404_NOT_FOUND)

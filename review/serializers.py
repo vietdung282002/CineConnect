@@ -7,6 +7,10 @@ from rating.models import Rating
 from user_profile.serializers import UserProfileSerializer, CustomUser
 from .models import Review, Reaction, Comment
 
+class ReviewSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['movie','content']
 
 class ReviewListSerializers(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
