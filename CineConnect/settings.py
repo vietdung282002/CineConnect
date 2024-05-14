@@ -36,10 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'daphne',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
+    'djangochannelsrestframework',
+    'channels',
     'users',
     'user_profile',
     'genres',
@@ -81,6 +84,14 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'CineConnect.wsgi.application'
+ASGI_APPLICATION = 'CineConnect.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
