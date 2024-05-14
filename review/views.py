@@ -4,7 +4,8 @@ from rest_framework import viewsets, mixins,status, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from watched.models import Watched
-from .serializers import ReviewSerializers,ReviewDetailSerializer, Review, ReviewListSerializers
+from .models import Review,Comment,Reaction
+from .serializers import ReviewSerializers, ReviewDetailSerializer, ReviewListSerializers, CommentSerializer, CommentListSerializer, ReactionSerializer, ReactionDetailSerializer
 from .permissions import IsOwnerOrReadOnly
 logger = logging.getLogger(__name__)
 
@@ -16,7 +17,7 @@ class ReviewViewSet(mixins.RetrieveModelMixin,
                     viewsets.GenericViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewDetailSerializer
-    permission_classes = [permissions.IsAuthenticated,IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
 
 
     def get_serializer_context(self):
@@ -56,12 +57,10 @@ class ReviewViewSet(mixins.RetrieveModelMixin,
                 "message": str(e)
             }
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
-        
-    def partial_update(self, request, *args, **kwargs):
-        return super().partial_update(request, *args, **kwargs)
 
     @action(detail=True, methods=['get'],
-            serializer_class=ReviewListSerializers)  # decorator để định nghĩa hành động tùy chỉnh, `detail=True` để chỉ áp dụng cho một đối tượng cụ thể
+            serializer_class=ReviewListSerializers)  
+    
     def review_list(self, request, pk):
         instance = Review.objects.filter(movie_id=pk)
         review = [ReviewListSerializers(review).data for review in instance]
@@ -69,6 +68,138 @@ class ReviewViewSet(mixins.RetrieveModelMixin,
             "id": pk,
             "review": review
         }
-        logger.warning(response)
 
         return Response(response, status=status.HTTP_200_OK)
+    
+class CommentViewSet(mixins.CreateModelMixin,
+                     mixins.UpdateModelMixin,
+                     mixins.DestroyModelMixin,
+                     viewsets.GenericViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
+    
+    http_method_names = ['get','post','patch','delete']
+    def create(self, request, *args, **kwargs):
+        review = request.data.get('review')
+        comment = request.data.get('comment')
+        try: 
+            comment = Comment.objects.create(review_id = review,comment = comment,user_id = request.user.id)
+            data = {
+                "status": "success",
+                "message": CommentSerializer(comment).data
+            }
+            return Response(data, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            data = {
+                "status": "error",
+                "message": str(e)
+            }
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
+        
+    @action(detail=True, methods=['get'],
+            serializer_class=CommentListSerializer)  
+    def comment_list(self, request, pk):
+        instance = Comment.objects.filter(review_id=pk)
+        comment = [CommentListSerializer(comment).data for comment in instance]
+        response = {
+            "id": pk,
+            "review": comment
+        }
+
+        return Response(response, status=status.HTTP_200_OK)
+    
+class ReactionViewSet(viewsets.GenericViewSet):
+    queryset = Reaction.objects.all()
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
+    serializer_class = ReactionSerializer
+    
+    @action(detail=False, methods=['post'],serializer_class=ReactionSerializer)  
+    def like(self,request, *args, **kwargs):
+        try:
+            review = Review.objects.get(id = request.data.get('review'))
+        except Review.DoesNotExist:
+            data = {
+                "status": "error",
+                "message": "Objects not found"
+            }
+            return Response(data= data,status=status.HTTP_404_NOT_FOUND)
+        
+        try:
+            reaction = Reaction.objects.get(review = review,user_id = request.user.id)
+            logger.warning(reaction.like)
+        except Reaction.DoesNotExist:
+            reaction = Reaction.objects.create(review = review,user_id = request.user.id)
+            
+        data = None
+        if reaction.like == False:
+            reaction.like = True
+            reaction.dislike = False
+            reaction.save()
+            data = {
+                "status": "success",
+                "message": {
+                    "review":review.id,
+                    "like": True,
+                    "dislike":False
+                }
+            }
+        else: 
+            reaction.like = False
+            reaction.save()
+            reaction.delete()
+            data = {
+                "status": "success",
+                "message": {
+                    "review":review.id,
+                    "like": False,
+                    "dislike":False
+                }
+            }
+        return Response(data, status=status.HTTP_201_CREATED)
+        
+    @action(detail=False, methods=['post'],
+            serializer_class=ReactionSerializer)  
+    def dislike(self,request, *args, **kwargs):
+        try:
+            review = Review.objects.get(id = request.data.get('review'))
+        except Review.DoesNotExist:
+            data = {
+                "status": "error",
+                "message": "Objects not found"
+            }
+            return Response(data= data,status=status.HTTP_404_NOT_FOUND)
+        
+        try:
+            reaction = Reaction.objects.get(review_id = review.id,user_id = request.user.id)
+        except Reaction.DoesNotExist:
+            reaction = Reaction.objects.create(review = review,user_id = request.user.id)
+        
+        data = None
+        if reaction.dislike == False:
+            reaction.dislike = True
+            reaction.like = False
+            reaction.save()
+            data = {
+                "status": "success",
+                "message": {
+                    "review":review.id,
+                    "like": False,
+                    "dislike":True
+                }
+            }
+        else: 
+            reaction.dislike = False
+            reaction.save()
+            reaction.delete()
+            data = {
+                "status": "success",
+                "message": {
+                    "review":review.id,
+                    "like": False,
+                    "dislike":False
+                }
+            }
+            
+        
+        return Response(data, status=status.HTTP_201_CREATED)

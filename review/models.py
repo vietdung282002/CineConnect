@@ -39,7 +39,7 @@ class Reaction(models.Model):
         ]
 
     def __str__(self):
-        return str(self.user)
+        return f'Reaction by {self.user.username}'
 
 
 class Comment(models.Model):
@@ -53,4 +53,4 @@ class Comment(models.Model):
         ordering = ('time_stamp',)
 
     def __str__(self):
-        return str(self.user)
+        return f'Comment by {self.user.username}'

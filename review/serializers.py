@@ -1,6 +1,5 @@
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
-
 from favourite.models import Favourite
 from movies.serializers import Movie, MovieListSerializers
 from rating.models import Rating
@@ -68,6 +67,7 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = [
+            'id',
             'movie',
             'user',
             'content',
@@ -152,3 +152,50 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
             return reaction.dislike
 
         return False
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['review','comment']
+
+class CommentListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['id','user','comment','time_stamp']
+        
+        
+class ReactionSerializer(serializers.ModelSerializer):
+    is_reaction = serializers.SerializerMethodField()
+    class Meta:
+        model = Reaction
+        fields = ['review','is_reaction']
+        
+    @extend_schema_field(serializers.ListField)
+    def get_is_reaction(self, reaction_instance):
+        try:
+            reaction = Reaction.objects.get(reaction=reaction_instance)
+            if reaction.like == True:
+                return "Liked"
+            else:
+                return "Disliked"
+        except Reaction.DoesNotExist:
+            return "None"
+        
+class ReactionDetailSerializer(serializers.ModelSerializer):
+    is_reaction = serializers.SerializerMethodField()
+    class Meta:
+        model = Reaction
+        fields = ['review','user','is_reaction']
+        
+    @extend_schema_field(serializers.ListField)
+    def get_is_reaction(self, reaction_instance):
+        try:
+            reaction = Reaction.objects.get(reaction=reaction_instance)
+            if reaction.like == True:
+                return "Liked"
+            else:
+                return "Disliked"
+        except Reaction.DoesNotExist:
+            return "None"
+            
+        

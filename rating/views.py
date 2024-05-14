@@ -17,6 +17,7 @@ class RatingViewSet(mixins.CreateModelMixin,
                     mixins.UpdateModelMixin,
                     viewsets.GenericViewSet):
     serializer_class = RatingSerializers
+    queryset = Rating.objects.all()
 
     def get_serializer_class(self):
         if self.action == 'update' or self.action == 'partial_update':
