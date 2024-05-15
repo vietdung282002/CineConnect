@@ -40,7 +40,5 @@ class MovieViewSet(viewsets.ModelViewSet):
             self.queryset = Movie.objects.filter(title__icontains=query)
         else:
             self.queryset = []
-        self.serializer_class = MovieListDisplaySerializers
-        logger.warning(self.action)
         return super().list(request, *args, **kwargs)
             
