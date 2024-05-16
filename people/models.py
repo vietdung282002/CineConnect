@@ -25,7 +25,7 @@ class Person(models.Model):
     known_for_department = models.CharField(null=True, max_length=50)
     name = models.CharField(max_length=200)
     place_of_birth = models.CharField(null=True, max_length=200)
-    profile_path = models.CharField(default='default.jpg')
+    profile_path = models.TextField(default='default.jpg')
 
     def __str__(self):
         return self.name + " (" + str(self.id) + ")"
