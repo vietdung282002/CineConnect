@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'djangochannelsrestframework',
     'channels',
+    'corsheaders',
     'users',
     'user_profile',
     'genres',
