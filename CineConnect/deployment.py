@@ -45,6 +45,7 @@ DATABASES = {
         "HOST": CONNECTION_STR['host'],
         "USER": CONNECTION_STR['user'],
         "PASSWORD": CONNECTION_STR['password'],
+        'PORT': '5432',
     }
 }
 
