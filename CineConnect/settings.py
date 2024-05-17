@@ -29,9 +29,8 @@ SECRET_KEY = 'django-insecure-nk!mmfqoehl$3$)*lmr&getnumr_b(!$9(mba0b@3o2=ksf-lh
 # ALLOWED_HOSTS = []
 # SECRET_KEY = os.getenv('SECRET_KEY')
 
-DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
-
-ALLOWED_HOSTS = []
+DEBUG = True
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 

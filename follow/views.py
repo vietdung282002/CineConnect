@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets,status,mixins
+from rest_framework import viewsets,status,mixins,permissions
 from .models import Follow
 from .serializers import FollowSerializer
 from rest_framework.decorators import action
@@ -10,6 +10,7 @@ class FollowViewSet(mixins.CreateModelMixin,
                     viewsets.GenericViewSet):
     queryset = Follow.objects.all()
     serializer_class = FollowSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
     def create(self, request, *args, **kwargs):
         data = request.data

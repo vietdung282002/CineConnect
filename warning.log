@@ -178,3 +178,155 @@ Traceback (most recent call last):
            ^^^^^^^^^^^^
 AttributeError: 'super' object has no attribute 'list'
 [35;1mHTTP GET /follow/get_follower/ 500 [0.05, 127.0.0.1:51988][0m
+Not Found: /static/jazzmin/css/main.css
+Not Found: /static/vendor/adminlte/css/adminlte.min.css
+Not Found: /static/vendor/fontawesome-free/css/all.min.css
+Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+Not Found: /static/vendor/select2/css/select2.min.css
+[33mHTTP GET /static/jazzmin/css/main.css 404 [0.07, 127.0.0.1:62912][0m
+[33mHTTP GET /static/vendor/adminlte/css/adminlte.min.css 404 [0.07, 127.0.0.1:62911][0m
+[33mHTTP GET /static/vendor/fontawesome-free/css/all.min.css 404 [0.07, 127.0.0.1:62909][0m
+[33mHTTP GET /static/admin/js/vendor/jquery/jquery.min.js 404 [0.06, 127.0.0.1:62914][0m
+[33mHTTP GET /static/vendor/select2/css/select2.min.css 404 [0.07, 127.0.0.1:62913][0m
+Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+[33mHTTP GET /static/admin/js/vendor/xregexp/xregexp.min.js 404 [0.04, 127.0.0.1:62912][0m
+Not Found: /static/admin/js/jquery.init.js
+[33mHTTP GET /static/admin/js/jquery.init.js 404 [0.04, 127.0.0.1:62909][0m
+Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+Not Found: /static/admin/js/core.js
+Not Found: /static/admin/js/actions.js
+[33mHTTP GET /static/admin/js/admin/RelatedObjectLookups.js 404 [0.04, 127.0.0.1:62914][0m
+[33mHTTP GET /static/admin/js/core.js 404 [0.04, 127.0.0.1:62913][0m
+[33mHTTP GET /static/admin/js/actions.js 404 [0.04, 127.0.0.1:62911][0m
+Not Found: /static/admin/js/urlify.js
+[33mHTTP GET /static/admin/js/urlify.js 404 [0.04, 127.0.0.1:62912][0m
+Not Found: /static/admin/js/prepopulate.js
+[33mHTTP GET /static/admin/js/prepopulate.js 404 [0.04, 127.0.0.1:62909][0m
+Not Found: /static/admin/js/vendor/jquery/jquery.js
+[33mHTTP GET /static/admin/js/vendor/jquery/jquery.js 404 [0.03, 127.0.0.1:62913][0m
+Not Found: /static/vendor/adminlte/img/AdminLTELogo.png
+[33mHTTP GET /static/vendor/adminlte/img/AdminLTELogo.png 404 [0.04, 127.0.0.1:62911][0m
+Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+Not Found: /static/vendor/adminlte/js/adminlte.min.js
+[33mHTTP GET /static/vendor/bootstrap/js/bootstrap.min.js 404 [0.02, 127.0.0.1:62911][0m
+[33mHTTP GET /static/vendor/adminlte/js/adminlte.min.js 404 [0.02, 127.0.0.1:62913][0m
+Not Found: /static/jazzmin/js/main.js
+Not Found: /static/vendor/select2/js/select2.min.js
+[33mHTTP GET /static/jazzmin/js/main.js 404 [0.02, 127.0.0.1:62913][0m
+[33mHTTP GET /static/vendor/select2/js/select2.min.js 404 [0.02, 127.0.0.1:62911][0m
+Not Found: /static/jazzmin/js/change_list.js
+[33mHTTP GET /static/jazzmin/js/change_list.js 404 [0.01, 127.0.0.1:62911][0m
+Not Found: /static/vendor/adminlte/img/AdminLTELogo.png
+[33mHTTP GET /static/vendor/adminlte/img/AdminLTELogo.png 404 [0.01, 127.0.0.1:62915][0m
+Not Found: /static/admin/js/vendor/jquery/jquery.min.js
+[33mHTTP GET /static/admin/js/vendor/jquery/jquery.min.js 404 [0.04, 127.0.0.1:62912][0m
+Not Found: /static/vendor/fontawesome-free/css/all.min.css
+Not Found: /static/jazzmin/css/main.css
+Not Found: /static/vendor/adminlte/css/adminlte.min.css
+[33mHTTP GET /static/vendor/fontawesome-free/css/all.min.css 404 [0.06, 127.0.0.1:62913][0m
+[33mHTTP GET /static/jazzmin/css/main.css 404 [0.06, 127.0.0.1:62915][0m
+[33mHTTP GET /static/vendor/adminlte/css/adminlte.min.css 404 [0.06, 127.0.0.1:62909][0m
+Not Found: /static/vendor/select2/css/select2.min.css
+[33mHTTP GET /static/vendor/select2/css/select2.min.css 404 [0.07, 127.0.0.1:62911][0m
+Not Found: /static/admin/js/jquery.init.js
+[33mHTTP GET /static/admin/js/jquery.init.js 404 [0.02, 127.0.0.1:62912][0m
+Not Found: /static/admin/js/core.js
+Not Found: /static/admin/js/actions.js
+Not Found: /static/admin/js/urlify.js
+Not Found: /static/admin/js/prepopulate.js
+Not Found: /static/admin/js/admin/RelatedObjectLookups.js
+[33mHTTP GET /static/admin/js/core.js 404 [0.05, 127.0.0.1:62913][0m
+[33mHTTP GET /static/admin/js/actions.js 404 [0.04, 127.0.0.1:62909][0m
+[33mHTTP GET /static/admin/js/urlify.js 404 [0.04, 127.0.0.1:62911][0m
+[33mHTTP GET /static/admin/js/prepopulate.js 404 [0.04, 127.0.0.1:62912][0m
+[33mHTTP GET /static/admin/js/admin/RelatedObjectLookups.js 404 [0.04, 127.0.0.1:62915][0m
+Not Found: /static/admin/js/vendor/xregexp/xregexp.min.js
+[33mHTTP GET /static/admin/js/vendor/xregexp/xregexp.min.js 404 [0.01, 127.0.0.1:62913][0m
+Not Found: /static/admin/js/vendor/jquery/jquery.js
+[33mHTTP GET /static/admin/js/vendor/jquery/jquery.js 404 [0.02, 127.0.0.1:62913][0m
+Not Found: /static/vendor/adminlte/img/AdminLTELogo.png
+[33mHTTP GET /static/vendor/adminlte/img/AdminLTELogo.png 404 [0.02, 127.0.0.1:62915][0m
+Not Found: /static/vendor/adminlte/js/adminlte.min.js
+[33mHTTP GET /static/vendor/adminlte/js/adminlte.min.js 404 [0.06, 127.0.0.1:62913][0m
+Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[33mHTTP GET /static/vendor/bootstrap/js/bootstrap.min.js 404 [0.08, 127.0.0.1:62915][0m
+Not Found: /static/jazzmin/js/change_list.js
+[33mHTTP GET /static/jazzmin/js/change_list.js 404 [0.06, 127.0.0.1:62911][0m
+Not Found: /static/vendor/select2/js/select2.min.js
+[33mHTTP GET /static/vendor/select2/js/select2.min.js 404 [0.07, 127.0.0.1:62912][0m
+Not Found: /static/jazzmin/js/main.js
+[33mHTTP GET /static/jazzmin/js/main.js 404 [0.08, 127.0.0.1:62914][0m
+Not Found: /static/jazzmin/css/main.css
+[33mHTTP GET /static/jazzmin/css/main.css 404 [0.03, 127.0.0.1:62911][0m
+Not Found: /static/vendor/fontawesome-free/css/all.min.css
+Not Found: /static/vendor/adminlte/css/adminlte.min.css
+Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+Not Found: /static/vendor/adminlte/img/AdminLTELogo.png
+[33mHTTP GET /static/vendor/fontawesome-free/css/all.min.css 404 [0.05, 127.0.0.1:62914][0m
+[33mHTTP GET /static/vendor/adminlte/css/adminlte.min.css 404 [0.04, 127.0.0.1:62912][0m
+[33mHTTP GET /static/vendor/bootstrap/js/bootstrap.min.js 404 [0.05, 127.0.0.1:62913][0m
+[33mHTTP GET /static/vendor/adminlte/img/AdminLTELogo.png 404 [0.05, 127.0.0.1:62909][0m
+Not Found: /static/admin/js/vendor/jquery/jquery.js
+[33mHTTP GET /static/admin/js/vendor/jquery/jquery.js 404 [0.05, 127.0.0.1:62915][0m
+Not Found: /static/vendor/adminlte/js/adminlte.min.js
+[33mHTTP GET /static/vendor/adminlte/js/adminlte.min.js 404 [0.03, 127.0.0.1:62911][0m
+Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+Not Found: /static/vendor/adminlte/css/adminlte.min.css
+Not Found: /static/vendor/fontawesome-free/css/all.min.css
+Not Found: /static/admin/js/vendor/jquery/jquery.js
+[33mHTTP GET /static/vendor/bootstrap/js/bootstrap.min.js 404 [0.05, 127.0.0.1:62912][0m
+[33mHTTP GET /static/vendor/adminlte/css/adminlte.min.css 404 [0.05, 127.0.0.1:62915][0m
+[33mHTTP GET /static/vendor/fontawesome-free/css/all.min.css 404 [0.06, 127.0.0.1:62911][0m
+Not Found: /static/vendor/adminlte/img/AdminLTELogo.png
+[33mHTTP GET /static/admin/js/vendor/jquery/jquery.js 404 [0.06, 127.0.0.1:62913][0m
+Not Found: /static/jazzmin/css/main.css
+[33mHTTP GET /static/vendor/adminlte/img/AdminLTELogo.png 404 [0.06, 127.0.0.1:62914][0m
+[33mHTTP GET /static/jazzmin/css/main.css 404 [0.06, 127.0.0.1:62909][0m
+Not Found: /static/vendor/adminlte/js/adminlte.min.js
+[33mHTTP GET /static/vendor/adminlte/js/adminlte.min.js 404 [0.02, 127.0.0.1:62912][0m
+Not Found: /static/vendor/fontawesome-free/css/all.min.css
+[33mHTTP GET /static/vendor/fontawesome-free/css/all.min.css 404 [0.05, 127.0.0.1:62914][0m
+Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[33mHTTP GET /static/vendor/bootstrap/js/bootstrap.min.js 404 [0.04, 127.0.0.1:62911][0m
+Not Found: /static/vendor/adminlte/css/adminlte.min.css
+Not Found: /static/jazzmin/css/main.css
+Not Found: /static/admin/js/vendor/jquery/jquery.js
+[33mHTTP GET /static/vendor/adminlte/css/adminlte.min.css 404 [0.05, 127.0.0.1:62912][0m
+Not Found: /static/vendor/adminlte/img/AdminLTELogo.png
+[33mHTTP GET /static/jazzmin/css/main.css 404 [0.05, 127.0.0.1:62909][0m
+[33mHTTP GET /static/admin/js/vendor/jquery/jquery.js 404 [0.06, 127.0.0.1:62913][0m
+[33mHTTP GET /static/vendor/adminlte/img/AdminLTELogo.png 404 [0.06, 127.0.0.1:62915][0m
+Not Found: /static/vendor/adminlte/js/adminlte.min.js
+[33mHTTP GET /static/vendor/adminlte/js/adminlte.min.js 404 [0.03, 127.0.0.1:62914][0m
+Not Found: /static/vendor/fontawesome-free/css/all.min.css
+[33mHTTP GET /static/vendor/fontawesome-free/css/all.min.css 404 [0.04, 127.0.0.1:62914][0m
+Not Found: /static/vendor/adminlte/css/adminlte.min.css
+Not Found: /static/admin/js/vendor/jquery/jquery.js
+Not Found: /static/vendor/adminlte/img/AdminLTELogo.png
+Not Found: /static/jazzmin/css/main.css
+Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+[33mHTTP GET /static/vendor/adminlte/css/adminlte.min.css 404 [0.04, 127.0.0.1:62915][0m
+[33mHTTP GET /static/admin/js/vendor/jquery/jquery.js 404 [0.04, 127.0.0.1:62913][0m
+[33mHTTP GET /static/vendor/adminlte/img/AdminLTELogo.png 404 [0.04, 127.0.0.1:62911][0m
+[33mHTTP GET /static/jazzmin/css/main.css 404 [0.05, 127.0.0.1:62909][0m
+[33mHTTP GET /static/vendor/bootstrap/js/bootstrap.min.js 404 [0.04, 127.0.0.1:62912][0m
+Not Found: /static/vendor/adminlte/js/adminlte.min.js
+[33mHTTP GET /static/vendor/adminlte/js/adminlte.min.js 404 [0.02, 127.0.0.1:62914][0m
+Not Found: /static/vendor/adminlte/css/adminlte.min.css
+Not Found: /static/vendor/fontawesome-free/css/all.min.css
+[33mHTTP GET /static/vendor/adminlte/css/adminlte.min.css 404 [0.05, 127.0.0.1:62909][0m
+Not Found: /static/vendor/adminlte/img/AdminLTELogo.png
+Not Found: /static/vendor/bootstrap/js/bootstrap.min.js
+Not Found: /static/jazzmin/css/main.css
+Not Found: /static/admin/js/vendor/jquery/jquery.js
+[33mHTTP GET /static/vendor/fontawesome-free/css/all.min.css 404 [0.05, 127.0.0.1:62914][0m
+[33mHTTP GET /static/vendor/adminlte/img/AdminLTELogo.png 404 [0.05, 127.0.0.1:62915][0m
+[33mHTTP GET /static/vendor/bootstrap/js/bootstrap.min.js 404 [0.05, 127.0.0.1:62913][0m
+[33mHTTP GET /static/jazzmin/css/main.css 404 [0.05, 127.0.0.1:62912][0m
+[33mHTTP GET /static/admin/js/vendor/jquery/jquery.js 404 [0.05, 127.0.0.1:62911][0m
+Not Found: /static/vendor/adminlte/js/adminlte.min.js
+[33mHTTP GET /static/vendor/adminlte/js/adminlte.min.js 404 [0.05, 127.0.0.1:62909][0m
+Not Found: /static/jazzmin/js/main.js
+[33mHTTP GET /static/jazzmin/js/main.js 404 [0.04, 127.0.0.1:62915][0m
+Bad Request: /follow/
+[31;1mHTTP POST /follow/ 400 [0.22, 127.0.0.1:62953][0m
