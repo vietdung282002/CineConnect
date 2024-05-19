@@ -13,7 +13,9 @@ from channels.auth import AuthMiddlewareStack
 from django.core.asgi import get_asgi_application
 from review.routing import websocket_urlpatterns
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CineConnect.settings')
+settings_module = 'CineConnect.deployment' if 'WEBSITE_HOSTNAME' in os.environ else 'CineConnect.settings'
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
