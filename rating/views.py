@@ -5,9 +5,10 @@ from rest_framework import permissions
 from rest_framework import status
 from rest_framework import viewsets, mixins
 from rest_framework.response import Response
-
+from movies.models import Movie
 from watched.models import Watched
 from .serializers import RatingSerializers, Rating, RatingUpdateSerializers
+from django.db.models import F,Avg
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +33,7 @@ class RatingViewSet(mixins.CreateModelMixin,
     def create(self, request, *args, **kwargs):
         data = request.data
         movie_id = data.get('movie')
+        rate = data.get('rate')
         if Rating.objects.filter(user_id=request.user.id, movie_id=movie_id).exists():
             return Response({'message': 'Object already exists.'}, status=status.HTTP_400_BAD_REQUEST)
         try:
@@ -40,7 +42,13 @@ class RatingViewSet(mixins.CreateModelMixin,
             Watched.objects.create(movie_id=movie_id, user_id=request.user.id)
 
         try:
-            rating = Rating.objects.create(movie_id=movie_id, user_id=request.user.id)
+            rating = Rating.objects.create(movie_id=movie_id, user_id=request.user.id,rate= rate)
+            movie = Movie.objects.get(movie_id=movie_id)
+            movie.rate_count = F('rate_count') + 1
+            movie.rate_avr = Rating.objects.filter(movie_id=movie_id).aggregate(Avg('rate'))
+
+            movie.save()
+            
             data = data = {
                 "status": "success",
                 "message": RatingSerializers(rating).data

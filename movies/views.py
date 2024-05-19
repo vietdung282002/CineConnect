@@ -7,6 +7,9 @@ from .serializers import MovieCreateSerializer, MovieDetailDisplaySerializer, Mo
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from drf_spectacular.utils import extend_schema,OpenApiParameter
+from recommendation_system.recommendation_engine import run_async_task
+from asgiref.sync import async_to_sync
+import asyncio
 import logging
 
 logger = logging.getLogger(__name__)
@@ -24,6 +27,10 @@ class MovieViewSet(viewsets.ModelViewSet):
             return MovieDetailDisplaySerializer
         else:
             return MovieCreateSerializer
+        
+    def list(self, request, *args, **kwargs):
+        async_to_sync(asyncio.create_task)(run_async_task())
+        return super().list(request, *args, **kwargs)
 
 
     def get_serializer_context(self):

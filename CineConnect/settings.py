@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'review',
     'watched',
     'follow',
+    'recommendation_system',
     'drf_spectacular',
 ]
 
