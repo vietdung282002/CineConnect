@@ -47,9 +47,9 @@ class RatingViewSet(mixins.CreateModelMixin,
 
         try:
             rating = Rating.objects.create(movie_id=movie_id, user_id=request.user.id,rate= rate)
-            movie = Movie.objects.get(movie_id=movie_id)
+            movie = Movie.objects.get(id=movie_id)
             movie.rate_count = F('rate_count') + 1
-            movie.rate_avr = Rating.objects.filter(movie_id=movie_id).aggregate(Avg('rate'))
+            movie.rate_avr = Rating.objects.filter(movie_id=movie_id).aggregate(Avg('rate')).get('rate__avg')
 
             movie.save()
             
