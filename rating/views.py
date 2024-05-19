@@ -7,8 +7,11 @@ from rest_framework import viewsets, mixins
 from rest_framework.response import Response
 from movies.models import Movie
 from watched.models import Watched
+from users.models import CustomUser
 from .serializers import RatingSerializers, Rating, RatingUpdateSerializers
 from django.db.models import F,Avg
+import threading
+from recommendation_system import recommendation_engine
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +37,7 @@ class RatingViewSet(mixins.CreateModelMixin,
         data = request.data
         movie_id = data.get('movie')
         rate = data.get('rate')
+        user = CustomUser.objects.get(id = request.user.id)
         if Rating.objects.filter(user_id=request.user.id, movie_id=movie_id).exists():
             return Response({'message': 'Object already exists.'}, status=status.HTTP_400_BAD_REQUEST)
         try:
@@ -53,6 +57,9 @@ class RatingViewSet(mixins.CreateModelMixin,
                 "status": "success",
                 "message": RatingSerializers(rating).data
             }
+            if rate >= 4:
+                thread = threading.Thread(target=recommendation_engine.content_recommendations(movie=movie,user=user))
+                thread.start()
             return Response(data, status=status.HTTP_201_CREATED)
         except Exception as e:
             data = {

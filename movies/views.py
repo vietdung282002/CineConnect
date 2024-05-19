@@ -7,9 +7,10 @@ from .serializers import MovieCreateSerializer, MovieDetailDisplaySerializer, Mo
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from drf_spectacular.utils import extend_schema,OpenApiParameter
-from recommendation_system.recommendation_engine import run_async_task
+from recommendation_system.recommendation_engine import create_tfidf_matrix,cal_cosine_simulator,content_recommendations
 from asgiref.sync import async_to_sync
 import asyncio
+import threading
 import logging
 
 logger = logging.getLogger(__name__)
@@ -18,7 +19,7 @@ logger = logging.getLogger(__name__)
 # Create your views here.
 class MovieViewSet(viewsets.ModelViewSet):
     queryset = Movie.objects.all()
-    http_method_names = ['get']
+    http_method_names = ['get','post']
     
     def get_serializer_class(self):
         if self.action == 'list' or self.action == 'search':
@@ -28,9 +29,25 @@ class MovieViewSet(viewsets.ModelViewSet):
         else:
             return MovieCreateSerializer
         
-    def list(self, request, *args, **kwargs):
-        async_to_sync(asyncio.create_task)(run_async_task())
-        return super().list(request, *args, **kwargs)
+    # def create(self, request, *args, **kwargs):
+    #     data = super().create(request, *args, **kwargs)
+    #     thread = threading.Thread(target=cal_cosine_simulator)
+    #     thread.start()
+    #     return data
+        
+    # def list(self, request, *args, **kwargs):
+    #     data = super().list(request, *args, **kwargs)
+    #     thread = threading.Thread(target=cal_cosine_simulator())
+    #     thread.start()
+    #     logger.warning(123)
+    #     return data
+    
+    # def retrieve(self, request,pk, *args, **kwargs):
+    #     data = super().retrieve(request, *args, **kwargs)
+    #     movie = Movie.objects.get(id = pk)
+    #     thread = threading.Thread(target=content_recommendations(movie))
+    #     thread.start()
+    #     return data
 
 
     def get_serializer_context(self):
