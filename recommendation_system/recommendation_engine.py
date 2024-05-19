@@ -24,6 +24,10 @@ def create_tfidf_matrix():
     tfidfv_matrix = tfidfv.fit_transform(df_movielens['overview'])
  
     tfidfv_dense = tfidfv_matrix.todense()
+    
+    entries = TfidfMatrixModel.objects.all()
+    entries.delete()
+    
     matrix_model = TfidfMatrixModel()
     matrix_model.save_matrix(tfidfv_matrix)
 
