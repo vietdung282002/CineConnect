@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from .models import CustomUser
+from drf_spectacular.utils import extend_schema_field
+
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
@@ -21,10 +23,15 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
 
 class UserLoginSerializer(serializers.ModelSerializer):
+    username_or_email = serializers.SerializerMethodField()
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'password', ]
+        fields = ['id', 'username_or_email', 'password', ]
         extra_kwargs = {'id': {'read_only': True}, 'password': {'write_only': True}}
+    
+    @extend_schema_field(serializers.ListField)
+    def get_username_or_email(self, obj):
+        return obj.username or obj.email
 
 
 class UserLogoutSerializer(serializers.ModelSerializer):

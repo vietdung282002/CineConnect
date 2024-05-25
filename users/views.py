@@ -41,7 +41,7 @@ class UserLoginViewSet(viewsets.ModelViewSet):
     http_method_names = ['post']
 
     def create(self, request, **kwargs):
-        username = request.data.get('username')
+        username = request.data.get('username_or_email')
         password = request.data.get('password')
         try:
             user = CustomUser.objects.get(username=username)

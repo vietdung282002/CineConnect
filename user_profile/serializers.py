@@ -39,6 +39,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         rate_count = Rating.objects.filter(user = user_instance).count()
         return rate_count
     
+    @extend_schema_field(serializers.ListField)
     def get_is_following(self,user_instance):
         if self.context['user_id'] is not None and self.context['user_id'] != user_instance.id:
             try:
