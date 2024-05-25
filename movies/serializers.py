@@ -10,6 +10,7 @@ from people.serializers import PersonSerializers
 from rating.models import Rating
 from review.models import Review
 from .models import Movie, Cast, Director
+from favourite.models import Favourite
 
 
 class CastCharacterSerializer(serializers.ModelSerializer):
@@ -128,18 +129,25 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
     rating = serializers.SerializerMethodField()
     review_count = serializers.SerializerMethodField()
     genres = GenresSerializers(many=True)
+    favourite_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Movie
         fields = ['id', 'adult', 'backdrop_path', 'budget', 'homepage', 'original_language', 'original_title',
                   'overview', 'poster_path', 'release_date', 'revenue', 'runtime', 'status', 'tagline', 'title',
-                  'genres', 'casts', 'directors', 'rating', 'review_count']
+                  'genres', 'casts', 'directors', 'rating', 'review_count','favourite_count']
 
     @extend_schema_field(serializers.ListField)
     def get_casts(self, movie_instance):
         query_data = Cast.objects.filter(movie=movie_instance)
 
         return [CastMovieSerializer(person).data for person in query_data]
+    
+    @extend_schema_field(serializers.ListField)
+    def get_favourite_count(self, movie_instance):
+        query_data = Favourite.objects.filter(movie=movie_instance)
+
+        return len(query_data)
 
     @extend_schema_field(serializers.ListField)
     def get_rating(self, movie_instance):
