@@ -8,7 +8,7 @@ from .models import Person
 class MovieParticipateSerializers(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ['id', 'original_title', 'poster_path', 'title', ]
+        fields = ['id', 'original_title', 'poster_path' ]
 
 
 class PersonSerializers(serializers.ModelSerializer):

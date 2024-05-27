@@ -86,9 +86,7 @@ class DirectorMovieSerializer(serializers.ModelSerializer):
 class MovieListDisplaySerializers(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ['id', 'adult', 'backdrop_path', 'budget', 'homepage', 'original_language', 'original_title',
-                  'overview', 'poster_path', 'release_date', 'revenue', 'runtime', 'status', 'tagline', 'title',
-                  'genres','rate_count','rate_avr']
+        fields = ['id', 'original_title', 'poster_path' ]
 
 
 class RatingDisplaySerializers(serializers.ModelSerializer):
