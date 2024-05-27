@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'watched',
     'follow',
     'recommendation_system',
+    'pagination',
     'drf_spectacular',
 ]
 
@@ -173,7 +174,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'pagination.CustomPagination.CustomPagination',
     'PAGE_SIZE': 10
     # Other settings...
 }
