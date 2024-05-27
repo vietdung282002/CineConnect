@@ -6,4 +6,5 @@ class CustomPagination(pagination.PageNumberPagination):
     def get_paginated_response(self, data):
         response = super(CustomPagination, self).get_paginated_response(data)
         response.data['total_pages'] = self.page.paginator.num_pages
+        response.data['current_page'] = self.page.number
         return response
