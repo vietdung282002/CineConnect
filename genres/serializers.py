@@ -1,6 +1,5 @@
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
-
 from movies.models import Movie
 from .models import Genre
 
@@ -15,7 +14,7 @@ class GenresSerializers(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = ['id', 'name']
-
+    
 
 class GenreDetailSerializers(serializers.ModelSerializer):
     movies = serializers.SerializerMethodField()
