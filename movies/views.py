@@ -49,10 +49,16 @@ class MovieViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'],serializer_class=MovieListDisplaySerializers)  
     def genre(self,request,*args, **kwargs):
         query = request.query_params.get('q', None)
+        response = None
         if query:
             genre_obj = Genre.objects.get(id = query)
             self.queryset = Movie.objects.filter(genres = genre_obj)
+            response = super().list(request, *args, **kwargs)
+            logger.warning(response.data)
+            response.data['genre_name'] = genre_obj.name
         else:
             self.queryset = []
-        return super().list(request, *args, **kwargs)
+            response = super().list(request, *args, **kwargs)
+            response.data['genre_name'] = genre_obj.name
+        return response
             
