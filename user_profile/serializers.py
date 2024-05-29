@@ -47,7 +47,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
                 return True
             except Follow.DoesNotExist:
                 return False
-        return False
+        return None
     
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
