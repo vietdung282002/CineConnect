@@ -87,6 +87,32 @@ class MovieListDisplaySerializers(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ['id', 'original_title', 'poster_path' ]
+        
+class MovieSearchListDisplaySerializers(serializers.ModelSerializer):
+    directors = serializers.SerializerMethodField()
+    class Meta:
+        model = Movie
+        fields = ['id', 'original_title', 'poster_path','release_date', 'directors']
+        
+    @extend_schema_field(serializers.ListField)
+    def get_directors(self, movie_instance):
+        query_data = Director.objects.filter(movie=movie_instance)
+
+        return [DirectorMovieSerializer(person).data for person in query_data]
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        director_data = []
+        for director in data['directors']:
+            director_info = {
+                'id': director['director']['id'],
+                'name': director['director']['name'],
+            }
+            director_data.append(director_info)
+        data['directors'] = director_data
+    
+        return data
 
 
 class RatingDisplaySerializers(serializers.ModelSerializer):

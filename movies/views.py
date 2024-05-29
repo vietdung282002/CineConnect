@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Movie
 from genres.models import Genre
-from .serializers import MovieCreateSerializer, MovieDetailDisplaySerializer, MovieListDisplaySerializers
+from .serializers import MovieCreateSerializer, MovieDetailDisplaySerializer, MovieListDisplaySerializers,MovieSearchListDisplaySerializers
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from drf_spectacular.utils import extend_schema,OpenApiParameter
@@ -23,10 +23,12 @@ class MovieViewSet(viewsets.ModelViewSet):
     http_method_names = ['get','post']
     
     def get_serializer_class(self):
-        if self.action == 'list' or self.action == 'search' or self.action == 'genre':
+        if self.action == 'list' or self.action == 'genre':
             return MovieListDisplaySerializers
         elif self.action == 'retrieve':
             return MovieDetailDisplaySerializer
+        elif self.action == 'search':
+            return MovieSearchListDisplaySerializers
         else:
             return MovieCreateSerializer
         
