@@ -4,6 +4,7 @@ from users.models import CustomUser
 from .serializers import UserProfileSerializer,UserListSerializer
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import action
+from django.db.models import Q
 
 # Create your views here.
 class UserProfileViewSet(mixins.ListModelMixin,
@@ -33,7 +34,10 @@ class UserProfileViewSet(mixins.ListModelMixin,
     def search(self,request,*args, **kwargs):
         query = request.query_params.get('q', None)
         if query:
-            self.queryset = CustomUser.objects.filter(username__icontains=query)
+            if self.request.user.id != None:
+                self.queryset = CustomUser.objects.filter(Q(username__icontains=query) & ~Q(id=self.request.user.id))
+            else:
+                self.queryset = CustomUser.objects.filter(username__icontains=query)
         else:
             self.queryset = []
         
