@@ -7,6 +7,7 @@ from review.models import Review
 from rating.models import Rating
 from follow.models import Follow
 
+
 class UserProfileSerializer(serializers.ModelSerializer):
     watched_count = serializers.SerializerMethodField()
     favourite_count = serializers.SerializerMethodField()

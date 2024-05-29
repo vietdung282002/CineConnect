@@ -19,9 +19,7 @@ class UserProfileViewSet(mixins.ListModelMixin,
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
-        # if not self.request.user.is_anonymous:
         context['user_id'] = self.request.user.id
-
         return context
     
     def get_serializer_class(self):

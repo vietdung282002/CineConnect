@@ -6,6 +6,9 @@ from rating.models import Rating
 from user_profile.serializers import UserProfileSerializer, CustomUser
 from .models import Review, Reaction, Comment
 
+import logging
+
+logger = logging.getLogger(__name__)
 class ReviewSerializers(serializers.ModelSerializer):
     class Meta:
         model = Review
@@ -29,8 +32,8 @@ class ReviewListSerializers(serializers.ModelSerializer):
     @extend_schema_field(serializers.ListField)
     def get_user(self, review_instance):
         user = CustomUser.objects.get(id=review_instance.user.id)
-
-        return UserProfileSerializer(user).data
+        context = self.context
+        return UserProfileSerializer(user,context= context).data
 
     @extend_schema_field(serializers.ListField)
     def get_rating(self, review_instance):
@@ -89,8 +92,8 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
     @extend_schema_field(serializers.ListField)
     def get_user(self, review_instance):
         user = CustomUser.objects.get(id=review_instance.user.id)
-
-        return UserProfileSerializer(user).data
+        context = self.context
+        return UserProfileSerializer(user,context= context).data
 
     @extend_schema_field(serializers.ListField)
     def get_rating(self, review_instance):

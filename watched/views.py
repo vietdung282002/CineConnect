@@ -39,14 +39,15 @@ class WatchedViewSet(mixins.ListModelMixin,
                     "id": request.user.id,
                     'watched': movie}
             }
-            return Response(data, status=status.HTTP_201_CREATED)
+            return super().list(request, *args, **kwargs)
         except Exception as e:
             data = {
                 "status": "error",
                 "message": str(e)
             }
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
-
+        
+    
     def create(self, request, *args, **kwargs):
         data = request.data
         movie_id = data.get('movie')

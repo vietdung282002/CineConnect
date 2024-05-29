@@ -37,16 +37,13 @@ class FavouriteViewSet(mixins.ListModelMixin,
                     'favourite': movie}
             }
             
-            return Response(data, status=status.HTTP_201_CREATED)
+            return super().list(request, *args, **kwargs)
         except Exception as e:
             data = {
                 "status": "error",
                 "message": str(e)
             }
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
-        # logger.warning(data)
-
-        # return super().list(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
         data = request.data

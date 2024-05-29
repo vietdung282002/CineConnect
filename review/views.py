@@ -10,7 +10,8 @@ from .permissions import IsOwnerOrReadOnly
 logger = logging.getLogger(__name__)
 
 
-class ReviewViewSet(mixins.RetrieveModelMixin,
+class ReviewViewSet(mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
                     mixins.CreateModelMixin,
                     mixins.DestroyModelMixin,
                     mixins.UpdateModelMixin,
@@ -34,6 +35,7 @@ class ReviewViewSet(mixins.RetrieveModelMixin,
         
     http_method_names =['get','post','patch','delete']
         
+
     def create(self, request, *args, **kwargs):
         data = request.data
         movie_id = data.get('movie')
@@ -61,15 +63,12 @@ class ReviewViewSet(mixins.RetrieveModelMixin,
     @action(detail=True, methods=['get'],
             serializer_class=ReviewListSerializers)  
     
-    def review_list(self, request, pk):
-        instance = Review.objects.filter(movie_id=pk)
-        review = [ReviewListSerializers(review).data for review in instance]
-        response = {
-            "id": pk,
-            "review": review
-        }
+    
+    def review_list(self, request, pk,*args, **kwargs):
+        self.queryset = Review.objects.filter(movie_id=pk)
+        
 
-        return Response(response, status=status.HTTP_200_OK)
+        return super().list(request, *args, **kwargs)
     
 class CommentViewSet(mixins.CreateModelMixin,
                      mixins.UpdateModelMixin,
