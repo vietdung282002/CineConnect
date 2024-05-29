@@ -234,13 +234,8 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
         director_data = []
         for director in data['directors']:
             director_info = {
-                'adult': director['director']['adult'],
-                'gender': director['director']['gender'],
                 'id': director['director']['id'],
-                'known_for_department': director['director']['known_for_department'],
                 'name': director['director']['name'],
-                'original_name': director['director']['name'],
-                'profile_path': director['director']['profile_path'],
             }
             director_data.append(director_info)
         data['directors'] = director_data
