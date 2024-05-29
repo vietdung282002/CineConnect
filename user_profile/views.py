@@ -40,4 +40,6 @@ class UserProfileViewSet(mixins.ListModelMixin,
             self.queryset = []
         
         return super().list(request, *args, **kwargs)
+    
+    
             

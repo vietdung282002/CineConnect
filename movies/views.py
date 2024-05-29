@@ -4,6 +4,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Movie
 from genres.models import Genre
+from favourite.models import Favourite
+from users.models import CustomUser
 from .serializers import MovieCreateSerializer, MovieDetailDisplaySerializer, MovieListDisplaySerializers,MovieSearchListDisplaySerializers
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -23,7 +25,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     http_method_names = ['get','post']
     
     def get_serializer_class(self):
-        if self.action == 'list' or self.action == 'genre':
+        if self.action == 'list' or self.action == 'genre' or self.action =='favourite':
             return MovieListDisplaySerializers
         elif self.action == 'retrieve':
             return MovieDetailDisplaySerializer
@@ -53,6 +55,26 @@ class MovieViewSet(viewsets.ModelViewSet):
         if query:
             genre_obj = Genre.objects.get(id = query)
             self.queryset = Movie.objects.filter(genres = genre_obj)
+        else:
+            self.queryset = []
+        return super().list(request, *args, **kwargs)
+    
+    @action(detail=False, methods=['get'],serializer_class=MovieListDisplaySerializers)  
+    def favourite(self,request,*args, **kwargs):
+        query = request.query_params.get('q', None)
+        if query:
+            user = CustomUser.objects.get(id=query)
+        else:
+            self.queryset = []  
+            return super().list(request, *args, **kwargs)
+        if user:
+            favourite_list = Favourite.objects.filter(user_id= user.id)
+            movie_list = []
+            for favourite in favourite_list:
+                movie = favourite.movie
+                movie_list.append(movie)
+                
+            self.queryset = movie_list
         else:
             self.queryset = []
         return super().list(request, *args, **kwargs)

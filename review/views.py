@@ -66,8 +66,7 @@ class ReviewViewSet(mixins.ListModelMixin,
     
     def review_list(self, request, pk,*args, **kwargs):
         self.queryset = Review.objects.filter(movie_id=pk)
-        
-
+    
         return super().list(request, *args, **kwargs)
     
 class CommentViewSet(mixins.CreateModelMixin,

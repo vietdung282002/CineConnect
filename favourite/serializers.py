@@ -3,6 +3,8 @@ from rest_framework import serializers
 
 from favourite.models import Favourite
 from movies.serializers import MovieListSerializers
+from user_profile.serializers import UserListSerializer
+from rating.models import Rating
 
 
 class FavouriteSerializers(serializers.ModelSerializer):
@@ -13,15 +15,27 @@ class FavouriteSerializers(serializers.ModelSerializer):
 
 
 class FavouriteDetailSerializers(serializers.ModelSerializer):
-    movie = serializers.SerializerMethodField()
-
+    user = serializers.SerializerMethodField()
+    rate = serializers.SerializerMethodField()
     class Meta:
         model = Favourite
-        fields = ['movie']
+        fields = ['user','rate']
         # extra_kwargs = {'user':{'write_only':True}}
 
     @extend_schema_field(serializers.ListField)
-    def get_movie(self, favourite_instance):
-        movie = favourite_instance.movie
+    def get_user(self, favourite_instance):
+        user = favourite_instance.user
 
-        return MovieListSerializers(movie).data
+        return UserListSerializer(user).data
+    
+    @extend_schema_field(serializers.ListField)
+    def get_rate(self, favourite_instance):
+        user = favourite_instance.user
+        movie = favourite_instance.movie
+        try: 
+            rating = Rating.objects.get(user = user, movie= movie)      
+        except Rating.DoesNotExist:
+            return None
+        return rating.rate
+    
+
