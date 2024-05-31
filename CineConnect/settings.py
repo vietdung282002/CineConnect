@@ -175,7 +175,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_PAGINATION_CLASS': 'pagination.CustomPagination.CustomPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 12
     # Other settings...
 }
 
