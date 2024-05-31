@@ -18,7 +18,7 @@ class CustomUser(AbstractUser):
         blank=False
     )
     bio = models.TextField(null=True, blank=True)
-    profile_pic = models.TextField(default='default.jpg')
+    profile_pic = models.TextField(default='/default.jpg')
 
     def __str__(self):
         return self.username + " " + str(self.id)
