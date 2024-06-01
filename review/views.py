@@ -59,14 +59,14 @@ class ReviewViewSet(mixins.ListModelMixin,
                 "message": str(e)
             }
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
-
-    @action(detail=True, methods=['get'],
-            serializer_class=ReviewListSerializers)  
     
-    
-    def review_list(self, request, pk,*args, **kwargs):
-        self.queryset = Review.objects.filter(movie_id=pk)
-    
+    def list(self, request, *args, **kwargs):
+        query = request.query_params.get('movie', None)
+        if query:
+            query_set = Review.objects.filter(movie_id=query)
+            self.queryset = query_set
+        else: 
+            self.queryset =[]
         return super().list(request, *args, **kwargs)
     
 class CommentViewSet(mixins.CreateModelMixin,

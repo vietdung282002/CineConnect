@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from .models import Movie
 from genres.models import Genre
 from favourite.models import Favourite
+from watched.models import Watched
 from users.models import CustomUser
 from .serializers import MovieCreateSerializer, MovieDetailDisplaySerializer, MovieListDisplaySerializers,MovieSearchListDisplaySerializers
 from drf_yasg.utils import swagger_auto_schema
@@ -25,7 +26,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     http_method_names = ['get','post']
     
     def get_serializer_class(self):
-        if self.action == 'list' or self.action == 'genre' or self.action =='favourite':
+        if self.action == 'list' or self.action == 'genre' or self.action =='favourite' or self.action =='watched':
             return MovieListDisplaySerializers
         elif self.action == 'retrieve':
             return MovieDetailDisplaySerializer
@@ -40,7 +41,7 @@ class MovieViewSet(viewsets.ModelViewSet):
 
         return context
 
-    @action(detail=False, methods=['get'],serializer_class=MovieListDisplaySerializers)  
+    @action(detail=False, methods=['get'])  
     def search(self,request,*args, **kwargs):
         query = request.query_params.get('q', None)
         if query:
@@ -49,7 +50,7 @@ class MovieViewSet(viewsets.ModelViewSet):
             self.queryset = []
         return super().list(request, *args, **kwargs)
     
-    @action(detail=False, methods=['get'],serializer_class=MovieListDisplaySerializers)  
+    @action(detail=False, methods=['get'])  
     def genre(self,request,*args, **kwargs):
         query = request.query_params.get('q', None)
         if query:
@@ -59,7 +60,7 @@ class MovieViewSet(viewsets.ModelViewSet):
             self.queryset = []
         return super().list(request, *args, **kwargs)
     
-    @action(detail=False, methods=['get'],serializer_class=MovieListDisplaySerializers)  
+    @action(detail=False, methods=['get'])  
     def favourite(self,request,*args, **kwargs):
         query = request.query_params.get('q', None)
         if query:
@@ -79,3 +80,22 @@ class MovieViewSet(viewsets.ModelViewSet):
             self.queryset = []
         return super().list(request, *args, **kwargs)
             
+    @action(detail=False, methods=['get'],serializer_class=MovieListDisplaySerializers)  
+    def watched(self,request,*args, **kwargs):
+        query = request.query_params.get('q', None)
+        if query:
+            user = CustomUser.objects.get(id=query)
+        else:
+            self.queryset = []  
+            return super().list(request, *args, **kwargs)
+        if user:
+            watched_list = Watched.objects.filter(user_id= user.id)
+            movie_list = []
+            for watched in watched_list:
+                movie = watched.movie
+                movie_list.append(movie)
+                
+            self.queryset = movie_list
+        else:
+            self.queryset = []
+        return super().list(request, *args, **kwargs)
