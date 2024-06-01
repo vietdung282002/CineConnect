@@ -3,7 +3,7 @@ from rest_framework import serializers
 from favourite.models import Favourite
 from movies.serializers import Movie, MovieListSerializers
 from rating.models import Rating
-from user_profile.serializers import UserProfileSerializer, CustomUser
+from user_profile.serializers import UserProfileSerializer, CustomUser,UserListSerializer
 from .models import Review, Reaction, Comment
 
 import logging
@@ -33,7 +33,7 @@ class ReviewListSerializers(serializers.ModelSerializer):
     def get_user(self, review_instance):
         user = CustomUser.objects.get(id=review_instance.user.id)
         context = self.context
-        return UserProfileSerializer(user,context= context).data
+        return UserListSerializer(user).data
 
     @extend_schema_field(serializers.ListField)
     def get_rating(self, review_instance):

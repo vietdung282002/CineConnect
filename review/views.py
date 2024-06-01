@@ -30,6 +30,8 @@ class ReviewViewSet(mixins.ListModelMixin,
     def get_serializer_class(self):
         if self.action == 'create' or self.action == 'update':
             return ReviewSerializers
+        elif self.action == 'list':
+            return ReviewListSerializers
         else:
             return ReviewDetailSerializer
         
