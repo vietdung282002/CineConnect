@@ -11,6 +11,9 @@ from review.models import Review
 from .models import Movie, Cast, Director
 from favourite.models import Favourite
 from django.db.models.functions import Round
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class CastCharacterSerializer(serializers.ModelSerializer):
@@ -177,8 +180,9 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
     def get_rating(self, movie_instance):
         try:
             rating = Rating.objects.filter(movie=movie_instance)
-        except Rating.DoesNotExist:
-            return [
+            if not rating.exists():
+                logger.warning("No ratings found for the movie")
+                return [
                 {
                     "avr": {
                         "rate__avg": 0
@@ -197,9 +201,12 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
                         "5.0": 0
                     }
                 }
-            ]
-        # if avr == None:
-        #     return 0
+                ]
+        except Exception as e:
+            logger.warning(f"An error occurred: {e}")
+    # Handle the exception if needed, maybe return a default value or raise an error
+
+# if ratings exist, process the first rating in the list
         return [RatingDisplaySerializers(rating[0]).data]
 
     @extend_schema_field(serializers.ListField)
