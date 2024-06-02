@@ -10,6 +10,7 @@ from rating.models import Rating
 from review.models import Review
 from .models import Movie, Cast, Director
 from favourite.models import Favourite
+from django.db.models.functions import Round
 
 
 class CastCharacterSerializer(serializers.ModelSerializer):
@@ -126,7 +127,7 @@ class RatingDisplaySerializers(serializers.ModelSerializer):
 
     def get_avr(self, rating_instance):
         avr = Rating.objects.filter(
-            movie=rating_instance.movie).aggregate(Avg('rate'))
+            movie=rating_instance.movie).aggregate(avg_rate=Round(Avg('rate'), 1))
 
         return avr
 
