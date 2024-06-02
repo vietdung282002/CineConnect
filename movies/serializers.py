@@ -175,7 +175,7 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
     @extend_schema_field(serializers.ListField)
     def get_rating(self, movie_instance):
         try:
-            rating = Rating.objects.get(movie=movie_instance)
+            rating = Rating.objects.filter(movie=movie_instance)
         except Rating.DoesNotExist:
             return [
                 {
@@ -199,7 +199,7 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
             ]
         # if avr == None:
         #     return 0
-        return [RatingDisplaySerializers(rating).data]
+        return [RatingDisplaySerializers(rating[0]).data]
 
     @extend_schema_field(serializers.ListField)
     def get_directors(self, movie_instance):
