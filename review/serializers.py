@@ -71,10 +71,8 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
     rating = serializers.SerializerMethodField()
     favourite = serializers.SerializerMethodField()
     likes_count = serializers.SerializerMethodField()
-    dislikes_count = serializers.SerializerMethodField()
     comment_count = serializers.SerializerMethodField()
     is_liked = serializers.SerializerMethodField()
-    is_disliked = serializers.SerializerMethodField()
     watched_day = serializers.SerializerMethodField()
 
     class Meta:
@@ -141,11 +139,6 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
             review=review_instance).filter(like=True)
         return len(reaction)
 
-    @extend_schema_field(serializers.ListField)
-    def get_dislikes_count(self, review_instance):
-        reaction = Reaction.objects.filter(
-            review=review_instance).filter(dislike=True)
-        return len(reaction)
 
     @extend_schema_field(serializers.ListField)
     def get_comment_count(self, review_instance):
@@ -161,18 +154,6 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
             except Reaction.DoesNotExist:
                 return False
             return reaction.like
-
-        return False
-
-    @extend_schema_field(serializers.ListField)
-    def get_is_disliked(self, review_instance):
-        if self.context['user_id'] != None:
-            try:
-                reaction = Reaction.objects.get(
-                    review=review_instance, user_id=self.context['user_id'])
-            except Reaction.DoesNotExist:
-                return False
-            return reaction.dislike
 
         return False
 

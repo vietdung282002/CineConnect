@@ -9,7 +9,6 @@ class Activity(models.Model):
     #type 2: User liked movie
     #type 3: User Watched movie
     #type 4: User like review
-    #type 5: User dislike review
     
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='activity_movie')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='activity_user')
