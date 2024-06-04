@@ -7,6 +7,7 @@ from watched.models import Watched
 from .models import Review,Comment,Reaction
 from .serializers import ReviewSerializers, ReviewDetailSerializer, ReviewListSerializers, CommentSerializer, CommentListSerializer, ReactionSerializer, ReactionDetailSerializer
 from .permissions import IsOwnerOrReadOnly
+from django.db.models import Q
 logger = logging.getLogger(__name__)
 
 
@@ -68,7 +69,16 @@ class ReviewViewSet(mixins.ListModelMixin,
             query_set = Review.objects.filter(movie_id=query)
             self.queryset = query_set
         else: 
-            self.queryset =[]
+            self.queryset = Review.objects.all()
+        return super().list(request, *args, **kwargs)
+    
+    @action(detail=False, methods=['get'])  
+    def search(self,request,*args, **kwargs):
+        query = request.query_params.get('q', None)
+        if query:
+            self.queryset = Review.objects.filter(Q(content__icontains=query) | Q(movie__title__icontains=query))
+        else:
+            self.queryset = []
         return super().list(request, *args, **kwargs)
     
 class CommentViewSet(mixins.CreateModelMixin,

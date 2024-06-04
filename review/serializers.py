@@ -19,6 +19,8 @@ class ReviewListSerializers(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
     rating = serializers.SerializerMethodField()
     favourite = serializers.SerializerMethodField()
+    movie = serializers.SerializerMethodField()
+
 
     class Meta:
         model = Review
@@ -27,9 +29,15 @@ class ReviewListSerializers(serializers.ModelSerializer):
             'user',
             'rating',
             'favourite',
-            'content'
+            'content',
+            'movie'
         ]
+    @extend_schema_field(serializers.ListField)
+    def get_movie(self, review_instance):
+        movie = Movie.objects.get(id=review_instance.movie.id)
 
+        return MovieListSerializers(movie).data
+    
     @extend_schema_field(serializers.ListField)
     def get_user(self, review_instance):
         user = CustomUser.objects.get(id=review_instance.user.id)
