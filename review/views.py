@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 class ReviewViewSet(mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
+                    mixins.RetrieveModelMixin,
                     mixins.CreateModelMixin,
                     mixins.DestroyModelMixin,
                     mixins.UpdateModelMixin,

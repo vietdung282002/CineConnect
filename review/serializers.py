@@ -3,6 +3,7 @@ from rest_framework import serializers
 from favourite.models import Favourite
 from movies.serializers import Movie, MovieListSerializers
 from rating.models import Rating
+from watched.models import Watched
 from user_profile.serializers import UserProfileSerializer, CustomUser,UserListSerializer
 from .models import Review, Reaction, Comment
 
@@ -66,6 +67,7 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
     comment_count = serializers.SerializerMethodField()
     is_liked = serializers.SerializerMethodField()
     is_disliked = serializers.SerializerMethodField()
+    watched_day = serializers.SerializerMethodField()
 
     class Meta:
         model = Review
@@ -80,7 +82,8 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
             'dislikes_count',
             'comment_count',
             'is_liked',
-            'is_disliked'
+            'is_disliked',
+            'watched_day'
         ]
 
     @extend_schema_field(serializers.ListField)
@@ -93,7 +96,17 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
     def get_user(self, review_instance):
         user = CustomUser.objects.get(id=review_instance.user.id)
         context = self.context
-        return UserProfileSerializer(user,context= context).data
+        return UserListSerializer(user).data
+    
+    @extend_schema_field(serializers.ListField)
+    def get_watched_day(self, review_instance):
+        user = CustomUser.objects.get(id=review_instance.user.id)
+        movie = Movie.objects.get(id=review_instance.movie.id)
+        try:
+            watched = Watched.objects.get(movie=movie,user=user)
+        except Watched.DoesNotExist:
+            return None
+        return watched.time_stamp
 
     @extend_schema_field(serializers.ListField)
     def get_rating(self, review_instance):
