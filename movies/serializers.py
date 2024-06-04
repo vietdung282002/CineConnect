@@ -261,4 +261,4 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
 class MovieListSerializers(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ['id', 'original_title', 'poster_path', 'title', 'backdrop_path']
+        fields = ['id', 'original_title', 'poster_path', 'title', 'backdrop_path','release_date']
