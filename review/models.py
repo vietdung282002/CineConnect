@@ -29,7 +29,6 @@ class Reaction(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_like_review')
     review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='related_review')
     like = models.BooleanField(default=False)
-    dislike = models.BooleanField(default=False)
 
     class Meta:
         constraints = [

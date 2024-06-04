@@ -144,14 +144,12 @@ class ReactionViewSet(viewsets.GenericViewSet):
         data = None
         if reaction.like == False:
             reaction.like = True
-            reaction.dislike = False
             reaction.save()
             data = {
                 "status": "success",
                 "message": {
                     "review":review.id,
                     "like": True,
-                    "dislike":False
                 }
             }
         else: 
@@ -163,53 +161,8 @@ class ReactionViewSet(viewsets.GenericViewSet):
                 "message": {
                     "review":review.id,
                     "like": False,
-                    "dislike":False
                 }
             }
         return Response(data, status=status.HTTP_201_CREATED)
         
-    @action(detail=False, methods=['post'],
-            serializer_class=ReactionSerializer)  
-    def dislike(self,request, *args, **kwargs):
-        try:
-            review = Review.objects.get(id = request.data.get('review'))
-        except Review.DoesNotExist:
-            data = {
-                "status": "error",
-                "message": "Objects not found"
-            }
-            return Response(data= data,status=status.HTTP_404_NOT_FOUND)
-        
-        try:
-            reaction = Reaction.objects.get(review_id = review.id,user_id = request.user.id)
-        except Reaction.DoesNotExist:
-            reaction = Reaction.objects.create(review = review,user_id = request.user.id)
-        
-        data = None
-        if reaction.dislike == False:
-            reaction.dislike = True
-            reaction.like = False
-            reaction.save()
-            data = {
-                "status": "success",
-                "message": {
-                    "review":review.id,
-                    "like": False,
-                    "dislike":True
-                }
-            }
-        else: 
-            reaction.dislike = False
-            reaction.save()
-            reaction.delete()
-            data = {
-                "status": "success",
-                "message": {
-                    "review":review.id,
-                    "like": False,
-                    "dislike":False
-                }
-            }
-            
-        
-        return Response(data, status=status.HTTP_201_CREATED)
+    

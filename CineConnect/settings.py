@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'follow',
     'recommendation_system',
     'pagination',
+    'activity',
     'drf_spectacular',
 ]
 
