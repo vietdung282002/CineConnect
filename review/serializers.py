@@ -97,7 +97,6 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
     @extend_schema_field(serializers.ListField)
     def get_movie(self, review_instance):
         movie = Movie.objects.get(id=review_instance.movie.id)
-
         return MovieListSerializers(movie).data
 
     @extend_schema_field(serializers.ListField)
