@@ -64,6 +64,17 @@ class UserProfileSerializer(serializers.ModelSerializer):
     
     
 class UserListSerializer(serializers.ModelSerializer):
+    is_following = serializers.SerializerMethodField()
     class Meta:
         model = CustomUser
         fields = ['id','username','profile_pic']
+        
+    @extend_schema_field(serializers.ListField)
+    def get_is_following(self,user_instance):
+        if self.context['user_id'] is not None and self.context['user_id'] != user_instance.id:
+            try:
+                Follow.objects.get(follower_id = self.context['user_id'],followee = user_instance)
+                return True
+            except Follow.DoesNotExist:
+                return False
+        return None
