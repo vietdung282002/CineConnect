@@ -14,10 +14,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
     review_count = serializers.SerializerMethodField()
     rate_count = serializers.SerializerMethodField()
     is_following = serializers.SerializerMethodField()
+    following_count = serializers.SerializerMethodField()
+    follower_count = serializers.SerializerMethodField()
     
     class Meta:
         model = CustomUser
-        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'gender', 'bio', 'profile_pic','watched_count','favourite_count','review_count','rate_count','is_following']
+        fields = ['id', 'username', 'first_name', 'last_name', 'email', 'gender', 'bio', 'profile_pic','watched_count','favourite_count','review_count','rate_count','is_following','following_count','follower_count']
         extra_kwargs = {'id': {'read_only': True}, 'password': {'write_only': True}}
 
     @extend_schema_field(serializers.ListField)
@@ -49,6 +51,17 @@ class UserProfileSerializer(serializers.ModelSerializer):
             except Follow.DoesNotExist:
                 return False
         return None
+    
+    @extend_schema_field(serializers.ListField)
+    def get_following_count(self,user_instance):
+        following_count = Follow.objects.filter(follower = user_instance).count()
+        return following_count
+    
+    @extend_schema_field(serializers.ListField)
+    def get_follower_count(self,user_instance):
+        follower_count = Follow.objects.filter(followee = user_instance).count()
+        return follower_count
+    
     
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
