@@ -25,6 +25,12 @@ class FavouriteViewSet(mixins.ListModelMixin,
             return FavouriteDetailSerializers
         else:
             return FavouriteSerializers
+        
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['user_id'] = self.request.user.id
+
+        return context
 
     def list(self, request, *args, **kwargs):
         query = request.query_params.get('movie', None)

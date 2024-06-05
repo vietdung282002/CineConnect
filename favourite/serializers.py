@@ -25,8 +25,9 @@ class FavouriteDetailSerializers(serializers.ModelSerializer):
     @extend_schema_field(serializers.ListField)
     def get_user(self, favourite_instance):
         user = favourite_instance.user
+        context = self.context
 
-        return UserListSerializer(user).data
+        return UserListSerializer(user,context=context).data
     
     @extend_schema_field(serializers.ListField)
     def get_rate(self, favourite_instance):
