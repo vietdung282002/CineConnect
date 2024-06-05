@@ -42,7 +42,7 @@ class ReviewListSerializers(serializers.ModelSerializer):
     def get_user(self, review_instance):
         user = CustomUser.objects.get(id=review_instance.user.id)
         context = self.context
-        return UserListSerializer(user).data
+        return UserListSerializer(user,context=context).data
 
     @extend_schema_field(serializers.ListField)
     def get_rating(self, review_instance):
