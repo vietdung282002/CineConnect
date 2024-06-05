@@ -33,9 +33,9 @@ class UserProfileViewSet(mixins.ListModelMixin,
         query = request.query_params.get('q', None)
         if query:
             if self.request.user.id != None:
-                self.queryset = CustomUser.objects.filter(Q(username__icontains=query) & ~Q(id=self.request.user.id))
+                self.queryset = CustomUser.objects.filter(Q(username__icontains=query) & ~Q(id=self.request.user.id) & ~Q(is_superuser=True))
             else:
-                self.queryset = CustomUser.objects.filter(username__icontains=query)
+                self.queryset = CustomUser.objects.filter(Q(username__icontains=query) &  ~Q(is_superuser=True))
         else:
             self.queryset = []
         
