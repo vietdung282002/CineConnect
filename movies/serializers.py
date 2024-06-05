@@ -251,14 +251,14 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
             try:
                 rating = Rating.objects.get(
                     movie=instance, user_id=self.context['user_id'])
+                data['rating'][0]['user_rating'] = rating.rate
+                
             except Rating.DoesNotExist:
                 data['rating'][0]['user_rating'] = 0
-
-            data['rating'][0]['user_rating'] = rating.rate
         return data
 
 
 class MovieListSerializers(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ['id', 'original_title', 'poster_path', 'title', 'backdrop_path','release_date']
+        fields = ['id', 'original_title', 'poster_path', 'title', 'backdrop_path','']
