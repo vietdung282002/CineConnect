@@ -5,8 +5,11 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from watched.models import Watched
 from .models import Review,Comment,Reaction
-from .serializers import ReviewSerializers, ReviewDetailSerializer, ReviewListSerializers, CommentSerializer, CommentListSerializer, ReactionSerializer, ReactionDetailSerializer
+from .serializers import ReviewSerializers, ReviewDetailSerializer, ReviewListSerializers, CommentSerializer, CommentListSerializer, ReactionSerializer, ReactionListSerializer
 from .permissions import IsOwnerOrReadOnly
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect
+
 
 logger = logging.getLogger(__name__)
 
@@ -84,12 +87,25 @@ class ReviewViewSet(mixins.ListModelMixin,
 class CommentViewSet(mixins.CreateModelMixin,
                      mixins.UpdateModelMixin,
                      mixins.DestroyModelMixin,
+                     mixins.ListModelMixin,
                      viewsets.GenericViewSet):
     queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
     
     http_method_names = ['get','post','patch','delete']
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['user_id'] = self.request.user.id
+
+        return context
+    
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return CommentListSerializer
+        else:
+            return CommentSerializer
+    
     def create(self, request, *args, **kwargs):
         review = request.data.get('review')
         comment = request.data.get('comment')
@@ -107,27 +123,48 @@ class CommentViewSet(mixins.CreateModelMixin,
             }
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
         
-    @action(detail=True, methods=['get'],
-            serializer_class=CommentListSerializer)  
-    def comment_list(self, request, pk):
-        instance = Comment.objects.filter(review_id=pk)
-        comment = [CommentListSerializer(comment).data for comment in instance]
-        response = {
-            "id": pk,
-            "review": comment
-        }
-
-        return Response(response, status=status.HTTP_200_OK)
+    def list(self, request, *args, **kwargs):
+        query = request.query_params.get('review', None)
+        if query:
+            query_set = Comment.objects.filter(review_id=query)
+            self.queryset = query_set
+        else:
+            self.queryset = []
+        return super().list(request, *args, **kwargs)
     
-class ReactionViewSet(viewsets.GenericViewSet):
+class ReactionViewSet(mixins.ListModelMixin,
+    viewsets.GenericViewSet):
     queryset = Reaction.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
-    serializer_class = ReactionSerializer
     
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return ReactionListSerializer
+        else:
+            return ReactionSerializer
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['user_id'] = self.request.user.id
+
+        return context
+    
+    def list(self, request, *args, **kwargs):
+        query = request.query_params.get('review', None)
+        if query:
+            query_set = Reaction.objects.filter(review_id=query)
+            self.queryset = query_set
+        else:
+            self.queryset = []
+        return super().list(request, *args, **kwargs)
+    
+    
+    @csrf_exempt
     @action(detail=False, methods=['post'],serializer_class=ReactionSerializer)  
     def like(self,request, *args, **kwargs):
+        query = request.query_params.get('review', None)
         try:
-            review = Review.objects.get(id = request.data.get('review'))
+            review = Review.objects.get(id = query)
         except Review.DoesNotExist:
             data = {
                 "status": "error",
@@ -137,7 +174,6 @@ class ReactionViewSet(viewsets.GenericViewSet):
         
         try:
             reaction = Reaction.objects.get(review = review,user_id = request.user.id)
-            logger.warning(reaction.like)
         except Reaction.DoesNotExist:
             reaction = Reaction.objects.create(review = review,user_id = request.user.id)
             

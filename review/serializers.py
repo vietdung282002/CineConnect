@@ -161,43 +161,58 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ['review','comment']
 
 class CommentListSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
     class Meta:
         model = Comment
         fields = ['id','user','comment','time_stamp']
         
+    @extend_schema_field(serializers.ListField)
+    def get_user(self, review_instance):
+        user = CustomUser.objects.get(id=review_instance.user.id)
+        context = self.context
+        return UserListSerializer(user,context=context).data
+        
         
 class ReactionSerializer(serializers.ModelSerializer):
-    is_reaction = serializers.SerializerMethodField()
+    is_liked = serializers.SerializerMethodField()
+    
     class Meta:
         model = Reaction
-        fields = ['review','is_reaction']
+        fields = ['review','is_liked']
         
     @extend_schema_field(serializers.ListField)
-    def get_is_reaction(self, reaction_instance):
+    def get_is_liked(self, reaction_instance):
         try:
-            reaction = Reaction.objects.get(reaction=reaction_instance)
+            reaction = Reaction.objects.get(id=reaction_instance.id)
             if reaction.like == True:
-                return "Liked"
+                return True
             else:
-                return "Disliked"
+                return False
         except Reaction.DoesNotExist:
-            return "None"
+            return None
         
-class ReactionDetailSerializer(serializers.ModelSerializer):
-    is_reaction = serializers.SerializerMethodField()
+class ReactionListSerializer(serializers.ModelSerializer):
+    is_liked = serializers.SerializerMethodField()
+    user = serializers.SerializerMethodField()
     class Meta:
         model = Reaction
-        fields = ['review','user','is_reaction']
+        fields = ['review','user','is_liked']
         
     @extend_schema_field(serializers.ListField)
-    def get_is_reaction(self, reaction_instance):
+    def get_is_liked(self, reaction_instance):
         try:
-            reaction = Reaction.objects.get(reaction=reaction_instance)
+            reaction = Reaction.objects.get(id=reaction_instance.id)
             if reaction.like == True:
-                return "Liked"
+                return True
             else:
-                return "Disliked"
+                return False
         except Reaction.DoesNotExist:
-            return "None"
+            return None
+        
+    @extend_schema_field(serializers.ListField)
+    def get_user(self, review_instance):
+        user = CustomUser.objects.get(id=review_instance.user.id)
+        context = self.context
+        return UserListSerializer(user,context=context).data
             
         

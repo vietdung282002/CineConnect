@@ -13,6 +13,5 @@ def send_reaction_notification(sender, instance, created, **kwargs):
             'type': 'reaction_message',
             'review_id': instance.review.id,
             'like': instance.like,
-            'dislike': instance.dislike
         }
     )
