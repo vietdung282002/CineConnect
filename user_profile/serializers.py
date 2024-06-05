@@ -67,7 +67,7 @@ class UserListSerializer(serializers.ModelSerializer):
     is_following = serializers.SerializerMethodField()
     class Meta:
         model = CustomUser
-        fields = ['id','username','profile_pic']
+        fields = ['id','username','profile_pic','is_following']
         
     @extend_schema_field(serializers.ListField)
     def get_is_following(self,user_instance):
