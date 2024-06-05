@@ -65,19 +65,19 @@ class MovieViewSet(viewsets.ModelViewSet):
         query = request.query_params.get('q', None)
         if query:
             user = CustomUser.objects.get(id=query)
+            if user:
+                favourite_list = Favourite.objects.filter(user_id= user.id)
+                movie_list = []
+                for favourite in favourite_list:
+                    movie = favourite.movie
+                    movie_list.append(movie)
+
+                self.queryset = movie_list
+            else:
+                self.queryset = []
         else:
             self.queryset = []  
-            return super().list(request, *args, **kwargs)
-        if user:
-            favourite_list = Favourite.objects.filter(user_id= user.id)
-            movie_list = []
-            for favourite in favourite_list:
-                movie = favourite.movie
-                movie_list.append(movie)
-                
-            self.queryset = movie_list
-        else:
-            self.queryset = []
+        
         return super().list(request, *args, **kwargs)
             
     @action(detail=False, methods=['get'],serializer_class=MovieListDisplaySerializers)  

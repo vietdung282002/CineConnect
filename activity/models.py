@@ -12,6 +12,7 @@ class Activity(models.Model):
     
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='activity_movie')
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='activity_user')
+    user_follow = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='follower_user')
     time_stamp = models.DateTimeField(auto_now=True)
     
     class Meta:

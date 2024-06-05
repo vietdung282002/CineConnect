@@ -85,10 +85,8 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
             'rating',
             'favourite',
             'likes_count',
-            'dislikes_count',
             'comment_count',
             'is_liked',
-            'is_disliked',
             'watched_day'
         ]
 
