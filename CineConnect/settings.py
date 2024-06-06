@@ -62,7 +62,6 @@ INSTALLED_APPS = [
     'recommendation_system',
     'pagination',
     'activity',
-    'testazure',
     'drf_spectacular',
 ]
 
@@ -205,24 +204,3 @@ LOGGING = {
 
     },
 }
-CELERY_BROKER_URL = 'redis://:oc3WyLTM9fJVvukHsfePB6RLexydx76ABAzCaFerIlQ=@cinneconnect.redis.cache.windows.net:6379/0'
-
-# Sử dụng Redis làm backend cho kết quả của task
-CELERY_RESULT_BACKEND = 'redis://:oc3WyLTM9fJVvukHsfePB6RLexydx76ABAzCaFerIlQ=@cinneconnect.redis.cache.windows.net:6379/0'
-
-# Tự động tìm kiếm các task trong ứng dụng Django
-CELERY_IMPORTS = ('app_name.tasks',)
-
-# Cấu hình lịch trình cho Celery Beat (nếu cần)
-from celery.schedules import crontab
-
-CELERY_BEAT_SCHEDULE = {
-    'update-database-every-minute': {
-        'task': 'testazure.tasks.create_new_object',
-        'schedule': crontab(minute='*/1'),  # Chạy mỗi phút (có thể thay đổi theo nhu cầu)
-    },
-}
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
