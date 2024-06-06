@@ -29,7 +29,7 @@ class FolloweeSerializer(serializers.ModelSerializer):
     def get_is_following(self, follow_instance):
         if self.context['user_id'] is not None and self.context['user_id'] != follow_instance.followee.id:
             try:
-                Follow.objects.get(followee_id = self.context['user_id'],follower_id = follow_instance.followee.id)
+                Follow.objects.get(follower_id = self.context['user_id'],followee_id = follow_instance.followee.id)
                 return True
             except Follow.DoesNotExist:
                 return False
@@ -60,7 +60,7 @@ class FollowerSerializer(serializers.ModelSerializer):
     def get_is_following(self, follow_instance):
         if self.context['user_id'] is not None and self.context['user_id'] != follow_instance.followee.id:
             try:
-                Follow.objects.get(follower_id = self.context['user_id'],followee_id = follow_instance.followee.id)
+                Follow.objects.get(followee_id = self.context['user_id'],follower_id = follow_instance.followee.id)
                 return True
             except Follow.DoesNotExist:
                 return False
