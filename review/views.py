@@ -168,7 +168,7 @@ class ReactionViewSet(mixins.ListModelMixin,
         except Review.DoesNotExist:
             data = {
                 "status": "error",
-                "message": "Objects not found"
+                "result": "Objects not found"
             }
             return Response(data= data,status=status.HTTP_404_NOT_FOUND)
         
@@ -183,7 +183,7 @@ class ReactionViewSet(mixins.ListModelMixin,
             reaction.save()
             data = {
                 "status": "success",
-                "message": {
+                "result": {
                     "review":review.id,
                     "like": True,
                 }
@@ -194,11 +194,15 @@ class ReactionViewSet(mixins.ListModelMixin,
             reaction.delete()
             data = {
                 "status": "success",
-                "message": {
+                "result": {
                     "review":review.id,
                     "like": False,
                 }
             }
+            
+        count = Reaction.objects.filter(review= review)
+        count = len(count)
+        data['result']['number_of_like'] = count
         return Response(data, status=status.HTTP_201_CREATED)
         
     
