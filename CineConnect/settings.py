@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'recommendation_system',
     'pagination',
     'activity',
+    'testazure',
     'drf_spectacular',
 ]
 
