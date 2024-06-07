@@ -30,7 +30,8 @@ class ReviewListSerializers(serializers.ModelSerializer):
             'rating',
             'favourite',
             'content',
-            'movie'
+            'movie',
+            'time_stamp'
         ]
     @extend_schema_field(serializers.ListField)
     def get_movie(self, review_instance):

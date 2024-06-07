@@ -67,12 +67,17 @@ class ReviewViewSet(mixins.ListModelMixin,
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
     
     def list(self, request, *args, **kwargs):
-        query = request.query_params.get('movie', None)
-        if query:
-            query_set = Review.objects.filter(movie_id=query)
+        movie_query = request.query_params.get('movie', None)
+        user_query = request.query_params.get('user', None)
+        if movie_query:
+            query_set = Review.objects.filter(movie_id=movie_query)
+            self.queryset = query_set
+        elif user_query:
+            query_set = Review.objects.filter(user_id = user_query)
             self.queryset = query_set
         else: 
             self.queryset = []
+            
         return super().list(request, *args, **kwargs)
     
     @action(detail=False, methods=['get'])  

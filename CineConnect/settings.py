@@ -62,7 +62,6 @@ INSTALLED_APPS = [
     'recommendation_system',
     'pagination',
     'activity',
-    'testwebjob',
     'drf_spectacular',
 ]
 
