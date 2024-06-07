@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'daphne',
+    'django_celery_beat',
+    'django_celery_results',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
