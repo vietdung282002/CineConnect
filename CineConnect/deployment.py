@@ -23,6 +23,12 @@ CORS_ALLOWED_ORIGINS = [
     'https://victorious-river-09d149f03.4.azurestaticapps.net' 
 ]
 
+CELERY_BROKER_URL = f'redis://:{os.environ.get('REDIS_PASSWORD')}@cineconnect.redis.cache.windows.net:6379/0'
+CELERY_RESULT_BACKEND = f'redis://:{os.environ.get('REDIS_PASSWORD')}@cineconnect.redis.cache.windows.net:6379/0'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
 
 STORAGES = {
     "default": {
