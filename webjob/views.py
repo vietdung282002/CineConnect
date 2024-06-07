@@ -7,5 +7,4 @@ class TestViewset(mixins.ListModelMixin,viewsets.GenericViewSet):
     serializer_class = TestSerializers
     
     def list(self, request, *args, **kwargs):
-        test = TestWJob.objects.create()
         return super().list(request, *args, **kwargs)

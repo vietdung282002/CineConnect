@@ -11,6 +11,12 @@ app = Celery('CineConnect')
 # pickle the object when using Windows.
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
+app.conf.beat_schedule = {
+    'run-task-every-5-minutes': {
+        'task': 'webjob.tasks.test',  # Đường dẫn tới hàm bạn muốn chạy
+        'schedule': crontab(minute='*/5'),  # Chạy mỗi 5 phút
+    },
+}
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
 
