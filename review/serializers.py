@@ -21,7 +21,6 @@ class ReviewListSerializers(serializers.ModelSerializer):
     favourite = serializers.SerializerMethodField()
     movie = serializers.SerializerMethodField()
 
-
     class Meta:
         model = Review
         fields = [
@@ -88,7 +87,8 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
             'likes_count',
             'comment_count',
             'is_liked',
-            'watched_day'
+            'watched_day',
+            'time_stamp'
         ]
 
     @extend_schema_field(serializers.ListField)
