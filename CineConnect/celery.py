@@ -10,6 +10,19 @@ app = Celery('CineConnect')
 # Using a string here means the worker will not have to
 # pickle the object when using Windows.
 app.config_from_object('django.conf:settings', namespace='CELERY')
+import ssl
+
+ssl_context = ssl.create_default_context()
+ssl_context.check_hostname = False
+ssl_context.verify_mode = ssl.CERT_NONE
+
+app.conf.broker_use_ssl = {
+    'ssl_cert_reqs': ssl.CERT_NONE
+}
+
+app.conf.result_backend_use_ssl = {
+    'ssl_cert_reqs': ssl.CERT_NONE
+}
 
 # app.conf.beat_schedule = {
 #     'run-task-every-1-minutes': {
