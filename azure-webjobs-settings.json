@@ -1,0 +1,10 @@
+{
+    "Celery": {
+        "description": "This job is responsible for scheduling Celery tasks.",
+        "type": "continuous",
+        "runMode": "OnDemand",
+        "settings": {
+            "COMMAND": "celery -A CineConnect beat -l INFO"
+        }
+    }
+}
