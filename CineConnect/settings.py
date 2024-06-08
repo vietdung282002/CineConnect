@@ -207,6 +207,8 @@ LOGGING = {
 
     },
 }
+from celery.schedules import crontab
+
 CELERY_BROKER_URL = 'redis://cineconnect.redis.cache.windows.net:6380/0'
 CELERY_RESULT_BACKEND = 'redis://cineconnect.redis.cache.windows.net:6380/0'
 CELERY_ACCEPT_CONTENT = ['application/json']
@@ -214,8 +216,8 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
 CELERY_BEAT_SCHEDULE = {
-    'my_task': {
+    'my-scheduled-task-every-5-minutes': {
         'task': 'webjob.tasks.test',
-        'schedule': 60.0,  # Chạy mỗi 5 phút (300 giây)
+        'schedule': crontab(minute='*/1'),
     },
 }
