@@ -24,11 +24,15 @@ import ssl
 #     'ssl_cert_reqs': ssl.CERT_NONE
 # }
 
-app.conf.beat_schedule = {
-    'run-task-every-1-minutes': {
-        'task': 'webjob.tasks.test',  # Đường dẫn tới hàm bạn muốn chạy
-        'schedule': crontab(minute='*/1'),  # Chạy mỗi 5 phút
-    },
-}
+# app.conf.beat_schedule = {
+#     'run-task-every-1-minutes': {
+#         'task': 'webjob.tasks.test',  # Đường dẫn tới hàm bạn muốn chạy
+#         'schedule': crontab(minute='*/5'), 
+#     },
+# }
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
+
+@app.task(bind=True, ignore_result=True)
+def debug_task(self):
+    print(f'Request: {self.request!r}')
