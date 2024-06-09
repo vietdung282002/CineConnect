@@ -20,9 +20,10 @@ from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView
 from drf_spectacular.views import SpectacularSwaggerView
+from .views import index
 
 urlpatterns = [
-
+    path('', index, name="index"),
     path('admin/', admin.site.urls),
     path('authentication/', include('users.urls')),
     path('user/', include('user_profile.urls')),
