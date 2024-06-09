@@ -11,6 +11,9 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 settings_module = 'CineConnect.deployment' if 'WEBSITE_HOSTNAME' in os.environ else 'CineConnect.settings'
+print("test1233212421212")
+for test in os.environ:
+    print(test)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
 application = get_wsgi_application()
