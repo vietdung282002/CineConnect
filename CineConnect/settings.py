@@ -115,7 +115,7 @@ DATABASES = {
         'NAME': 'CineConnect',
         'USER': 'myprojectuser',
         'PASSWORD': 'vietdung1',
-        'HOST': 'localhost123',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
