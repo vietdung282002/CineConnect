@@ -3,7 +3,8 @@ import os
 from celery import Celery
 from celery.schedules import crontab
 # set the default Django settings module for the 'celery' program.
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CineConnect.settings')
+settings_module = 'CineConnect.deployment' if 'WEBSITE_HOSTNAME' in os.environ else 'CineConnect.settings'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
 app = Celery('CineConnect')
 
