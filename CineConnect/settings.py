@@ -115,7 +115,7 @@ DATABASES = {
         'NAME': 'CineConnect',
         'USER': 'myprojectuser',
         'PASSWORD': 'vietdung1',
-        'HOST': 'localhost',
+        'HOST': 'localhost123',
         'PORT': '5432',
     }
 }
@@ -209,8 +209,8 @@ LOGGING = {
 }
 from celery.schedules import crontab
 
-# CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
-# CELERY_RESULT_BACKEND = os.getenv('CELERY_BROKER_URL')
+CELERY_BROKER_URL = 'redis://cineconnect.redis.cache.windows.net:6379/0'
+CELERY_RESULT_BACKEND = 'redis://cineconnect.redis.cache.windows.net:6379/0'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
