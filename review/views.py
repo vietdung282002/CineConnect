@@ -89,7 +89,7 @@ class ReviewViewSet(mixins.ListModelMixin,
             self.queryset = []
             
         return super().list(request, *args, **kwargs)
-    
+    @action(detail=False, methods=['get'])  
     def newfeed(self, request, *args, **kwargs):
         user_id = request.user.id
         if user_id:
@@ -106,6 +106,7 @@ class ReviewViewSet(mixins.ListModelMixin,
             
         return super().list(request, *args, **kwargs)
     
+    @action(detail=False, methods=['get'])  
     def recommend(self, request, *args, **kwargs):
         user_id = request.user.id
         if user_id:
