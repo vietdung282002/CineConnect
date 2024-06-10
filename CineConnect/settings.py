@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'daphne',
-    'background_task',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
