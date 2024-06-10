@@ -133,10 +133,10 @@ def send_password_token(email, new_token):
     msg['From'] = sender
     msg['To'] = ', '.join(recipient_list)
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp_server:
-       smtp_server.login(sender, password)
-       smtp_server.sendmail(sender, recipient_list, msg.as_string())
-       
-    
+        smtp_server.ehlo()
+        smtp_server.login(sender, password)
+        smtp_server.sendmail(sender, recipient_list, msg.as_string())
+        smtp_server.close()
     
 @csrf_exempt
 @api_view(['POST', ])
