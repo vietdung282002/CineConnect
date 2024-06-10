@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from user_profile.serializers import UserListSerializer
 from users.models import CustomUser
+from activity.models import Activity
 # Create your views here.
 class FollowViewSet(mixins.ListModelMixin,
                     viewsets.GenericViewSet):
@@ -46,6 +47,7 @@ class FollowViewSet(mixins.ListModelMixin,
         except Follow.DoesNotExist:
             try:
                 follow = Follow.objects.create(follower_id= request.user.id, followee_id= query)
+                Activity.objects.create(user = user,type = 6,user_follow_id = query)
                 data = {
                 "status": "success",
                 "result": {

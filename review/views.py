@@ -9,8 +9,12 @@ from .serializers import ReviewSerializers, ReviewDetailSerializer, ReviewListSe
 from .permissions import IsOwnerOrReadOnly
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import csrf_protect
-
-
+from activity.models import Activity
+from django.db.models import Q
+from favourite.models import Favourite
+from follow.models import Follow
+from movies.models import Movie
+from recommendation_system.models import MovieRecommend
 logger = logging.getLogger(__name__)
 
 
@@ -47,13 +51,19 @@ class ReviewViewSet(mixins.ListModelMixin,
         movie_id = data.get('movie')
         content = data.get('content')
         if Review.objects.filter(user_id = request.user.id,movie_id = movie_id):
-            return Response({'message': 'Object already exists.'}, status=status.HTTP_400_BAD_REQUEST)
+            data = {
+                "status": "error",
+                "message": 'Object already exists.'
+            }
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
         try:
             watched = Watched.objects.get(movie_id=movie_id, user_id=request.user.id)
         except Watched.DoesNotExist:
             Watched.objects.create(movie_id=movie_id, user_id=request.user.id)
+            Activity.objects.create(movie_id=movie_id,user_id=request.user.id,type=3)
         try:
             review = Review.objects.create(movie_id=movie_id, user_id=request.user.id,content = content)
+            Activity.objects.create(movie_id=movie_id,user_id=request.user.id,type=1,review=review)
             data = data = {
                 "status": "success",
                 "message": ReviewListSerializers(review).data
@@ -77,6 +87,36 @@ class ReviewViewSet(mixins.ListModelMixin,
             self.queryset = query_set
         else: 
             self.queryset = []
+            
+        return super().list(request, *args, **kwargs)
+    
+    def newfeed(self, request, *args, **kwargs):
+        user_id = request.user.id
+        if user_id:
+            followed_users = Follow.objects.filter(follower_id=user_id).values_list('followee_id', flat=True)
+            favourite_movies = Favourite.objects.filter(user_id=user_id).values_list('movie_id', flat=True)
+        
+            query_set = Review.objects.filter(
+                Q(user_id__in=followed_users) | Q(movie_id__in=favourite_movies)
+            )
+        else: 
+            query_set = Review.objects.none()
+    
+        self.queryset = query_set
+            
+        return super().list(request, *args, **kwargs)
+    
+    def recommend(self, request, *args, **kwargs):
+        user_id = request.user.id
+        if user_id:
+            recommended_movies = MovieRecommend.objects.filter(user_id=user_id).values_list('movie_id', flat=True)
+            query_set = Review.objects.filter(
+                Q(movie_id__in=recommended_movies)
+            )
+        else: 
+            query_set = Review.objects.none()
+    
+        self.queryset = query_set
             
         return super().list(request, *args, **kwargs)
     
@@ -116,6 +156,7 @@ class CommentViewSet(mixins.CreateModelMixin,
         comment = request.data.get('comment')
         try: 
             comment = Comment.objects.create(review_id = review,comment = comment,user_id = request.user.id)
+            Activity.objects.create(user_id=request.user.id,type=7,review_id=review)
             data = {
                 "status": "success",
                 "message": CommentSerializer(comment).data
@@ -186,6 +227,9 @@ class ReactionViewSet(mixins.ListModelMixin,
         if reaction.like == False:
             reaction.like = True
             reaction.save()
+            review = reaction.review
+            movie = review.movie
+            Activity.objects.create(user_id=request.user.id,type=4,review_id=review)
             data = {
                 "status": "success",
                 "result": {

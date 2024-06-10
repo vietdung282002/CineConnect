@@ -36,6 +36,7 @@ urlpatterns = [
     path('review/', include('review.urls')),
     path('follow/',include('follow.urls')),
     path('test/',include('webjob.urls')),
+    path('activity/',include('activity.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Swagger UI:
 

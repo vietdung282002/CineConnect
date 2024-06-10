@@ -12,7 +12,7 @@ from .serializers import RatingSerializers, Rating, RatingUpdateSerializers
 from django.db.models import F,Avg
 import threading
 from recommendation_system import recommendation_engine
-
+from activity.models import Activity
 logger = logging.getLogger(__name__)
 
 
@@ -39,14 +39,19 @@ class RatingViewSet(mixins.CreateModelMixin,
         rate = data.get('rate')
         user = CustomUser.objects.get(id = request.user.id)
         if Rating.objects.filter(user_id=request.user.id, movie_id=movie_id).exists():
-            return Response({'message': 'Object already exists.'}, status=status.HTTP_400_BAD_REQUEST)
+            data = {
+                "status": "error",
+                "message": "Object already exists."
+            }
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
         try:
             watched = Watched.objects.get(movie_id=movie_id, user_id=request.user.id)
         except Watched.DoesNotExist:
             Watched.objects.create(movie_id=movie_id, user_id=request.user.id)
-
+            Activity.objects.create(movie_id=movie_id,user=user,type=3)
         try:
             rating = Rating.objects.create(movie_id=movie_id, user_id=request.user.id,rate= rate)
+            Activity.objects.create(movie_id=movie_id,user=user,type=5)
             movie = Movie.objects.get(id=movie_id)
             movie.rate_count = F('rate_count') + 1
             movie.rate_avr = Rating.objects.filter(movie_id=movie_id).aggregate(Avg('rate')).get('rate__avg')
@@ -58,7 +63,7 @@ class RatingViewSet(mixins.CreateModelMixin,
                 "message": RatingSerializers(rating).data
             }
             if rate >= 4:
-                thread = threading.Thread(target=recommendation_engine.content_recommendations(movie=movie,user=user))
+                thread = threading.Thread(target=recommendation_engine.content_recommendations, kwargs={'movie': movie, 'user': user})
                 thread.start()
             return Response(data, status=status.HTTP_201_CREATED)
         except Exception as e:

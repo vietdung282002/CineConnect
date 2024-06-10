@@ -10,7 +10,7 @@ from watched.models import Watched
 from .serializers import WatchedDetailSerializers, WatchedSerializers
 
 logger = logging.getLogger(__name__)
-
+from activity.models import Activity
 
 # Create your views here.
 
@@ -29,7 +29,6 @@ class WatchedViewSet(mixins.ListModelMixin,
             return WatchedSerializers
 
     def list(self, request, *args, **kwargs):
-
         try:
             query_set = Watched.objects.filter(user_id=request.user.id)
             movie = [WatchedDetailSerializers(watched).data['movie'] for watched in query_set]
@@ -55,6 +54,7 @@ class WatchedViewSet(mixins.ListModelMixin,
             return Response({'message': 'Object already exists.'}, status=status.HTTP_400_BAD_REQUEST)
         try:
             watched = Watched.objects.create(movie_id=movie_id, user_id=request.user.id)
+            Activity.objects.create(movie_id=movie_id,user_id=request.user.id,type=3)
             data = data = {
                 "status": "success",
                 "message": WatchedSerializers(watched).data

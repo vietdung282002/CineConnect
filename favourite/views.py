@@ -10,7 +10,7 @@ from .serializers import FavouriteSerializers, FavouriteDetailSerializers
 import threading
 from recommendation_system import recommendation_engine
 from rest_framework.decorators import action
-
+from activity.models import Activity
 # Create your views here.
 class FavouriteViewSet(mixins.ListModelMixin,
                        mixins.CreateModelMixin,
@@ -51,14 +51,19 @@ class FavouriteViewSet(mixins.ListModelMixin,
         movie = Movie.objects.get(id = movie_id)
         user = CustomUser.objects.get(id = request.user.id)
         if Favourite.objects.filter(user=user, movie=movie).exists():
-            return Response({'message': 'Object already exists.'}, status=status.HTTP_400_BAD_REQUEST)
+            data = {
+                "status": "error",
+                "message": 'Object already exists.'
+            }
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
         try:
             favourite = Favourite.objects.create(movie=movie, user=user)
+            activity = Activity.objects.create(movie=movie,user = user,type = 2)
             data = {
                 "status": "success",
                 "message": FavouriteSerializers(favourite).data
             }
-            thread = threading.Thread(target=recommendation_engine.content_recommendations(movie=movie,user=user))
+            thread = threading.Thread(target=recommendation_engine.content_recommendations, kwargs={'movie': movie, 'user': user})
             thread.start()
             return Response(data, status=status.HTTP_201_CREATED)
         except Exception as e:
@@ -73,24 +78,24 @@ class FavouriteViewSet(mixins.ListModelMixin,
             favourite_obj = Favourite.objects.get(user_id=request.user.id, movie_id=pk)
             try:
                 rating_obj = Rating.objects.get(user_id=request.user.id, movie_id=pk)
-                return Response({'error': "You can't not remove from watched because there is activity on it"},
+                data = {
+                    "status": "error",
+                    "message": "You can't not remove from watched because there is activity on it"
+                }
+                return Response(data,
                                 status=status.HTTP_405_METHOD_NOT_ALLOWED)
             except Rating.DoesNotExist:
                 try:
                     review_obj = Review.objects.get(user_id=request.user.id, movie_id=pk)
-                    return Response({'error': "You can't not remove from watched because there is activity on it"},
-                                    status=status.HTTP_405_METHOD_NOT_ALLOWED)
+                    data = {
+                        "status": "error",
+                        "message": "You can't not remove from watched because there is activity on it"
+                    }
+                    return Response(data,
+                                status=status.HTTP_405_METHOD_NOT_ALLOWED)
                 except Review.DoesNotExist:
                     favourite_obj.delete()
                     return Response(status=status.HTTP_204_NO_CONTENT)
         except Favourite.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
     
-    # @action(detail=False, methods=['get'])  
-    # def movie(self, request, *args, **kwargs):
-    #     query = request.query_params.get('movie', None)
-    #     if query:
-    #         movie =Movie.objects.get(id = query)
-    #         favourite = Favourite.objects.filter(movie = movie)
-            
-    #     return super().list(request, *args, **kwargs)

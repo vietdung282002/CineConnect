@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'daphne',
-    'django_celery_beat',
-    'django_celery_results',
+    'background_task',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
@@ -72,10 +71,12 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'CineConnect.urls'
@@ -105,7 +106,11 @@ CHANNEL_LAYERS = {
         
     },
 }
-
+# CSRF_COOKIE_SECURE = False  # Đặt CSRF cookie không an toàn
+# CSRF_COOKIE_HTTPONLY = False  # Không sử dụng HTTPOnly cho CSRF cookie
+# CSRF_COOKIE_SAMESITE = None  # Không đặt SameSite cho CSRF cookie
+# SESSION_COOKIE_SECURE = False
+CORS_ORIGIN_ALLOW_ALL=True
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -152,6 +157,13 @@ TIME_ZONE = "Asia/Ho_Chi_Minh"
 USE_I18N = True
 
 USE_TZ = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -207,12 +219,3 @@ LOGGING = {
 
     },
 }
-from celery.schedules import crontab
-
-CELERY_BROKER_URL = 'redis://cineconnect.redis.cache.windows.net:6379/0'
-CELERY_RESULT_BACKEND = 'redis://cineconnect.redis.cache.windows.net:6379/0'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
