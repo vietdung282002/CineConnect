@@ -20,6 +20,7 @@ from .serializers import UserRegisterSerializer, UserLoginSerializer, UserLogout
 from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
+import os 
 
 
 class UserRegisterViewSet(viewsets.ModelViewSet):
@@ -125,9 +126,9 @@ def get_random_token(length):
 def send_password_token(email, new_token):
     subject = ' Reset password '
     body = 'Use this pin: '+ new_token + 'to reset your password. It will expires in 15 mins'
-    sender = settings.EMAIL_HOST_USER
+    sender = os.environ.get('EMAIL_HOST_USER')
     recipient_list = [email]
-    password = settings.EMAIL_HOST_PASSWORD
+    password = os.environ.get('EMAIL_HOST_PASSWORD')
     msg = MIMEText(body)
     msg['Subject'] = subject
     msg['From'] = sender
