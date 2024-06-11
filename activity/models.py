@@ -7,7 +7,7 @@ class Activity(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
     type = models.IntegerField(null=False,blank=False)
     #type 1: User rervieww
-    #type 2: User liked movie
+    #type 2: User like movie
     #type 3: User Watched movie
     #type 4: User like review
     #type 5: User rate movie
