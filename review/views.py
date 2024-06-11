@@ -98,7 +98,7 @@ class ReviewViewSet(mixins.ListModelMixin,
         
             query_set = Review.objects.filter(
                 Q(user_id__in=followed_users) | Q(movie_id__in=favourite_movies)
-            )
+            ).exclude(user_id=user_id)
         else: 
             query_set = Review.objects.none()
     
@@ -112,7 +112,7 @@ class ReviewViewSet(mixins.ListModelMixin,
         if user_id:
             recommended_movies = MovieRecommend.objects.filter(user_id=user_id).values_list('movie_id', flat=True)
             query_set = Review.objects.filter(
-                Q(movie_id__in=recommended_movies)
+                Q(movie_id__in=recommended_movies).exclude(user_id=user_id)
             )
         else: 
             query_set = Review.objects.none()

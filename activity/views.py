@@ -5,3 +5,12 @@ from .serializers import Activity,ActivitySerializers
 class ActivityViewsets(mixins.ListModelMixin,viewsets.GenericViewSet):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializers
+    
+    def list(self, request, *args, **kwargs):
+        user_query = request.query_params.get('user', None)
+        if user_query:
+            query_set = Activity.objects.filter(user_id = user_query)
+            self.queryset = query_set
+        else: 
+            self.queryset = []
+        return super().list(request, *args, **kwargs)
