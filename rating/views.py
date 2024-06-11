@@ -5,7 +5,7 @@ from rest_framework import permissions
 from rest_framework import status
 from rest_framework import viewsets, mixins
 from rest_framework.response import Response
-from movies.models import Movie
+from movies.serializers import Movie,MovieDetailDisplaySerializer
 from watched.models import Watched
 from users.models import CustomUser
 from .serializers import RatingSerializers, Rating, RatingUpdateSerializers
@@ -27,6 +27,12 @@ class RatingViewSet(mixins.CreateModelMixin,
             return RatingUpdateSerializers
         else:
             return RatingSerializers
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['user_id'] = self.request.user.id
+
+        return context
 
     permission_classes = (permissions.IsAuthenticated,)
     
@@ -36,37 +42,53 @@ class RatingViewSet(mixins.CreateModelMixin,
         data = request.data
         movie_id = data.get('movie')
         rate = data.get('rate')
+        context = super().get_serializer_context()
+        context['user_id'] = self.request.user.id
+        try:
+            movie= Movie.objects.get(id=movie_id)
+        except Movie.DoesNotExist as e:
+            data = {
+                "status": "error",
+                "message": str(e)
+            }
+            return Response(data, status=status.HTTP_400_BAD_REQUEST)
         user = CustomUser.objects.get(id = request.user.id)
-        if Rating.objects.filter(user_id=request.user.id, movie_id=movie_id).exists():
-            Rating.objects.get(user_id=request.user.id, movie_id=movie_id).delete()
+        if Rating.objects.filter(user_id=request.user.id, movie=movie).exists():
+            Rating.objects.get(user_id=request.user.id, movie=movie).delete()
         try:
-            watched = Watched.objects.get(movie_id=movie_id, user_id=request.user.id)
+            watched = Watched.objects.get(movie=movie, user_id=request.user.id)
         except Watched.DoesNotExist:
-            Watched.objects.create(movie_id=movie_id, user_id=request.user.id)
-            Activity.objects.create(movie_id=movie_id,user=user,type=3)
+            Watched.objects.create(movie=movie, user_id=request.user.id)
+            Activity.objects.create(movie=movie,user=user,type=3)
         try:
+            
             if rate > 0:
-                rating = Rating.objects.create(movie_id=movie_id, user_id=request.user.id,rate= rate)
-                Activity.objects.create(movie_id=movie_id,user=user,type=5)
-                movie = Movie.objects.get(id=movie_id)
+                rating = Rating.objects.create(movie=movie, user_id=request.user.id,rate= rate)
+                Activity.objects.create(movie=movie,user=user,type=5)
                 movie.rate_count = F('rate_count') + 1
-                movie.rate_avr = Rating.objects.filter(movie_id=movie_id).aggregate(Avg('rate')).get('rate__avg')
+                movie.rate_avr = Rating.objects.filter(movie=movie).aggregate(Avg('rate')).get('rate__avg')
 
                 movie.save()
                 
                 data = {
                     "status": "success",
-                    "message": RatingSerializers(rating).data
+                    "message": {
+                        "movie": movie_id,
+                        "user": request.user.id,
+                        "rate": MovieDetailDisplaySerializer(movie,context=context).data['rating']
+                    }
                 }
+                
             else:
                 data = {
                     "status": "success",
                     "message": {
                         "movie": movie_id,
                         "user": request.user.id,
-                        "rate": rate
+                        "rate": MovieDetailDisplaySerializer(movie,context=context).data['rating']
                     }
                 }
+                
             if rate >= 4:
                 thread = threading.Thread(target=recommendation_engine.content_recommendations, kwargs={'movie': movie, 'user': user})
                 thread.start()

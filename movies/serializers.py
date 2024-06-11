@@ -167,7 +167,6 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
     @extend_schema_field(serializers.ListField)
     def get_casts(self, movie_instance):
         query_data = Cast.objects.filter(movie=movie_instance)
-
         return [CastMovieSerializer(person).data for person in query_data]
     
     @extend_schema_field(serializers.ListField)
@@ -181,7 +180,6 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
         try:
             rating = Rating.objects.filter(movie=movie_instance)
             if not rating.exists():
-                logger.warning("No ratings found for the movie")
                 return {
                     "avr": {
                         "rate__avg": 0
@@ -206,7 +204,7 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
     # Handle the exception if needed, maybe return a default value or raise an error
 
 # if ratings exist, process the first rating in the list
-        return [RatingDisplaySerializers(rating[0]).data]
+        return RatingDisplaySerializers(rating[0]).data
 
     @extend_schema_field(serializers.ListField)
     def get_directors(self, movie_instance):
