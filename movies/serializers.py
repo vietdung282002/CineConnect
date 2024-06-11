@@ -182,8 +182,7 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
             rating = Rating.objects.filter(movie=movie_instance)
             if not rating.exists():
                 logger.warning("No ratings found for the movie")
-                return [
-                {
+                return {
                     "avr": {
                         "rate__avg": 0
                     },
@@ -201,7 +200,7 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
                         "5.0": 0
                     }
                 }
-                ]
+                
         except Exception as e:
             logger.warning(f"An error occurred: {e}")
     # Handle the exception if needed, maybe return a default value or raise an error
@@ -251,10 +250,10 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
             try:
                 rating = Rating.objects.get(
                     movie=instance, user_id=self.context['user_id'])
-                data['rating'][0]['user_rating'] = rating.rate
+                data['rating']['user_rating'] = rating.rate
                 
             except Rating.DoesNotExist:
-                data['rating'][0]['user_rating'] = 0
+                data['rating']['user_rating'] = 0
         return data
 
 
