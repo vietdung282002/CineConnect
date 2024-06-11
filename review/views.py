@@ -90,7 +90,7 @@ class ReviewViewSet(mixins.ListModelMixin,
             
         return super().list(request, *args, **kwargs)
     @action(detail=False, methods=['get'])  
-    def newfeed(self, request, *args, **kwargs):
+    def newsfeed(self, request, *args, **kwargs):
         user_id = request.user.id
         if user_id:
             followed_users = Follow.objects.filter(follower_id=user_id).values_list('followee_id', flat=True)
@@ -230,7 +230,6 @@ class ReactionViewSet(mixins.ListModelMixin,
             reaction.save()
             review = reaction.review
             movie = review.movie
-            Activity.objects.create(user_id=request.user.id,type=4,review_id=review)
             data = {
                 "status": "success",
                 "result": {
@@ -238,6 +237,7 @@ class ReactionViewSet(mixins.ListModelMixin,
                     "like": True,
                 }
             }
+            Activity.objects.create(user_id=request.user.id,type=4,review=review)
         else: 
             reaction.like = False
             reaction.save()
