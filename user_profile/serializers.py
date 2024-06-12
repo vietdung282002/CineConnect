@@ -62,6 +62,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
         follower_count = Follow.objects.filter(followee = user_instance).count()
         return follower_count
     
+class UserProfileUpdateSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = CustomUser
+        fields = [ 'username', 'first_name', 'last_name', 'email', 'gender', 'bio', 'profile_pic']
+    
+    
     
 class UserListSerializer(serializers.ModelSerializer):
     is_following = serializers.SerializerMethodField()

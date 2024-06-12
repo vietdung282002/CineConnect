@@ -318,7 +318,6 @@ def change_password(request):
             }
         return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
 
-    token, _ = Token.objects.get_or_create(user=current_user)
     data ={
                 "status": "success",
                 "message":'change password successfull'

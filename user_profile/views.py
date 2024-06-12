@@ -1,7 +1,7 @@
 from rest_framework import permissions
 from rest_framework import viewsets,mixins
 from users.models import CustomUser
-from .serializers import UserProfileSerializer,UserListSerializer
+from .serializers import UserProfileSerializer,UserListSerializer,UserProfileUpdateSerializer
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import action
 from django.db.models import Q
@@ -25,6 +25,8 @@ class UserProfileViewSet(mixins.ListModelMixin,
     def get_serializer_class(self):
         if self.action == 'list' or self.action == 'search':
             return UserListSerializer
+        elif self.action == 'update':
+            return UserProfileUpdateSerializer  
         else:
             return UserProfileSerializer
     
