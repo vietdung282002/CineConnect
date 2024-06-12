@@ -6,6 +6,9 @@ from .serializers import UserProfileSerializer,UserListSerializer,UserProfileUpd
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import action
 from django.db.models import Q
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 class UserProfileViewSet(mixins.ListModelMixin,
@@ -34,15 +37,17 @@ class UserProfileViewSet(mixins.ListModelMixin,
     def update(self, request, *args, **kwargs):
         username = request.data['username']
         id = request.user.id
-        try:
-            CustomUser.objects.filter(Q(username=username) & ~Q(id=id)).exists()
+        if CustomUser.objects.filter(Q(username=username) & ~Q(id=id)).exists():
+            
             data = {
                 "detail":"A user with that username already exists."
             }
-            return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
-        except CustomUser.DoesNotExist:
-            return super().update(request, *args, **kwargs)
+            return Response(data=data, status=status.HTTP_400_BAD_REQUEST) 
             
+        else:
+            return super().update(request, *args, **kwargs)
+        
+        
     
     @action(detail=False, methods=['get'],serializer_class=UserListSerializer)  
     def search(self,request,*args, **kwargs):
