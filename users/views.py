@@ -13,7 +13,7 @@ import smtplib
 from email.mime.text import MIMEText
 from django.conf import settings
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-import string
+from .permission import IsOwnerOrReadOnly
 import random
 from .models import CustomUser,UpdatePasswordToken
 from .serializers import UserRegisterSerializer, UserLoginSerializer, UserLogoutSerializer
@@ -274,8 +274,54 @@ def reset_password(request):
 
 
     data ={
-        'username': current_user.username,
-        'token': token.key
-    }
+                "status": "success",
+                "message":'reset password successfull'
+            }
+
+    return Response(data=data, status=status.HTTP_200_OK)
+
+@csrf_exempt    
+@api_view(['PUT', ])
+@permission_classes([permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly])
+def change_password(request):
+    """
+        Reset password of user
+    """
+    try:
+        current_password = request.data['currentPassword']
+        new_password = request.data['newPassword']
+        id = request.user.id
+    except KeyError:
+        data = {
+                "status": "error",
+                "message":'This was an invalid request'
+            }
+        return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
+    
+    try:
+        current_user = CustomUser.objects.get(id=id)
+    except CustomUser.DoesNotExist:
+        data = {
+                "status": "error",
+                "message":'This user does not exist'
+            }
+        return Response(data={'message': 'This user does not exist'}, status=status.HTTP_404_NOT_FOUND)
+    
+    user = authenticate(username= current_user.username,password= current_password)
+    if user:
+        current_user.set_password(new_password)
+        current_user.save()
+    else:
+        data = {
+                "status": "error",
+                "message":'wrong password'
+            }
+        return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
+
+    token, _ = Token.objects.get_or_create(user=current_user)
+    data ={
+                "status": "success",
+                "message":'change password successfull'
+            }
 
     return Response(data=data, status=status.HTTP_200_OK)

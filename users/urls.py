@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from users.views import UserRegisterViewSet, UserLoginViewSet, UserLogoutViewSet,request_password_update,confirm_user_passcode,reset_password
+from users.views import UserRegisterViewSet, UserLoginViewSet, UserLogoutViewSet,request_password_update,confirm_user_passcode,reset_password,change_password
 
 router = DefaultRouter()
 # router.register(r'profiles',UserProflieViewSet,basename='users')
@@ -14,4 +14,5 @@ urlpatterns = [
     path('request_password_update',request_password_update, name="request_password_update"), 
     path('confirm_user_passcode', confirm_user_passcode, name="confirm_user_passcode"),
     path('reset_password', reset_password, name="reset_password"),
+    path('change_password',change_password,name='change_password')
 ]
