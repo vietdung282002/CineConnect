@@ -1,5 +1,6 @@
 from rest_framework import permissions
-from rest_framework import viewsets,mixins
+from rest_framework import viewsets,mixins,status
+from rest_framework.response import Response
 from users.models import CustomUser
 from .serializers import UserProfileSerializer,UserListSerializer,UserProfileUpdateSerializer
 from .permissions import IsOwnerOrReadOnly
@@ -29,6 +30,18 @@ class UserProfileViewSet(mixins.ListModelMixin,
             return UserProfileUpdateSerializer  
         else:
             return UserProfileSerializer
+        
+    def update(self, request, *args, **kwargs):
+        username = request.data['username']
+        try:
+            CustomUser.objects.filter(username=username).exists()
+            data = {
+                "detail":"A user with that username already exists."
+            }
+            return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
+        except CustomUser.DoesNotExist:
+            return super().update(request, *args, **kwargs)
+            
     
     @action(detail=False, methods=['get'],serializer_class=UserListSerializer)  
     def search(self,request,*args, **kwargs):
