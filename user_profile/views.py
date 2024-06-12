@@ -33,8 +33,9 @@ class UserProfileViewSet(mixins.ListModelMixin,
         
     def update(self, request, *args, **kwargs):
         username = request.data['username']
+        id = request.user.id
         try:
-            CustomUser.objects.filter(username=username).exists()
+            CustomUser.objects.filter(Q(username=username) & ~Q(id=id)).exists()
             data = {
                 "detail":"A user with that username already exists."
             }
