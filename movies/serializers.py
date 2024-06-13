@@ -9,6 +9,8 @@ from people.serializers import PersonSerializers
 from rating.models import Rating
 from review.models import Review
 from .models import Movie, Cast, Director
+from watched.models import Watched
+from favourite.models import Favourite
 from favourite.models import Favourite
 from django.db.models.functions import Round
 import logging
@@ -157,12 +159,14 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
     review_count = serializers.SerializerMethodField()
     genres = GenresSerializers(many=True)
     favourite_count = serializers.SerializerMethodField()
+    is_watched = serializers.SerializerMethodField()
+    is_favourite = serializers.SerializerMethodField()
 
     class Meta:
         model = Movie
         fields = ['id', 'adult', 'backdrop_path', 'budget', 'homepage', 'original_language', 'original_title',
                   'overview', 'poster_path', 'release_date', 'revenue', 'runtime', 'status', 'tagline', 'title',
-                  'genres', 'casts', 'directors', 'rating', 'review_count','favourite_count']
+                  'genres', 'casts', 'directors', 'rating', 'review_count','favourite_count','is_watched','is_favourite']
 
     @extend_schema_field(serializers.ListField)
     def get_casts(self, movie_instance):
@@ -201,9 +205,6 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
                 
         except Exception as e:
             logger.warning(f"An error occurred: {e}")
-    # Handle the exception if needed, maybe return a default value or raise an error
-
-# if ratings exist, process the first rating in the list
         return RatingDisplaySerializers(rating[0]).data
 
     @extend_schema_field(serializers.ListField)
@@ -211,6 +212,28 @@ class MovieDetailDisplaySerializer(serializers.ModelSerializer):
         query_data = Director.objects.filter(movie=movie_instance)
 
         return [DirectorMovieSerializer(person).data for person in query_data]
+    
+    @extend_schema_field(serializers.ListField)
+    def get_is_watched(self, movie_instance):
+        if self.context['user_id'] is not None:
+            try:
+                watched = Watched.objects.get(user_id = self.context['user_id'],movie= movie_instance)
+                return True
+            except Watched.DoesNotExist:
+                return False
+
+        return False
+    
+    @extend_schema_field(serializers.ListField)
+    def get_is_favourite(self, movie_instance):
+        if self.context['user_id'] is not None:
+            try:
+                favourite = Favourite.objects.get(user_id = self.context['user_id'],movie= movie_instance)
+                return True
+            except Favourite.DoesNotExist:
+                return False
+
+        return False
 
     @extend_schema_field(serializers.ListField)
     def get_review_count(self, movie_instance):
