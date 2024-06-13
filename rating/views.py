@@ -10,7 +10,6 @@ from watched.models import Watched
 from users.models import CustomUser
 from .serializers import RatingSerializers, Rating, RatingUpdateSerializers
 from django.db.models import F,Avg
-import threading
 from recommendation_system import recommendation_engine
 from recommendation_system.models import MovieRecommend
 from activity.models import Activity
