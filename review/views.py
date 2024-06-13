@@ -160,7 +160,7 @@ class CommentViewSet(mixins.CreateModelMixin,
             Activity.objects.create(user_id=request.user.id,type=7,review_id=review)
             data = {
                 "status": "success",
-                "message": CommentSerializer(comment).data
+                "message": "comment success"
             }
             return Response(data, status=status.HTTP_201_CREATED)
         except Exception as e:
