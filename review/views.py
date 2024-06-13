@@ -62,7 +62,7 @@ class ReviewViewSet(mixins.ListModelMixin,
                 "status": "error",
                 "message": 'Object already exists.'
             }
-            return Response(data, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data, status=status.HTTP_409_CONFLICT)
         try:
             watched = Watched.objects.get(movie=movie, user=user)
         except Watched.DoesNotExist:
@@ -74,7 +74,7 @@ class ReviewViewSet(mixins.ListModelMixin,
             Activity.objects.create(movie=movie,user=user,type=1,review=review)
             data = data = {
                 "status": "success",
-                "message": ReviewListSerializers(review).data
+                "message": ReviewSerializers(review).data
             }
             return Response(data, status=status.HTTP_201_CREATED)
         except Exception as e:
