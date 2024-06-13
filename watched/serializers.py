@@ -4,6 +4,7 @@ from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
 from movies.serializers import MovieListSerializers
+from user_profile.serializers import UserListSerializer
 from watched.models import Watched
 
 logger = logging.getLogger(__name__)
@@ -18,7 +19,6 @@ class WatchedSerializers(serializers.ModelSerializer):
 
 class WatchedDetailSerializers(serializers.ModelSerializer):
     movie = serializers.SerializerMethodField()
-
     class Meta:
         model = Watched
         fields = ['movie']

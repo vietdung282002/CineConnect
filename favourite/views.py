@@ -5,6 +5,7 @@ from favourite.models import Favourite
 from rating.models import Rating
 from review.models import Review
 from movies.models import Movie
+from watched.models import Watched
 from users.models import CustomUser
 from .serializers import FavouriteSerializers, FavouriteDetailSerializers
 import threading
@@ -14,7 +15,7 @@ from activity.models import Activity
 # Create your views here.
 class FavouriteViewSet(mixins.ListModelMixin,
                        mixins.CreateModelMixin,
-                       mixins.DestroyModelMixin,
+                    #    mixins.DestroyModelMixin,
                        viewsets.GenericViewSet):
     queryset = Favourite.objects.all()
     # permission_classes = [permissions.IsAuthenticated]
@@ -51,51 +52,36 @@ class FavouriteViewSet(mixins.ListModelMixin,
         movie = Movie.objects.get(id = movie_id)
         user = CustomUser.objects.get(id = request.user.id)
         if Favourite.objects.filter(user=user, movie=movie).exists():
-            data = {
-                "status": "error",
-                "message": 'Object already exists.'
-            }
-            return Response(data, status=status.HTTP_400_BAD_REQUEST)
-        try:
-            favourite = Favourite.objects.create(movie=movie, user=user)
-            activity = Activity.objects.create(movie=movie,user = user,type = 2)
+            favourite = Favourite.objects.get(user=user, movie=movie)
+            favourite.delete()
             data = {
                 "status": "success",
-                "message": FavouriteSerializers(favourite).data
+                "message": {
+                    "movie": movie_id,
+                    "user": request.user.id,
+                    "favourite": False
+                }
             }
-            thread = threading.Thread(target=recommendation_engine.content_recommendations, kwargs={'movie': movie, 'user': user})
-            thread.start()
             return Response(data, status=status.HTTP_201_CREATED)
-        except Exception as e:
-            data = {
-                "status": "error",
-                "message": str(e)
-            }
-            return Response(data, status=status.HTTP_400_BAD_REQUEST)
-
-    def destroy(self, request, pk, *args, **kwargs):
-        try:
-            favourite_obj = Favourite.objects.get(user_id=request.user.id, movie_id=pk)
+        else:
             try:
-                rating_obj = Rating.objects.get(user_id=request.user.id, movie_id=pk)
+                watched = Watched.objects.get_or_create(user=user, movie=movie)
+                favourite = Favourite.objects.create(movie=movie, user=user)
+                activity = Activity.objects.create(movie=movie,user = user,type = 2)
+                data = {
+                    "status": "success",
+                    "message": {
+                        "movie": movie_id,
+                        "user": request.user.id,
+                        "favourite": True
+                    }
+                }
+                thread = threading.Thread(target=recommendation_engine.content_recommendations, kwargs={'movie': movie, 'user': user})
+                thread.start()
+                return Response(data, status=status.HTTP_201_CREATED)
+            except Exception as e:
                 data = {
                     "status": "error",
-                    "message": "You can't not remove from watched because there is activity on it"
+                    "message": str(e)
                 }
-                return Response(data,
-                                status=status.HTTP_405_METHOD_NOT_ALLOWED)
-            except Rating.DoesNotExist:
-                try:
-                    review_obj = Review.objects.get(user_id=request.user.id, movie_id=pk)
-                    data = {
-                        "status": "error",
-                        "message": "You can't not remove from watched because there is activity on it"
-                    }
-                    return Response(data,
-                                status=status.HTTP_405_METHOD_NOT_ALLOWED)
-                except Review.DoesNotExist:
-                    favourite_obj.delete()
-                    return Response(status=status.HTTP_204_NO_CONTENT)
-        except Favourite.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-    
+                return Response(data, status=status.HTTP_400_BAD_REQUEST)
