@@ -58,7 +58,6 @@ def content_recommendations(movie,user):
     
     sim_scores.sort(key=lambda x: x[1].any(), reverse=True)
     
-    # sim_scores = sim_scores[1:11]
     
     movie_indices = [i[0] for i in sim_scores]
     

@@ -77,8 +77,7 @@ class FavouriteViewSet(mixins.ListModelMixin,
                         "watched":True
                     }
                 }
-                thread = threading.Thread(target=recommendation_engine.content_recommendations(movie,user))
-                thread.start()
+                recommendation_engine.content_recommendations(movie,user)
                 return Response(data, status=status.HTTP_201_CREATED)
             except Exception as e:
                 data = {

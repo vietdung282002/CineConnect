@@ -1,20 +1,12 @@
 
 from rest_framework import viewsets,status
 from rest_framework.decorators import action
-from rest_framework.response import Response
 from .models import Movie
 from genres.models import Genre
 from favourite.models import Favourite
 from watched.models import Watched
 from users.models import CustomUser
 from .serializers import MovieCreateSerializer, MovieDetailDisplaySerializer, MovieListDisplaySerializers,MovieSearchListDisplaySerializers
-from drf_yasg.utils import swagger_auto_schema
-from drf_yasg import openapi
-from drf_spectacular.utils import extend_schema,OpenApiParameter
-from recommendation_system.recommendation_engine import create_tfidf_matrix,cal_cosine_simulator,content_recommendations
-from asgiref.sync import async_to_sync
-import asyncio
-import threading
 import logging
 
 logger = logging.getLogger(__name__)
