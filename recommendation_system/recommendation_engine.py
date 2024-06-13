@@ -85,4 +85,3 @@ def content_recommendations(movie,user):
             break
         else: i+=1
         movie_recommend = MovieRecommend.objects.get_or_create(user=user,movie_id=movie_id)
-        logger.warning(movie_id)

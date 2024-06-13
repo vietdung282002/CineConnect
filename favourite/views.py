@@ -73,10 +73,11 @@ class FavouriteViewSet(mixins.ListModelMixin,
                     "message": {
                         "movie": movie_id,
                         "user": request.user.id,
-                        "favourite": True
+                        "favourite": True,
+                        "watched":True
                     }
                 }
-                thread = threading.Thread(target=recommendation_engine.content_recommendations, kwargs={'movie': movie, 'user': user})
+                thread = threading.Thread(target=recommendation_engine.content_recommendations(movie,user))
                 thread.start()
                 return Response(data, status=status.HTTP_201_CREATED)
             except Exception as e:

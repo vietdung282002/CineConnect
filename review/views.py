@@ -15,6 +15,9 @@ from favourite.models import Favourite
 from follow.models import Follow
 from movies.models import Movie
 from recommendation_system.models import MovieRecommend
+from rating.models import Rating
+from favourite.models import Favourite
+from users.models import CustomUser
 logger = logging.getLogger(__name__)
 
 
@@ -49,21 +52,26 @@ class ReviewViewSet(mixins.ListModelMixin,
     def create(self, request, *args, **kwargs):
         data = request.data
         movie_id = data.get('movie')
+        movie = Movie.objects.get(id = movie_id)
         content = data.get('content')
-        if Review.objects.filter(user_id = request.user.id,movie_id = movie_id):
+
+        user = CustomUser.objects.get(id = request.user.id)
+        
+        if Review.objects.filter(user = user,movie = movie):
             data = {
                 "status": "error",
                 "message": 'Object already exists.'
             }
             return Response(data, status=status.HTTP_400_BAD_REQUEST)
         try:
-            watched = Watched.objects.get(movie_id=movie_id, user_id=request.user.id)
+            watched = Watched.objects.get(movie=movie, user=user)
         except Watched.DoesNotExist:
-            Watched.objects.create(movie_id=movie_id, user_id=request.user.id)
-            Activity.objects.create(movie_id=movie_id,user_id=request.user.id,type=3)
+            Watched.objects.create(movie=movie, user=user)
+            Activity.objects.create(movie=movie,user=user,type=3)
+            
         try:
-            review = Review.objects.create(movie_id=movie_id, user_id=request.user.id,content = content)
-            Activity.objects.create(movie_id=movie_id,user_id=request.user.id,type=1,review=review)
+            review = Review.objects.create(movie=movie, user=user,content = content)
+            Activity.objects.create(movie=movie,user=user,type=1,review=review)
             data = data = {
                 "status": "success",
                 "message": ReviewListSerializers(review).data

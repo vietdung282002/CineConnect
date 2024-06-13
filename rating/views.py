@@ -90,7 +90,7 @@ class RatingViewSet(mixins.CreateModelMixin,
                 }
                 
             if rate >= 4:
-                thread = threading.Thread(target=recommendation_engine.content_recommendations, kwargs={'movie': movie, 'user': user})
+                thread = threading.Thread(target=recommendation_engine.content_recommendations(movie,user))
                 thread.start()
                 
             if rate <2:
