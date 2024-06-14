@@ -141,6 +141,7 @@ class ReviewViewSet(mixins.ListModelMixin,
     
     
 class CommentViewSet(mixins.CreateModelMixin,
+                     mixins.RetrieveModelMixin,
                      mixins.UpdateModelMixin,
                      mixins.DestroyModelMixin,
                      mixins.ListModelMixin,
@@ -148,7 +149,7 @@ class CommentViewSet(mixins.CreateModelMixin,
     queryset = Comment.objects.all()
     permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
     
-    http_method_names = ['get','post','patch','delete']
+    http_method_names = ['get','post','put','delete']
     
     def get_serializer_context(self):
         context = super().get_serializer_context()
