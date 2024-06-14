@@ -82,5 +82,6 @@ def content_recommendations(movie,user):
         
         if i>10:
             break
-        else: i+=1
+        else: 
+            i+=1
         movie_recommend = MovieRecommend.objects.get_or_create(user=user,movie_id=movie_id)

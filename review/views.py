@@ -46,7 +46,7 @@ class ReviewViewSet(mixins.ListModelMixin,
         else:
             return ReviewDetailSerializer
         
-    http_method_names =['get','post','patch','delete']
+    http_method_names =['get','post','put','delete']
         
 
     def create(self, request, *args, **kwargs):
@@ -137,6 +137,8 @@ class ReviewViewSet(mixins.ListModelMixin,
         else:
             self.queryset = []
         return super().list(request, *args, **kwargs)
+    
+    
     
 class CommentViewSet(mixins.CreateModelMixin,
                      mixins.UpdateModelMixin,
