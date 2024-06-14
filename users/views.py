@@ -12,12 +12,11 @@ from rest_framework.response import Response
 import smtplib
 from email.mime.text import MIMEText
 from django.conf import settings
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.decorators import api_view, permission_classes
 from .permission import IsOwnerOrReadOnly
 import random
 from .models import CustomUser,UpdatePasswordToken
 from .serializers import UserRegisterSerializer, UserLoginSerializer, UserLogoutSerializer
-from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 import os 

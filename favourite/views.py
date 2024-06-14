@@ -77,7 +77,7 @@ class FavouriteViewSet(mixins.ListModelMixin,
                         "watched":True
                     }
                 }
-                recommendation_engine.content_recommendations(movie,user)
+                # recommendation_engine.content_recommendations(movie,user)
                 return Response(data, status=status.HTTP_201_CREATED)
             except Exception as e:
                 data = {

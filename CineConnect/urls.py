@@ -37,10 +37,11 @@ urlpatterns = [
     path('follow/',include('follow.urls')),
     path('test/',include('webjob.urls')),
     path('activity/',include('activity.urls')),
+    path('recommend/',include('recommendation_system.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Swagger UI:
 
-    path('doc', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('doc/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     # Redoc UI:
 
 ]

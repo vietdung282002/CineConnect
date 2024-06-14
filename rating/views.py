@@ -88,8 +88,8 @@ class RatingViewSet(mixins.CreateModelMixin,
                     }
                 }
                 
-            if rate >= 4:
-                recommendation_engine.content_recommendations(movie,user)
+            # if rate >= 4:
+            #     recommendation_engine.content_recommendations(movie,user)
             if rate <2:
                 if MovieRecommend.objects.filter(user_id = request.user.id,movie_id= movie_id).exists():
                     MovieRecommend.objects.get(user_id = request.user.id,movie_id= movie_id).delete()
