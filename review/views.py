@@ -158,7 +158,7 @@ class CommentViewSet(mixins.CreateModelMixin,
         return context
     
     def get_serializer_class(self):
-        if self.action == 'list':
+        if self.action == 'list' or self.action == 'retrieve':
             return CommentListSerializer
         else:
             return CommentSerializer
@@ -187,7 +187,7 @@ class CommentViewSet(mixins.CreateModelMixin,
             query_set = Comment.objects.filter(review_id=query)
             self.queryset = query_set
         else:
-            self.queryset = []
+            self.queryset = Comment.objects.all()
         return super().list(request, *args, **kwargs)
     
 class ReactionViewSet(mixins.ListModelMixin,
