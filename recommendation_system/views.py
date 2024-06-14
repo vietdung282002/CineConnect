@@ -13,7 +13,7 @@ from .recommendation_engine import content_recommendations
 
 @csrf_exempt        
 @api_view(['POST'])
-def recommendation(request):
+def add(request):
     user_id = request.user.id
     movie_id = request.data['movie']
     try:
@@ -21,9 +21,9 @@ def recommendation(request):
         try:
             movie = Movie.objects.get(id= movie_id)
         except Movie.DoesNotExist:
-            return Response( status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
     except CustomUser.DoesNotExist:
-        return Response( status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
         
     try:
         content_recommendations(movie,user)
