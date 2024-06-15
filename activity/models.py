@@ -20,4 +20,4 @@ class Activity(models.Model):
     time_stamp = models.DateTimeField(auto_now=True)
     
     class Meta:
-        ordering = ('time_stamp',)
+        ordering = ('-time_stamp',)
