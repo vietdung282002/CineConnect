@@ -124,7 +124,7 @@ def get_random_token(length):
 
 def send_password_token(email, new_token):
     subject = ' Reset password '
-    body = 'Use this pin: '+ new_token + 'to reset your password. It will expires in 15 mins'
+    body = 'Use this pin: '+ new_token + ' to reset your password. It will expires in 15 mins'
     sender = os.environ.get('EMAIL_HOST_USER')
     recipient_list = [email]
     password = os.environ.get('EMAIL_HOST_PASSWORD')
