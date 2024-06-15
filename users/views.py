@@ -264,7 +264,7 @@ def reset_password(request):
                 "status": "error",
                 "message":'This user does not exist'
             }
-        return Response(data={'message': 'This user does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        return Response(data=data, status=status.HTTP_404_NOT_FOUND)
     
     current_user.set_password(new_password)
     current_user.save()
