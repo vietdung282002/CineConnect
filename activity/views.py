@@ -6,6 +6,12 @@ class ActivityViewsets(mixins.ListModelMixin,viewsets.GenericViewSet):
     queryset = Activity.objects.all()
     serializer_class = ActivitySerializers
     
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['user_id'] = self.request.user.id
+
+        return context
+    
     def list(self, request, *args, **kwargs):
         user_query = request.query_params.get('user', None)
         if user_query:
