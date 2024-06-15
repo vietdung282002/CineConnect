@@ -114,7 +114,7 @@ def get_random_token(length):
     """
         Generate a random string, if length characters
     """
-    characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+    characters = '1234567890'
     token = ""
     for i in range(length):
         index = random.randint(0, len(characters) - 1)
@@ -169,7 +169,7 @@ def request_password_update(request):
             )
 
         #generate new token and send email with the token
-        new_token = get_random_token(10)
+        new_token = get_random_token(6)
         password_token.token = new_token
         password_token.created_at = timezone.now()
         password_token.save()
