@@ -11,6 +11,7 @@ class Review(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_review')
     time_stamp = models.DateTimeField(auto_now=True)
     content = models.TextField(null=False, blank=False)
+    popular = models.FloatField(default=0)
 
     class Meta:
         constraints = [

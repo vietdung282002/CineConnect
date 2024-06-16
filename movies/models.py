@@ -26,6 +26,7 @@ class Movie(models.Model):
     directors = models.ManyToManyField(Person, related_name='director_movies', through="Director")
     rate_count = models.BigIntegerField(default=0)
     rate_avr = models.FloatField(default=0)
+    popular =models.FloatField(default=0)
 
     def __str__(self):
         return self.title
