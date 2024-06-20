@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta,timezone
 from movies.models import Movie
 from users.models import CustomUser
 
@@ -25,13 +25,14 @@ class Review(models.Model):
         return self.movie.title + " (" + self.user.username + ")"
     
     def update_popular(self):
-        time_difference = datetime.now() - self.time_stamp
-        week_ago = datetime.now() - timedelta(days=7)
+        time_difference = datetime.now(timezone.utc) - self.time_stamp
+        week_ago = datetime.now(timezone.utc) - timedelta(days=7)
+        day_ago = datetime.now(timezone.utc) - timedelta(days=1)
         hours_difference = time_difference.total_seconds() / 3600  # Convert to hours
 
         # Constants
-        reaction_count = Reaction.objects.filter(review=self,time_stamp__lt=week_ago).count()
-        comment = Comment.objects.filter(review=self,time_stamp__lt=week_ago).count()
+        reaction_count = Reaction.objects.filter(review=self,time_stamp__lt=day_ago).count()
+        comment = Comment.objects.filter(review=self,time_stamp__lt=day_ago).count()
         gravity = 1.8
         if hours_difference > 0:
             self.score = (reaction_count + comment) / pow(hours_difference + 2, gravity)
@@ -50,6 +51,8 @@ class Reaction(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_like_review')
     review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='related_review')
     like = models.BooleanField(default=False)
+    time_stamp = models.DateTimeField(auto_now=True)
+    
 
     class Meta:
         constraints = [

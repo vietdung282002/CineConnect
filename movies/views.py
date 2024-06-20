@@ -8,7 +8,7 @@ from watched.models import Watched
 from users.models import CustomUser
 from .serializers import MovieCreateSerializer, MovieDetailDisplaySerializer, MovieListDisplaySerializers,MovieSearchListDisplaySerializers
 from rest_framework.response import Response
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta,timezone
 import logging
 
 
@@ -53,7 +53,7 @@ class MovieViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])  
     def calculatePopular(self,request,*args, **kwargs):
         queryset = Movie.objects.all()
-        seven_days_ago = datetime.now() - timedelta(days=7)
+        seven_days_ago = datetime.now(timezone.utc) - timedelta(days=7)
         for movie in queryset:
             movie.update_popular()
             visit = Visit.objects.filter(movie= movie,time_stamp__lt=seven_days_ago).delete()
