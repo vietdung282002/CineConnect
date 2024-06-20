@@ -41,14 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'daphne',
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'djangochannelsrestframework',
     'django_extensions',
-    'channels',
     'corsheaders',
     'users',
     'user_profile',
@@ -63,7 +61,6 @@ INSTALLED_APPS = [
     'recommendation_system',
     'pagination',
     'activity',
-    'webjob',
     'drf_spectacular',
 ]
 
@@ -100,12 +97,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'CineConnect.wsgi.application'
 ASGI_APPLICATION = 'CineConnect.asgi.application'
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
-        
-    },
-}
 # CSRF_COOKIE_SECURE = False  # Đặt CSRF cookie không an toàn
 # CSRF_COOKIE_HTTPONLY = False  # Không sử dụng HTTPOnly cho CSRF cookie
 # CSRF_COOKIE_SAMESITE = None  # Không đặt SameSite cho CSRF cookie
