@@ -1,5 +1,6 @@
 from django.db import models
-
+from datetime import datetime, timedelta
+from django.db.models import Count
 from genres.models import Genre
 from people.models import Person
 
@@ -32,8 +33,21 @@ class Movie(models.Model):
         return self.title
 
     class Meta:
-        ordering = ('-release_date',)
-
+        ordering = ('popular','-release_date',)
+        
+    def update_popular(self):
+        week_ago = datetime.now() - timedelta(days=7)
+        visits_last_week = Visit.objects.filter(movie=self, time_stamp__gte=week_ago).count()
+        self.popular = visits_last_week
+        self.save()
+        
+class Visit(models.Model):
+    id = models.IntegerField(primary_key=True, null=False, blank=False)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='visit')
+    time_stamp = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return str(self.time_stamp)
 
 class Cast(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)

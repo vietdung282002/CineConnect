@@ -97,6 +97,14 @@ class ReviewViewSet(mixins.ListModelMixin,
             self.queryset = []
             
         return super().list(request, *args, **kwargs)
+    
+    @action(detail=False, methods=['get'])  
+    def calculatePopular(self,request,*args, **kwargs):
+        queryset = Review.objects.all()
+        for review in queryset:
+            review.update_popular()
+        return Response(status=status.HTTP_200_OK)
+    
     @action(detail=False, methods=['get'])  
     def newsfeed(self, request, *args, **kwargs):
         user_id = request.user.id

@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import datetime, timedelta
 from movies.models import Movie
 from users.models import CustomUser
 
@@ -19,11 +19,31 @@ class Review(models.Model):
                 fields=['user', 'movie'], name='unique_movie_user_review'
             )
         ]
-        ordering = ('-time_stamp',)
+        ordering = ('popular','-time_stamp',)
 
     def __str__(self):
         return self.movie.title + " (" + self.user.username + ")"
+    
+    def update_popular(self):
+        time_difference = datetime.now() - self.time_stamp
+        week_ago = datetime.now() - timedelta(days=7)
+        hours_difference = time_difference.total_seconds() / 3600  # Convert to hours
 
+        # Constants
+        reaction_count = Reaction.objects.filter(review=self,time_stamp__lt=week_ago).count()
+        comment = Comment.objects.filter(review=self,time_stamp__lt=week_ago).count()
+        gravity = 1.8
+        if hours_difference > 0:
+            self.score = (reaction_count + comment) / pow(hours_difference + 2, gravity)
+        else:
+            self.score = 0  # Default score if time difference is 0 (edge case)
+
+        self.save()    
+    
+class Review_visit(models.Model):
+    id = models.IntegerField(primary_key=True, null=False, blank=False)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='visit')
+    time_stamp = models.DateTimeField(auto_now=True)
 
 class Reaction(models.Model):
     id = models.AutoField(primary_key=True, null=False, blank=False)
