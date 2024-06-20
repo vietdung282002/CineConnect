@@ -47,7 +47,7 @@ class MovieCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        fields = ['id', 'adult', 'backdrop_path', 'budget', 'homepage', 'original_language', 'original_title',
+        fields = ['adult', 'backdrop_path', 'budget', 'homepage', 'original_language', 'original_title',
                   'overview', 'poster_path', 'release_date', 'revenue', 'runtime', 'status', 'tagline', 'title',
                   'genres', 'casts', 'director']
 
