@@ -18,13 +18,12 @@ class UserProfileViewSet(mixins.ListModelMixin,
                         viewsets.GenericViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserProfileSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
     http_method_names = ['get', 'put', 'patch', 'delete']
 
     def get_permissions(self):
-        if self.http_method_names == 'get':
-            return []
         
-        return [permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly]
+        return super().get_permissions()
     
     def get_serializer_context(self):
         context = super().get_serializer_context()
