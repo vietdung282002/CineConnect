@@ -42,7 +42,7 @@ class Movie(models.Model):
         self.save()
         
 class Visit(models.Model):
-    id = models.IntegerField(primary_key=True, null=False, blank=False)
+    id = models.AutoField(primary_key=True, null=False, blank=False)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name='visit')
     time_stamp = models.DateTimeField(auto_now=True)
     
