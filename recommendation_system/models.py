@@ -35,4 +35,6 @@ class MovieRecommend(models.Model):
             )
         ]
         
+    def __str__(self):
+        return self.user.username + " (" + str(self.movie.title) + ")"
 
