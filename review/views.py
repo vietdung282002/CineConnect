@@ -128,8 +128,8 @@ class ReviewViewSet(mixins.ListModelMixin,
         if user_id:
             recommended_movies = MovieRecommend.objects.filter(user_id=user_id).values_list('movie_id', flat=True)
             query_set = Review.objects.filter(
-                Q(movie_id__in=recommended_movies).exclude(user_id=user_id)
-            )
+                Q(movie_id__in=recommended_movies)).exclude(user_id=user_id)
+            
         else: 
             query_set = Review.objects.none()
     
