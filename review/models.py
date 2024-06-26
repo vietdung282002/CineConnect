@@ -19,7 +19,7 @@ class Review(models.Model):
                 fields=['user', 'movie'], name='unique_movie_user_review'
             )
         ]
-        ordering = ('popular','-time_stamp',)
+        ordering = ('-time_stamp',)
 
     def __str__(self):
         return self.movie.title + " (" + self.user.username + ")"

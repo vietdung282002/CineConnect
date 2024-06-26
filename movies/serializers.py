@@ -98,7 +98,7 @@ class MovieSearchListDisplaySerializers(serializers.ModelSerializer):
     directors = serializers.SerializerMethodField()
     class Meta:
         model = Movie
-        fields = ['id', 'original_title', 'poster_path','release_date', 'directors']
+        fields = ['id', 'original_title', 'poster_path','release_date', 'directors','title']
         
     @extend_schema_field(serializers.ListField)
     def get_directors(self, movie_instance):
