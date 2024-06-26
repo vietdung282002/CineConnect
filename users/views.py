@@ -62,7 +62,7 @@ class UserLoginViewSet(viewsets.ModelViewSet):
             except CustomUser.DoesNotExist:
                 data = {
                     "status": "error",
-                    "message": "Such user was not found"
+                    "message": "User was not found"
                 }
                 return Response(data,
                                 status=status.HTTP_404_NOT_FOUND)
@@ -82,7 +82,7 @@ class UserLoginViewSet(viewsets.ModelViewSet):
             return Response(data, status=status.HTTP_200_OK)
         data = {
             "status": "error",
-            "message": "Invalid credentials"
+            "message": "Password was incorrect"
         }
         return Response(data, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -203,7 +203,7 @@ def confirm_user_passcode(request):
     except:
         data = {
                 "status": "error",
-                "message":'This is a bad reqeust'
+                "message":'This is a bad request'
             }
         return Response(data=data, status=status.HTTP_400_BAD_REQUEST)
 
