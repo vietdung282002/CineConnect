@@ -11,14 +11,10 @@ class Review(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='user_review')
     time_stamp = models.DateTimeField(auto_now=True)
     content = models.TextField(null=False, blank=False)
+    again = models.BooleanField(default=False)
     popular = models.FloatField(default=0)
 
     class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['user', 'movie'], name='unique_movie_user_review'
-            )
-        ]
         ordering = ('-time_stamp',)
 
     def __str__(self):

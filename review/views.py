@@ -57,12 +57,14 @@ class ReviewViewSet(mixins.ListModelMixin,
 
         user = CustomUser.objects.get(id = request.user.id)
         
-        if Review.objects.filter(user = user,movie = movie):
-            data = {
-                "status": "error",
-                "message": 'Object already exists.'
+        if Review.objects.filter(user = user,movie = movie).exists():
+            review = Review.objects.create(movie=movie, user=user,content = content,again= True)
+            Activity.objects.create(movie=movie,user=user,type=1,review=review)
+            data = data = {
+                "status": "success",
+                "message": ReviewSerializers(review).data
             }
-            return Response(data, status=status.HTTP_409_CONFLICT)
+            return Response(data, status=status.HTTP_201_CREATED)
         try:
             watched = Watched.objects.get(movie=movie, user=user)
         except Watched.DoesNotExist:
@@ -94,7 +96,7 @@ class ReviewViewSet(mixins.ListModelMixin,
             query_set = Review.objects.filter(user_id = user_query)
             self.queryset = query_set
         else: 
-            self.queryset = []
+            self.queryset = Review.objects.all()
             
         return super().list(request, *args, **kwargs)
     

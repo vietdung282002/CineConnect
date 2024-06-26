@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 class ReviewSerializers(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ['movie','content']
+        fields = ['movie','content','again']
 
 class ReviewListSerializers(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
@@ -30,7 +30,8 @@ class ReviewListSerializers(serializers.ModelSerializer):
             'favourite',
             'content',
             'movie',
-            'time_stamp'
+            'time_stamp',
+            'again'
         ]
     @extend_schema_field(serializers.ListField)
     def get_movie(self, review_instance):
@@ -88,7 +89,8 @@ class ReviewDetailSerializer(serializers.ModelSerializer):
             'comment_count',
             'is_liked',
             'watched_day',
-            'time_stamp'
+            'time_stamp',
+            'again'
         ]
 
     @extend_schema_field(serializers.ListField)
