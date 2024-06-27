@@ -12,6 +12,17 @@ class TfidfMatrixModel(models.Model):
 
     def get_matrix(self):
         return pickle.loads(self.data)
+    
+class CountVectorizerModel(models.Model):
+    data = models.BinaryField()
+
+    def save_matrix(self, matrix):
+        self.data = pickle.dumps(matrix)
+        self.save()
+
+    def get_matrix(self):
+        return pickle.loads(self.data)
+    
 
 class CosineModel(models.Model):
     data = models.BinaryField()

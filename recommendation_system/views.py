@@ -9,7 +9,7 @@ from rest_framework import viewsets, mixins,status, permissions
 # Create your views here.
 
 
-from .recommendation_engine import content_recommendations
+from .recommendation_engine import content_recommendations,cal_cosine_simulator,createCountVectorizer
 
 @csrf_exempt        
 @api_view(['POST'])
@@ -30,4 +30,10 @@ def add(request):
     except Exception as e:
         return Response( status=status.HTTP_400_BAD_REQUEST)
     
+    return Response(status=status.HTTP_200_OK)
+
+@csrf_exempt        
+@api_view(['GET'])
+def get(request):
+    cal_cosine_simulator()
     return Response(status=status.HTTP_200_OK)
