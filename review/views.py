@@ -60,6 +60,7 @@ class ReviewViewSet(mixins.ListModelMixin,
         if Review.objects.filter(user = user,movie = movie).exists():
             review = Review.objects.create(movie=movie, user=user,content = content,again= True)
             Activity.objects.create(movie=movie,user=user,type=1,review=review)
+            
             data = data = {
                 "status": "success",
                 "message": ReviewSerializers(review).data

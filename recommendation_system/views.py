@@ -34,6 +34,8 @@ def add(request):
 
 @csrf_exempt        
 @api_view(['GET'])
-def get(request):
+def cal_cosine_simulator(request):
     cal_cosine_simulator()
     return Response(status=status.HTTP_200_OK)
+
+

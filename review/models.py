@@ -30,7 +30,7 @@ class Review(models.Model):
         reaction_count = Reaction.objects.filter(review=self,time_stamp__lt=day_ago).count()
         comment = Comment.objects.filter(review=self,time_stamp__lt=day_ago).count()
         gravity = 1.8
-        if hours_difference > 0:
+        if time_difference > 0:
             self.score = (reaction_count + comment) / pow(hours_difference + 2, gravity)
         else:
             self.score = 0  # Default score if time difference is 0 (edge case)
